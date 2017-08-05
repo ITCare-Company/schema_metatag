@@ -5,6 +5,7 @@
  * Contains schema_metatag.module.
  */
 
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\schema_metatag\SchemaMetatagManager;
 
 /**
