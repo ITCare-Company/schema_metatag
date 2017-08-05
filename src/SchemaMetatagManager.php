@@ -55,6 +55,50 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public static function renderArrayJsonLd($jsonld) {
+    return [
+      '#type' => 'html_tag',
+      '#tag' => 'script',
+      '#value' => $jsonld,
+      '#attributes' => ['type' => 'application/ld+json'],
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getRenderedJsonld($entity = NULL, $entity_type = NULL) {
+    // If nothing was passed in, assume the current entity.
+    // @see schema_metatag_entity_load() to understand why this works.
+    if (empty($entity)) {
+      $entity = metatag_get_route_entity();
+    }
+    // Get all the metatags for this entity.
+    $metatag_manager = \Drupal::service('metatag.manager');
+    if (!empty($entity) && $entity instanceof ContentEntityInterface) {
+      foreach ($metatag_manager->tagsFromEntity($entity) as $tag => $data) {
+        $metatags[$tag] = $data;
+      }
+    }
+    // Trigger hook_metatags_alter().
+    // Allow modules to override tags or the entity used for token replacements.
+    $context = ['entity' => $entity];
+    \Drupal::service('module_handler')->alter('metatags', $metatags, $context);
+    $elements = $metatag_manager->generateElements($metatags, $entity);
+
+    // Parse the Schema.org metatags out of the array.
+    if ($items = self::parseJsonld($elements)) {
+      // Encode the Schema.org metatags as JSON LD.
+      if ($jsonld = self::encodeJsonld($items)) {
+          // Pass back the rendered result.
+          return drupal_render(self::renderArrayJsonLd($jsonld));
+      }
+    }
+  }
+
+  /**
    * @inherit
    */
   public static function pivot($content) {
@@ -175,5 +219,4 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
     }, $value);
     return $value;
   }
-
 }

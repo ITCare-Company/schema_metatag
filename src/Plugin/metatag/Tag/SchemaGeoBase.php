@@ -30,7 +30,7 @@ abstract class SchemaGeoBase extends SchemaNameBase {
       'description' => $this->description(),
       'value' => $value,
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
-      'visibility_selector' => $this->getPluginId() . '[@type]',
+      'visibility_selector' => $this->visibilitySelector() . '[@type]',
     ];
 
     $form = $this->geo_form($input_values);

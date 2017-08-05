@@ -26,11 +26,20 @@ interface SchemaMetatagManagerInterface {
    *   Array of Schema metatag tags, ready to be turned into JSON LD.
    * @return $jsonld
    *   Json-encoded representation of the structured data.
-   *
-   * Multiple groups can be combined under @graph.
-   * All groups that have properties filled out will be presented here.
    */
   public static function encodeJsonld($items);
+
+  /**
+   * Create the JSON LD render array.
+   */
+  public static function renderArrayJsonLd($jsonld);
+
+  /**
+   * Render JSON LD for a specific entity.
+   *
+   * Useful to pass to a decoupled front end, for instance.
+   */
+  public static function getRenderedJsonld($entity = NULL, $entity_type = NULL);
 
   /**
    * Complex serialized value that might contain multiple

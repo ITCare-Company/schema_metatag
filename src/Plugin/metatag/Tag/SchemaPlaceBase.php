@@ -41,7 +41,7 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
     $value = SchemaMetatagManager::unserialize($this->value());
 
     // Get the id for the nested @type element.
-    $selector = $this->getPluginId() . '[@type]';
+    $selector = $this->visibilitySelector() . '[@type]';
     $visibility = ['visible' => [
       ":input[name='$selector']" => ['value' => 'Place']]
     ];
@@ -87,7 +87,7 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
       'description' => 'The address of the place.',
       'value' => !empty($value['address']) ? $value['address'] : [],
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
-      'visibility_selector' => $this->getPluginId() . '[address][@type]',
+      'visibility_selector' => $this->visibilitySelector() . '[address][@type]',
     ];
 
     $form['address'] = $this->postal_address_form($input_values);
@@ -98,7 +98,7 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
       'description' => 'The geo coordinates of the place.',
       'value' => !empty($value['geo']) ? $value['geo'] : [],
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
-      'visibility_selector' => $this->getPluginId() . '[geo][@type]',
+      'visibility_selector' => $this->visibilitySelector() . '[geo][@type]',
     ];
 
     $form['geo'] = $this->geo_form($input_values);

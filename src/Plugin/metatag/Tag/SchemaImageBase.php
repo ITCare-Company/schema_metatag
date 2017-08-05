@@ -29,7 +29,7 @@ abstract class SchemaImageBase extends SchemaNameBase {
       'description' => $this->description(),
       'value' => SchemaMetatagManager::unserialize($this->value()),
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
-      'visibility_selector' => $this->getPluginId() . '[@type]',
+      'visibility_selector' => $this->visibilitySelector() . '[@type]',
     ];
 
     $form = $this->image_form($input_values);

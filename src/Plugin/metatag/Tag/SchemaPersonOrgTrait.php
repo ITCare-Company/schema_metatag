@@ -36,7 +36,7 @@ trait SchemaPersonOrgTrait {
     $value = $input_values['value'];
 
     // Get the id for the nested @type element.
-    $selector = $this->getPluginId() . '[@type]';
+    $selector = $this->visibilitySelector() . '[@type]';
     $visibility = ['invisible' => [
       ":input[name='$selector']" => ['value' => '']]
     ];

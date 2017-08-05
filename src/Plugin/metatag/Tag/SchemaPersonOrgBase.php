@@ -34,7 +34,7 @@ abstract class SchemaPersonOrgBase extends SchemaNameBase {
       'description' => $this->description(),
       'value' => $value,
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
-      'visibility_selector' => $this->getPluginId() . '[@type]',
+      'visibility_selector' => $this->visibilitySelector() . '[@type]',
     ];
 
     $form = $this->person_org_form($input_values);

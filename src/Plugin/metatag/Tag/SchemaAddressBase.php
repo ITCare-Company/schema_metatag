@@ -36,7 +36,7 @@ abstract class SchemaAddressBase extends SchemaNameBase {
       'description' => $this->description(),
       'value' => $value,
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
-      'visibility_selector' => $this->getPluginId() . '[@type]',
+      'visibility_selector' => $this->visibilitySelector() . '[@type]',
     ];
 
     $form = $this->postal_address_form($input_values);
