@@ -47,7 +47,7 @@ trait SchemaImageTrait {
     ];
     $form['representativeOfPage'] = [
       '#type' => 'select',
-      '#title' => $this->t('Representative Of Page'),
+      '#title' => $this->t('representative Of Page'),
       '#empty_option' => t('False'),
       '#empty_value' => '',
       '#options' => ['True' => 'True'],
