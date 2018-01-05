@@ -7,6 +7,7 @@ trait SchemaImageTrait {
  public function image_form_keys() {
     return [
       '@type',
+      'representativeOfPage',
       'url',
       'width',
       'height',
@@ -44,7 +45,16 @@ trait SchemaImageTrait {
       ],
       '#required' => $input_values['#required'],
     ];
-
+    $form['representativeOfPage'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Representative Of Page'),
+      '#empty_option' => t('False'),
+      '#empty_value' => '',
+      '#options' => ['True' => 'True'],
+      '#default_value' => !empty($value['representativeOfPage']) ? $value['representativeOfPage'] : '',
+      '#required' => $input_values['#required'],
+      '#description' => $this->t('Whether this image is representative of the content of the page.'),
+    ];
     $form['url'] = [
       '#type' => 'textfield',
       '#title' => $this->t('url'),
