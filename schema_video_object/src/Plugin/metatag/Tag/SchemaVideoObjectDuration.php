@@ -33,7 +33,7 @@ class SchemaVideoObjectDuration extends SchemaNameBase {
     $is_integer = ctype_digit($this->value()) || is_int($this->value());
     if (!empty($element) && $is_integer && $this->value() > 0) {
       $interval = 'PT' . $this->value() . 'S';
-      $element['#attributes']['content'] = new \DateInterval($interval);
+      $element['#attributes']['content'] = $interval;
     }
     return $element;
   }
