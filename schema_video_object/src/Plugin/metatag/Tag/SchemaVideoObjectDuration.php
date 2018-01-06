@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_video_object\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaDurationBase;
 
 /**
  * Provides a plugin for the 'schema_video_object_duration' meta tag.
@@ -23,19 +23,6 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *   multiple = FALSE
  * )
  */
-class SchemaVideoObjectDuration extends SchemaNameBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function output() {
-    $element = parent::output();
-    $is_integer = ctype_digit($this->value()) || is_int($this->value());
-    if (!empty($element) && $is_integer && $this->value() > 0) {
-      $interval = 'PT' . $this->value() . 'S';
-      $element['#attributes']['content'] = $interval;
-    }
-    return $element;
-  }
+class SchemaVideoObjectDuration extends SchemaDurationBase {
 
 }
