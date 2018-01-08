@@ -15,7 +15,7 @@ use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAggregateRatingBase;
  *   id = "schema_service_aggregaterating",
  *   label = @Translation("AggregateRating"),
  *   description = @Translation("AggregateRating (the numeric AggregateRating of the item)."),
- *   name = "aggregaterating",
+ *   name = "aggregateRating",
  *   group = "schema_service",
  *   weight = 11,
  *   type = "string",
@@ -24,14 +24,5 @@ use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAggregateRatingBase;
  * )
  */
 class SchemaServiceAggregateRating extends SchemaAggregateRatingBase {
-
-  /**
-   * Generate a form element for this meta tag.
-   */
-  // public function form(array $element = []) {
-  //   $form = parent::form($element);
-  //   $form['#attributes']['placeholder'] = '';
-  //   return $form;
-  // }
 
 }
