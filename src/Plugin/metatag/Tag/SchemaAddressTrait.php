@@ -4,7 +4,7 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 trait SchemaAddressTrait {
 
-  public function postal_address_form_keys() {
+  public static function postal_address_form_keys() {
     return [
       '@type',
       'streetAddress',

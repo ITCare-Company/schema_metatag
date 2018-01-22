@@ -4,7 +4,7 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 trait SchemaImageTrait {
 
- public function image_form_keys() {
+ public static function image_form_keys() {
     return [
       '@type',
       'representativeOfPage',
@@ -81,7 +81,7 @@ trait SchemaImageTrait {
     // Add #states to show/hide the fields based on the value of @type,
     // if a selector was provided.
     if (!empty($input_values['visibility_selector'])) {
-      $keys = $this->image_form_keys();
+      $keys = self::image_form_keys();
       $visibility = ['visible' => [
         ':input[name="' . $input_values['visibility_selector'] . '"]' => [
 								  'value' => 'ImageObject']

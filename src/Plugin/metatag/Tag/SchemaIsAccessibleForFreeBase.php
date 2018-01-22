@@ -22,4 +22,11 @@ abstract class SchemaIsAccessibleForFreeBase extends SchemaNameBase {
     return $form;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  static public function testValue() {
+    return 'False';
+  }
+
 }

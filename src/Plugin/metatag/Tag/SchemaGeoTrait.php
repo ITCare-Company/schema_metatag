@@ -4,7 +4,7 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 trait SchemaGeoTrait {
 
-  public function geo_form_keys() {
+  public static function geo_form_keys() {
     return [
       '@type',
       'latitude',
@@ -65,7 +65,7 @@ trait SchemaGeoTrait {
     // Add #states to show/hide the fields based on the value of @type,
     // if a selector was provided.
     if (!empty($input_values['visibility_selector'])) {
-      $keys = $this->geo_form_keys();
+      $keys = self::geo_form_keys();
       $visibility = ['visible' => [
         ':input[name="' . $input_values['visibility_selector'] . '"]' => [
 								  'value' => 'GeoCoordinates']

@@ -14,7 +14,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 abstract class SchemaHasPartBase extends SchemaNameBase {
 
   /**
-   * Generate a form element for this meta tag.
+   * {@inheritDoc}
    */
   public function form(array $element = []) {
     $form = parent::form($element);
@@ -23,22 +23,38 @@ abstract class SchemaHasPartBase extends SchemaNameBase {
   }
 
   /**
-   * {@inheritdoc}
+   * {@inheritDoc}
+   */
+  static public function testValue() {
+    return parent::testDefaultValue(1, '');
+  }
+
+  /**
+   * {@inheritDoc}
    */
   public function output() {
     $element = parent::output();
     if (!empty($element)) {
-      $element['#attributes']['content'] = [];
-      $class_names = SchemaMetatagManager::explode($this->value());
-      foreach ($class_names as $class_name) {
-        $element['#attributes']['content'][] = [
-          '@type' => 'WebPageElement',
-          'isAccessibleForFree' => 'False',
-          'cssSelector' => '.' . $class_name,
-        ];
-      }
+      $input_value = $element['#attributes']['content'];
+      $element['#attributes']['content'] = self::outputValue($input_value);
     }
     return $element;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  static public function outputValue($input_value) {
+    $items = [];
+    $class_names = (array) SchemaMetatagManager::explode($input_value);
+    foreach ($class_names as $class_name) {
+      $items[] = [
+        '@type' => 'WebPageElement',
+        'isAccessibleForFree' => 'False',
+        'cssSelector' => '.' . $class_name,
+      ];
+    }
+    return !empty($items) ? $items : '';
   }
 
 }

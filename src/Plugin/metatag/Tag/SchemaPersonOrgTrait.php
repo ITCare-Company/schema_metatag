@@ -9,7 +9,7 @@ trait SchemaPersonOrgTrait {
    */
   use SchemaImageTrait;
 
- public function person_org_form_keys() {
+ public static function person_org_form_keys() {
     return [
       '@type',
       '@id',

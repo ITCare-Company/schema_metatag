@@ -2,6 +2,8 @@
 
 namespace Drupal\schema_metatag;
 
+use Drupal\Component\Utility\Random;
+
 /**
  * Class SchemaMetatagManager.
  *
@@ -144,7 +146,8 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
     if (is_array($value)) {
       // Don't serialize an empty array.
       // Otherwise Metatag won't know the field is empty.
-      if (empty(self::arrayTrim($value))) {
+      $trimmed = self::arrayTrim($value);
+      if (empty($trimmed)) {
         return '';
       }
       else {
@@ -165,7 +168,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
       // Fix problems created if token replacements are a different size
       // than the original tokens.
       $value = self::recomputeSerializedLength($value);
-      $value = unserialize($value);
+      $value = self::arrayTrim(unserialize($value));
     }
     return $value;
   }
@@ -199,6 +202,19 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
     return false;
   }
 
+  public static function test($input) {
+    $iterator = new \RecursiveIteratorIterator(
+      new \RecursiveCallbackFilterIterator(
+        new \RecursiveArrayIterator($input),
+        function ($value) {
+          return trim($value) !== NULL && trim($value) !== '';
+        }
+      ), \RecursiveIteratorIterator::CHILD_FIRST
+    );
+    $result = $iterator->getArrayCopy();
+    return $result;
+  }
+
   /**
    * @inherit
    */
@@ -218,5 +234,39 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
       return ($match[1] == strlen($match[2])) ? $match[0] : 's:' . strlen($match[2]) . ':"' . $match[2] . '";';
     }, $value);
     return $value;
+  }
+
+  /**
+   * Generates a pseudo-random string of ASCII characters of codes 32 to 126.
+   *
+   * @param int $length
+   *   Length of random string to generate.
+   *
+   * @return string
+   *   Pseudo-randomly generated unique string including special characters.
+   */
+  public static function randomString($length = 8) {
+    $randomGenerator = new Random();
+    if ($length < 4) {
+      return $randomGenerator->string($length, TRUE);
+    }
+    // Swap special characters into the string.
+    $replacement_pos = floor($length / 2);
+    $string = $randomGenerator->string($length - 2, TRUE);
+    return substr_replace($string, '>&', $replacement_pos, 0);
+  }
+
+ /**
+   * Generates a unique random string containing letters and numbers.
+   *
+   * @param int $length
+   *   Length of random string to generate.
+   *
+   * @return string
+   *   Randomly generated unique string.
+   */
+  public static function randomMachineName($length = 8) {
+    $randomGenerator = new Random();
+    return $randomGenerator->name($length, TRUE);
   }
 }

@@ -15,10 +15,7 @@ abstract class SchemaImageBase extends SchemaNameBase {
   use SchemaImageTrait;
 
   /**
-   * Generate a form element for this meta tag.
-   *
-   * We need multiple values, so create a tree of values and
-   * stored the serialized value as a string.
+   * {@inheritDoc}
    */
   public function form(array $element = []) {
 
@@ -35,6 +32,28 @@ abstract class SchemaImageBase extends SchemaNameBase {
     $form = $this->image_form($input_values);
 
     return $form;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  static public function testValue() {
+    $items = [];
+    $keys = self::image_form_keys();
+    foreach ($keys as $key) {
+      switch ($key) {
+        case '@type':
+          $items[$key] = 'ImageObject';
+          break;
+        case 'representativeOfPage':
+          $items[$key] = 'True';
+          break;
+        default:
+          $items[$key] = parent::testDefaultValue(1, '');
+          break;
+      }
+    }
+    return $items;
   }
 
 }

@@ -19,11 +19,11 @@ abstract class SchemaPersonOrgBase extends SchemaNameBase {
    * The top level keys on this form.
    */
   function form_keys() {
-    return ['pivot'] + $this->person_org_form_keys();
+    return ['pivot'] + self::person_org_form_keys();
   }
 
   /**
-   * Generate a form element for this meta tag.
+   * {@inheritDoc}
    */
   public function form(array $element = []) {
 
@@ -47,6 +47,30 @@ abstract class SchemaPersonOrgBase extends SchemaNameBase {
     ];
 
     return $form;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  static public function testValue() {
+    $items = [];
+    $keys = self::person_org_form_keys();
+    foreach ($keys as $key) {
+      switch ($key) {
+        case 'pivot':
+          break;
+        case 'logo':
+          $items[$key] = \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaImageBase::testValue();
+          break;
+        case '@type':
+          $items[$key] = 'Organization';
+          break;
+        default:
+          $items[$key] = parent::testDefaultValue(2, ' ');
+          break;
+      }
+    }
+    return $items;
   }
 
 }

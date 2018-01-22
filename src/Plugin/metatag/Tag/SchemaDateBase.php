@@ -16,4 +16,11 @@ abstract class SchemaDateBase extends SchemaNameBase {
     return $form;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  static public function testValue() {
+    return parent::testDefaultValue(1, '');
+  }
+
 }

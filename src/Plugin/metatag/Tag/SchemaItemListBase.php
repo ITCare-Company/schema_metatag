@@ -11,7 +11,7 @@ use \Drupal\Core\Url;
 abstract class SchemaItemListBase extends SchemaNameBase {
 
   /**
-   * Generate a form element for this meta tag.
+   * {@inheritDoc}
    */
   public function form(array $element = []) {
     $form = parent::form($element);
@@ -21,18 +21,16 @@ abstract class SchemaItemListBase extends SchemaNameBase {
   }
 
   /**
-   * {@inheritdoc}
+   * {@inheritDoc}
    */
-  public function output() {
-    $element = parent::output();
-    if (!empty($element)) {
-      $ids = explode(':', $this->value());
-      $view_id = $ids[0];
-      $display_id = $ids[1];
-      // Get the view results.
-      $result = views_get_view_result($view_id, $display_id);
+  static public function outputValue($input_value) {
+    $ids = explode(':', $input_value);
+    $view_id = $ids[0];
+    $display_id = $ids[1];
+    // Get the view results.
+    if ($result = views_get_view_result($view_id, $display_id)) {
+      $items = [];
       $key = 1;
-      $element['#attributes']['content'] = [];
       foreach ($result as $item) {
         // If this is a display that does not provide an entity in the result,
         // there is really nothing more to do.
@@ -44,7 +42,7 @@ abstract class SchemaItemListBase extends SchemaNameBase {
         // which would be a little cleaner, but this works.
         $url = $item->_entity->url();
         $url = Url::fromUri('internal:' . $url)->setAbsolute()->toString();
-        $element['#attributes']['content'][] = [
+        $items[] = [
           '@type' => 'ListItem',
           'position' => $key,
           'name' => $item->_entity->label(),
@@ -52,8 +50,16 @@ abstract class SchemaItemListBase extends SchemaNameBase {
         ];
         $key++;
       }
+      return $items;
     }
-    return $element;
+    return '';
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  static public function testValue() {
+    return 'frontpage:page_1';
   }
 
 }

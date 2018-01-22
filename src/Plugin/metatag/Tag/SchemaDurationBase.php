@@ -8,16 +8,26 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 abstract class SchemaDurationBase extends SchemaNameBase {
 
   /**
-   * {@inheritdoc}
+   * {@inheritDoc}
    */
   public function output() {
     $element = parent::output();
-    $is_integer = ctype_digit($this->value()) || is_int($this->value());
-    if (!empty($element) && $is_integer && $this->value() > 0) {
-      $interval = 'PT' . $this->value() . 'S';
-      $element['#attributes']['content'] = $interval;
+    if (!empty($element)) {
+      $input_value = $element['#attributes']['content'];
+      $element['#attributes']['content'] = self::outputValue($input_value);
     }
     return $element;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function outputValue($input_value) {
+    $is_integer = ctype_digit($input_value) || is_int($input_value);
+    if (!empty($element) && $is_integer && $input_value > 0) {
+      return 'PT' . $input_value . 'S';
+    }
+    return $input_value;
   }
 
 }

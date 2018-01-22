@@ -23,6 +23,6 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *   multiple = TRUE
  * )
  */
-class SchemaVideoObjectThumbnail extends SchemaNameBase {
+class SchemaVideoObjectThumbnailUrl extends SchemaNameBase {
 
 }

@@ -16,7 +16,7 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
   use SchemaAggregateRatingTrait;
 
   /**
-   * Generate a form element for this meta tag.
+   * {@inheritDoc}
    */
   public function form(array $element = []) {
     $value = SchemaMetatagManager::unserialize($this->value());
@@ -72,6 +72,44 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
       }
     }
     return $element;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  static public function testValue() {
+    $items = [];
+    $keys = ['@type','ratingValue','ratingCount','bestRating','worstRating'];
+    foreach ($keys as $key) {
+      switch ($key) {
+        case '@type':
+          $items[$key] = 'AggregateRating';
+          break;
+        default:
+          $items[$key] = parent::testDefaultValue(2, ' ');
+          break;
+      }
+    }
+    return $items;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function __output() {
+    $element = parent::output();
+    if (!empty($element)) {
+      $input_value = $element['#attributes']['content'];
+      $element['#attributes']['content'] = self::outputValue($input_value);
+    }
+    return $element;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  static public function outputValue($input_value) {
+    return $input_value;
   }
 
   /**

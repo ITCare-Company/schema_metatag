@@ -18,15 +18,12 @@ abstract class SchemaAddressBase extends SchemaNameBase {
   /**
    * The top level keys on this form.
    */
-  public function form_keys() {
-    return ['pivot'] + $this->postal_address_form_keys();
+  public static function form_keys() {
+    return ['pivot'] + self::postal_address_form_keys();
   }
 
   /**
-   * Generate a form element for this meta tag.
-   *
-   * We need multiple values, so create a tree of values and
-   * stored the serialized value as a string.
+   * {@inheritDoc}
    */
   public function form(array $element = []) {
 
@@ -49,6 +46,25 @@ abstract class SchemaAddressBase extends SchemaNameBase {
     ];
 
     return $form;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  static public function testValue() {
+    $items = [];
+    $keys = self::postal_address_form_keys();
+    foreach ($keys as $key) {
+      switch ($key) {
+        case '@type':
+          $items[$key] = 'PostalAddress';
+          break;
+        default:
+          $items[$key] = parent::testDefaultValue(2, ' ');
+          break;
+      }
+    }
+    return $items;
   }
 
 }

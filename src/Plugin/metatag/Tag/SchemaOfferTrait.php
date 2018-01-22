@@ -4,7 +4,7 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 trait SchemaOfferTrait {
 
-  public function offer_form_keys() {
+  public static function offer_form_keys() {
     return [
       '@type',
       'price',
@@ -90,7 +90,7 @@ trait SchemaOfferTrait {
     // Add #states to show/hide the fields based on the value of @type,
     // if a selector was provided.
     if (!empty($input_values['visibility_selector'])) {
-      $keys = $this->offer_form_keys();
+      $keys = self::offer_form_keys();
       $visibility = ['visible' => [
         ':input[name="' . $input_values['visibility_selector'] . '"]' => [
 								  'value' => 'Offer']

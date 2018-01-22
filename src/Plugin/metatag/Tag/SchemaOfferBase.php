@@ -16,7 +16,7 @@ abstract class SchemaOfferBase extends SchemaNameBase {
   use SchemaPivotTrait;
 
   /**
-   * Generate a form element for this meta tag.
+   * {@inheritDoc}
    */
   public function form(array $element = []) {
     $value = SchemaMetatagManager::unserialize($this->value());
@@ -39,6 +39,25 @@ abstract class SchemaOfferBase extends SchemaNameBase {
     ];
 
     return $form;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  static public function testValue() {
+    $items = [];
+    $keys = self::offer_form_keys();
+    foreach ($keys as $key) {
+      switch ($key) {
+        case '@type':
+          $items[$key] = 'Offer';
+          break;
+        default:
+          $items[$key] = parent::testDefaultValue(2, ' ');
+          break;
+      }
+    }
+    return $items;
   }
 
 }

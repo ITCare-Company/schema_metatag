@@ -19,7 +19,7 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
   /**
    * The top level keys on this form.
    */
-  function form_keys() {
+  public static function form_keys() {
     return [
       '@type',
       'name',
@@ -30,10 +30,7 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
   }
 
   /**
-   * Generate a form element for this meta tag.
-   *
-   * We need multiple values, so create a tree of values and
-   * stored the serialized value as a string.
+   * {@inheritDoc}
    */
 
   public function form(array $element = []) {
@@ -105,6 +102,31 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
     $form['geo']['#states'] = $visibility;
 
     return $form;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  static public function testValue() {
+    $items = [];
+    $keys = self::form_keys();
+    foreach ($keys as $key) {
+      switch ($key) {
+        case 'address':
+          $items[$key] = \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAddressBase::testValue();
+          break;
+        case 'geo':
+          $items[$key] = \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaGeoBase::testValue();
+          break;
+        case '@type':
+          $items[$key] = 'Place';
+          break;
+        default:
+          $items[$key] = parent::testDefaultValue(2, ' ');
+          break;
+      }
+    }
+    return $items;
   }
 
 }

@@ -29,10 +29,6 @@ class SchemaWebPageBreadcrumb extends SchemaNameBase {
   /**
    * Generate a form element for this meta tag.
    */
-
-  /**
-   * Generate a form element for this meta tag.
-   */
   public function form(array $element = []) {
     $form = [
       '#type' => 'select',
@@ -52,13 +48,19 @@ class SchemaWebPageBreadcrumb extends SchemaNameBase {
   /**
    * {@inheritdoc}
    */
-  public function output() {
-    $element = parent::output();
-    if (!empty($element)) {
+  public static function testValue() {
+    return 'Yes';
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  static public function outputValue($input_value) {
+    if (!empty($input_value)) {
       $entity_route = \Drupal::service('current_route_match')->getCurrentRouteMatch();
       $breadcrumbs = \Drupal::service('breadcrumb')->build($entity_route)->getLinks();
       $key = 1;
-      $element['#attributes']['content'] = [
+      $items = [
         "@type" => "BreadcrumbList",
         "itemListElement" => [],
       ];
@@ -71,7 +73,7 @@ class SchemaWebPageBreadcrumb extends SchemaNameBase {
         }
         $text = $item->getText();
         $text = is_object($text) ? $text->render() : $text;
-        $element['#attributes']['content']['itemListElement'][] = [
+        $items['itemListElement'][] = [
           '@type' => 'ListItem',
           'position' => $key,
           'item' => [
@@ -82,7 +84,7 @@ class SchemaWebPageBreadcrumb extends SchemaNameBase {
         $key++;
       }
     }
-    return $element;
+    return $items;
   }
 
 }
