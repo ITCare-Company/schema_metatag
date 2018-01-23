@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_organization\Plugin\metatag\Tag;
 
-use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaTypeBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaTypeBase;
 
 /**
  * Provides a plugin for the 'schema_organization_type' meta tag.
@@ -177,4 +177,5 @@ class SchemaOrganizationType extends SchemaTypeBase {
       '- SportsTeam',
     ];
   }
+
 }

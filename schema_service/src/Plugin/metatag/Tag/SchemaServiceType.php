@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_service\Plugin\metatag\Tag;
 
-use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaTypeBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaTypeBase;
 
 /**
  * Provides a plugin for the 'type' meta tag.
@@ -48,4 +48,5 @@ class SchemaServiceType extends SchemaTypeBase {
       'TaxiService',
     ];
   }
+
 }

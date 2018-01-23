@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_event\Plugin\metatag\Tag;
 
-use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaDateBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaDateBase;
 
 /**
  * Provides a plugin for the 'doorTime' meta tag.

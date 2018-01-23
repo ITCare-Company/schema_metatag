@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_product\Plugin\metatag\Tag;
 
-use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaTypeBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaTypeBase;
 
 /**
  * Provides a plugin for the 'type' meta tag.
@@ -38,4 +38,5 @@ class SchemaProductType extends SchemaTypeBase {
       '- Car',
     ];
   }
+
 }

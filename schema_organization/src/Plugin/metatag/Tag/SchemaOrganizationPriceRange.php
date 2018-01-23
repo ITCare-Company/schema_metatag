@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_organization\Plugin\metatag\Tag;
 
-use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
 
 /**
  * Provides a plugin for the 'schema_organization_price_range' meta tag.
@@ -23,7 +23,6 @@ use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *   multiple = FALSE
  * )
  */
-
-class SchemaOrganizationPriceRange extends SchemaNameBase{
+class SchemaOrganizationPriceRange extends SchemaNameBase {
 
 }

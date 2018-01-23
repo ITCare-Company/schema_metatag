@@ -2,8 +2,8 @@
 
 namespace Drupal\schema_web_page\Plugin\metatag\Tag;
 
-use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
-use \Drupal\Core\Url;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
+use Drupal\Core\Url;
 
 /**
  * Provides a plugin for the 'schema_web_page_breadcrumb' meta tag.
@@ -53,9 +53,9 @@ class SchemaWebPageBreadcrumb extends SchemaNameBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
-  static public function outputValue($input_value) {
+  public static function outputValue($input_value) {
     if (!empty($input_value)) {
       $entity_route = \Drupal::service('current_route_match')->getCurrentRouteMatch();
       $breadcrumbs = \Drupal::service('breadcrumb')->build($entity_route)->getLinks();

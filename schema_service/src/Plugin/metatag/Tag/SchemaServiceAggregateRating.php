@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_service\Plugin\metatag\Tag;
 
-use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAggregateRatingBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAggregateRatingBase;
 
 /**
  * Provides a plugin for the 'schema_service_aggregate_rating' meta tag.

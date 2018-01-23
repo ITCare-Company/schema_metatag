@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_article\Plugin\metatag\Tag;
 
-use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaPersonOrgBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaPersonOrgBase;
 
 /**
  * Provides a plugin for the 'author' meta tag.

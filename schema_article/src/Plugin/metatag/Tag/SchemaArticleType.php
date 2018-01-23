@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_article\Plugin\metatag\Tag;
 
-use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaTypeBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaTypeBase;
 
 /**
  * Provides a plugin for the 'schema_article_description' meta tag.
@@ -40,4 +40,5 @@ class SchemaArticleType extends SchemaTypeBase {
       '-- APIReference',
     ];
   }
+
 }

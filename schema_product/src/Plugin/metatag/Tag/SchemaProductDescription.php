@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_product\Plugin\metatag\Tag;
 
-use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
 
 /**
  * Provides a plugin for the 'schema_article_description' meta tag.
@@ -33,4 +33,5 @@ class SchemaProductDescription extends SchemaNameBase {
     $form['#attributes']['placeholder'] = '[node:summary]';
     return $form;
   }
+
 }
