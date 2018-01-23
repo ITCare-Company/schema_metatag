@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains schema_image_object.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function schema_image_object_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the schema_image_object module.
+    case 'help.page.schema_image_object':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Adds Schema.org/ImageObject to the JSON LD array.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
