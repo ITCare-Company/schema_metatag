@@ -2,8 +2,7 @@
 
 namespace Drupal\schema_web_page\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
-use Drupal\Core\Url;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaItemListElementBreadcrumbBase;
 
 /**
  * Provides a plugin for the 'schema_web_page_breadcrumb' meta tag.
@@ -24,67 +23,7 @@ use Drupal\Core\Url;
  *   multiple = FALSE
  * )
  */
-class SchemaWebPageBreadcrumb extends SchemaNameBase {
+class SchemaWebPageBreadcrumb extends SchemaItemListElementBreadcrumbBase {
 
-  /**
-   * Generate a form element for this meta tag.
-   */
-  public function form(array $element = []) {
-    $form = [
-      '#type' => 'select',
-      '#title' => $this->label(),
-      '#default_value' => $this->value(),
-      '#empty_option' => t('No'),
-      '#empty_value' => '',
-      '#options' => [
-        'Yes' => $this->t('Yes'),
-      ],
-      '#description' => $this->description(),
-      '#element_validate' => [[get_class($this), 'validateTag']],
-    ];
-    return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function testValue() {
-    return 'Yes';
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function outputValue($input_value) {
-    if (!empty($input_value)) {
-      $entity_route = \Drupal::service('current_route_match')->getCurrentRouteMatch();
-      $breadcrumbs = \Drupal::service('breadcrumb')->build($entity_route)->getLinks();
-      $key = 1;
-      $items = [
-        "@type" => "BreadcrumbList",
-        "itemListElement" => [],
-      ];
-      foreach ($breadcrumbs as $item) {
-        // Modules that add the current page to the breadcrumb set it to an
-        // empty path, so an empty path is the current path.
-        $url = $item->getUrl()->setAbsolute()->toString();
-        if (empty($url)) {
-          $url = Url::fromRoute('<current>')->setAbsolute()->toString();
-        }
-        $text = $item->getText();
-        $text = is_object($text) ? $text->render() : $text;
-        $items['itemListElement'][] = [
-          '@type' => 'ListItem',
-          'position' => $key,
-          'item' => [
-            '@id' => $url,
-            'name' => $text,
-          ],
-        ];
-        $key++;
-      }
-    }
-    return $items;
-  }
 
 }

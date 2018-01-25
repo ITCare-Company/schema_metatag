@@ -20,7 +20,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaHasPartBase;
  *   weight = 4,
  *   type = "string",
  *   secure = FALSE,
- *   multiple = TRUE
+ *   multiple = FALSE
  * )
  */
 class SchemaArticleHasPart extends SchemaHasPartBase {

@@ -26,9 +26,9 @@ metatag.metatag_tag.schema_metatag_test_image:
 metatag.metatag_tag.schema_metatag_test_is_accessible_for_free:
   type: text
   label: 'isAccessibleForFree'
-metatag.metatag_tag.schema_metatag_test_item_list:
+metatag.metatag_tag.schema_metatag_test_item_list_element:
   type: text
-  label: 'itemList'
+  label: 'itemListElement'
 metatag.metatag_tag.schema_metatag_test_main_entity_of_page:
   type: text
   label: 'mainEntityOfPage'

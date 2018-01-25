@@ -25,26 +25,14 @@ abstract class SchemaHasPartBase extends SchemaNameBase {
   /**
    * {@inheritDoc}
    */
-  static public function testValue() {
+  public static function testValue() {
     return parent::testDefaultValue(1, '');
   }
 
   /**
    * {@inheritDoc}
    */
-  public function output() {
-    $element = parent::output();
-    if (!empty($element)) {
-      $input_value = $element['#attributes']['content'];
-      $element['#attributes']['content'] = self::outputValue($input_value);
-    }
-    return $element;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  static public function outputValue($input_value) {
+  public static function outputValue($input_value) {
     $items = [];
     $class_names = (array) SchemaMetatagManager::explode($input_value);
     foreach ($class_names as $class_name) {
