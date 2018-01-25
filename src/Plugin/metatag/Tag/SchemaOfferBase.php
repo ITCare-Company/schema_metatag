@@ -16,7 +16,7 @@ abstract class SchemaOfferBase extends SchemaNameBase {
   use SchemaPivotTrait;
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function form(array $element = []) {
     $value = SchemaMetatagManager::unserialize($this->value());
@@ -42,7 +42,7 @@ abstract class SchemaOfferBase extends SchemaNameBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   static public function testValue() {
     $items = [];

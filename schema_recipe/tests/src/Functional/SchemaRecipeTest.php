@@ -20,17 +20,17 @@ class SchemaRecipeTest extends SchemaMetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  public $module_name = 'schema_recipe';
+  public $moduleName = 'schema_recipe';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags_namespace = '\\Drupal\\schema_recipe\\Plugin\\metatag\\Tag\\';
+  public $schemaTagsNamespace = '\\Drupal\\schema_recipe\\Plugin\\metatag\\Tag\\';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags = [
+  public $schemaTags = [
     'schema_recipe_aggregate_rating' => 'SchemaRecipeAggregateRating',
     'schema_recipe_author' => 'SchemaRecipeAuthor',
     'schema_recipe_cook_time' => 'SchemaRecipeCookTime',

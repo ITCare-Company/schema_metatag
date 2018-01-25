@@ -20,17 +20,17 @@ class SchemaWebPageTest extends SchemaMetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  public $module_name = 'schema_web_page';
+  public $moduleName = 'schema_web_page';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags_namespace = '\\Drupal\\schema_web_page\\Plugin\\metatag\\Tag\\';
+  public $schemaTagsNamespace = '\\Drupal\\schema_web_page\\Plugin\\metatag\\Tag\\';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags = [
+  public $schemaTags = [
     //'schema_web_page_breadcrumb' => 'SchemaWebPageBreadcrumb',
     //'schema_web_page_has_part' => 'SchemaWebPageHasPart',
     'schema_web_page_id' => 'SchemaWebPageId',

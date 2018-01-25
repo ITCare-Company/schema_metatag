@@ -20,17 +20,17 @@ class SchemaServiceTest extends SchemaMetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  public $module_name = 'schema_service';
+  public $moduleName = 'schema_service';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags_namespace = '\\Drupal\\schema_service\\Plugin\\metatag\\Tag\\';
+  public $schemaTagsNamespace = '\\Drupal\\schema_service\\Plugin\\metatag\\Tag\\';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags = [
+  public $schemaTags = [
     'schema_service_aggregate_rating' => 'SchemaServiceAggregateRating',
     'schema_service_description' => 'SchemaServiceDescription',
     'schema_service_image' => 'SchemaServiceImage',

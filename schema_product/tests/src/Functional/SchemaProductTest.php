@@ -20,17 +20,17 @@ class SchemaProductTest extends SchemaMetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  public $module_name = 'schema_product';
+  public $moduleName = 'schema_product';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags_namespace = '\\Drupal\\schema_product\\Plugin\\metatag\\Tag\\';
+  public $schemaTagsNamespace = '\\Drupal\\schema_product\\Plugin\\metatag\\Tag\\';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags = [
+  public $schemaTags = [
     'schema_product_description' => 'SchemaProductDescription',
     'schema_product_image' => 'SchemaProductImage',
     'schema_product_name' => 'SchemaProductName',

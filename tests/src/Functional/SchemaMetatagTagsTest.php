@@ -26,17 +26,17 @@ class SchemaMetatagTagsTest extends SchemaMetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  public $module_name = 'schema_metatag_test';
+  public $moduleName = 'schema_metatag_test';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags_namespace = '\\Drupal\\schema_metatag_test\\Plugin\\metatag\\Tag\\';
+  public $schemaTagsNamespace = '\\Drupal\\schema_metatag_test\\Plugin\\metatag\\Tag\\';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags = [
+  public $schemaTags = [
     'schema_metatag_test_type' => 'SchemaMetatagTestType',
     'schema_metatag_test_address' => 'SchemaMetatagTestAddress',
     'schema_metatag_test_aggregate_rating' =>'SchemaMetatagTestAggregateRating',

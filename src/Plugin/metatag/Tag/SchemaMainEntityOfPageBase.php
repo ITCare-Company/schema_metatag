@@ -8,7 +8,7 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 abstract class SchemaMainEntityOfPageBase extends SchemaNameBase {
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function form(array $element = []) {
     $form = parent::form($element);

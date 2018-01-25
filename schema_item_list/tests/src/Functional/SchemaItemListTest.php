@@ -20,17 +20,17 @@ class SchemaItemListTest extends SchemaMetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  public $module_name = 'schema_item_list';
+  public $moduleName = 'schema_item_list';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags_namespace = '\\Drupal\\schema_item_list\\Plugin\\metatag\\Tag\\';
+  public $schemaTagsNamespace = '\\Drupal\\schema_item_list\\Plugin\\metatag\\Tag\\';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags = [
+  public $schemaTags = [
     //'schema_item_list_element' => 'SchemaItemListElement',
     'schema_item_list_id' => 'SchemaItemListId',
     'schema_item_list_main_entity_of_page' => 'SchemaItemListMainEntityOfPage',

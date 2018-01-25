@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Group;
 
-use \Drupal\metatag\Plugin\metatag\Group\GroupBase;
+use Drupal\metatag\Plugin\metatag\Group\GroupBase;
 
 /**
  * Schema.org groups should extend this class.

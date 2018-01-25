@@ -20,17 +20,17 @@ class SchemaVideoObjectTest extends SchemaMetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  public $module_name = 'schema_video_object';
+  public $moduleName = 'schema_video_object';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags_namespace = '\\Drupal\\schema_video_object\\Plugin\\metatag\\Tag\\';
+  public $schemaTagsNamespace = '\\Drupal\\schema_video_object\\Plugin\\metatag\\Tag\\';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags = [
+  public $schemaTags = [
     'schema_video_object_content_url' => 'SchemaVideoObjectContentUrl',
     'schema_video_object_description' => 'SchemaVideoObjectDescription',
     'schema_video_object_duration' => 'SchemaVideoObjectDuration',

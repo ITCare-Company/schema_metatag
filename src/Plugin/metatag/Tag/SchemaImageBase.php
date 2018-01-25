@@ -15,7 +15,7 @@ abstract class SchemaImageBase extends SchemaNameBase {
   use SchemaImageTrait;
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function form(array $element = []) {
 
@@ -35,7 +35,7 @@ abstract class SchemaImageBase extends SchemaNameBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   static public function testValue() {
     $items = [];

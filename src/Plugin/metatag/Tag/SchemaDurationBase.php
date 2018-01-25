@@ -8,7 +8,7 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 abstract class SchemaDurationBase extends SchemaNameBase {
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function output() {
     $element = parent::output();
@@ -20,7 +20,7 @@ abstract class SchemaDurationBase extends SchemaNameBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public static function outputValue($input_value) {
     $is_integer = ctype_digit($input_value) || is_int($input_value);

@@ -20,17 +20,17 @@ class SchemaArticleTest extends SchemaMetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  public $module_name = 'schema_article';
+  public $moduleName = 'schema_article';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags_namespace = '\\Drupal\\schema_article\\Plugin\\metatag\\Tag\\';
+  public $schemaTagsNamespace = '\\Drupal\\schema_article\\Plugin\\metatag\\Tag\\';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags = [
+  public $schemaTags = [
     'schema_article_about' => 'SchemaArticleAbout',
     'schema_article_author' => 'SchemaArticleAuthor',
     'schema_article_date_modified' => 'SchemaArticleDateModified',

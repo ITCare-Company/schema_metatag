@@ -2,8 +2,8 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
-use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaItemListElementBase;
-use \Drupal\Core\Url;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaItemListElementBase;
+use Drupal\Core\Url;
 
 /**
  * All Schema.org Breadcrumb tags should extend this class.

@@ -20,17 +20,17 @@ class SchemaPersonTest extends SchemaMetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  public $module_name = 'schema_person';
+  public $moduleName = 'schema_person';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags_namespace = '\\Drupal\\schema_person\\Plugin\\metatag\\Tag\\';
+  public $schemaTagsNamespace = '\\Drupal\\schema_person\\Plugin\\metatag\\Tag\\';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags = [
+  public $schemaTags = [
     'schema_person_additional_name' => 'SchemaPersonAdditionalName',
     'schema_person_address' => 'SchemaPersonAddress',
     'schema_person_affiliation' => 'SchemaPersonAffiliation',

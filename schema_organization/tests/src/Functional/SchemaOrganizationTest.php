@@ -20,17 +20,17 @@ class SchemaOrganizationTest extends SchemaMetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  public $module_name = 'schema_organization';
+  public $moduleName = 'schema_organization';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags_namespace = '\\Drupal\\schema_organization\\Plugin\\metatag\\Tag\\';
+  public $schemaTagsNamespace = '\\Drupal\\schema_organization\\Plugin\\metatag\\Tag\\';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags = [
+  public $schemaTags = [
     'schema_organization_address' => 'SchemaOrganizationAddress',
     'schema_organization_geo' => 'SchemaOrganizationGeo',
     'schema_organization_id' => 'SchemaOrganizationId',

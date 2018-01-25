@@ -30,7 +30,7 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
 
   public function form(array $element = []) {
@@ -105,7 +105,7 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   static public function testValue() {
     $items = [];

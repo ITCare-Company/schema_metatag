@@ -23,7 +23,7 @@ abstract class SchemaPersonOrgBase extends SchemaNameBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function form(array $element = []) {
 
@@ -50,7 +50,7 @@ abstract class SchemaPersonOrgBase extends SchemaNameBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   static public function testValue() {
     $items = [];

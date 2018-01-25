@@ -26,10 +26,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaPersonOrgBase;
 class SchemaArticleAuthor extends SchemaPersonOrgBase {
 
   /**
-   * Generate a form element for this meta tag.
-   *
-   * We need multiple values, so create a tree of values and
-   * stored the serialized value as a string.
+   * {@inheritdoc}
    */
   public function form(array $element = []) {
     $form = parent::form($element);

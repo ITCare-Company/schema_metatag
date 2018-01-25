@@ -17,7 +17,7 @@ abstract class SchemaDateBase extends SchemaNameBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   static public function testValue() {
     return parent::testDefaultValue(1, '');

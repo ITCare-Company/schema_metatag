@@ -18,7 +18,7 @@ abstract class SchemaNameBase extends MetaNameBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function output() {
     $value = SchemaMetatagManager::unserialize($this->value());

@@ -20,17 +20,17 @@ class SchemaEventTest extends SchemaMetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  public $module_name = 'schema_event';
+  public $moduleName = 'schema_event';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags_namespace = '\\Drupal\\schema_event\\Plugin\\metatag\\Tag\\';
+  public $schemaTagsNamespace = '\\Drupal\\schema_event\\Plugin\\metatag\\Tag\\';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags = [
+  public $schemaTags = [
     'schema_event_actor' => 'SchemaEventActor',
     'schema_event_description' => 'SchemaEventDescription',
     'schema_event_door_time' => 'SchemaEventDoorTime',

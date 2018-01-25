@@ -16,7 +16,7 @@ abstract class SchemaGeoBase extends SchemaNameBase {
   use SchemaPivotTrait;
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function form(array $element = []) {
 
@@ -43,7 +43,7 @@ abstract class SchemaGeoBase extends SchemaNameBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   static public function testValue() {
     $items = [];

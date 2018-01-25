@@ -23,7 +23,7 @@ abstract class SchemaIsAccessibleForFreeBase extends SchemaNameBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   static public function testValue() {
     return 'False';

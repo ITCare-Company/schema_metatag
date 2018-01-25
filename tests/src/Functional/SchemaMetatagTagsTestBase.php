@@ -30,17 +30,17 @@ abstract class SchemaMetatagTagsTestBase extends BrowserTestBase {
   /**
    * The name of the module being tested.
    */
-  public $module_name = '';
+  public $moduleName = '';
 
   /**
    * The namespace of the tags which will be tested.
    */
-  public $schema_tags_namespace = '';
+  public $schemaTagsNamespace = '';
 
   /**
    * All of the individual tags which will be tested.
    */
-  public $schema_tags = [];
+  public $schemaTags = [];
 
   /**
    * Convert the tag_name into the camelCase key used in the JSON array.

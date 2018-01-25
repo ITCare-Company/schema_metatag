@@ -20,17 +20,17 @@ class SchemaImageObjectTest extends SchemaMetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  public $module_name = 'schema_image_object';
+  public $moduleName = 'schema_image_object';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags_namespace = '\\Drupal\\schema_image_object\\Plugin\\metatag\\Tag\\';
+  public $schemaTagsNamespace = '\\Drupal\\schema_image_object\\Plugin\\metatag\\Tag\\';
 
   /**
    * {@inheritdoc}
    */
-  public $schema_tags = [
+  public $schemaTags = [
     'schema_image_object_description' => 'SchemaImageObjectDescription',
     'schema_image_object_height' => 'SchemaImageObjectHeight',
     'schema_image_object_name' => 'SchemaImageObjectName',

@@ -16,7 +16,7 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
   use SchemaAggregateRatingTrait;
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function form(array $element = []) {
     $value = SchemaMetatagManager::unserialize($this->value());
@@ -33,7 +33,7 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function output() {
     $element = parent::output();
@@ -75,7 +75,7 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   static public function testValue() {
     $items = [];
@@ -94,7 +94,7 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function __output() {
     $element = parent::output();
@@ -106,7 +106,7 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   static public function outputValue($input_value) {
     return $input_value;

@@ -14,7 +14,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 abstract class SchemaHasPartBase extends SchemaNameBase {
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function form(array $element = []) {
     $form = parent::form($element);
@@ -23,14 +23,14 @@ abstract class SchemaHasPartBase extends SchemaNameBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public static function testValue() {
     return parent::testDefaultValue(1, '');
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public static function outputValue($input_value) {
     $items = [];
