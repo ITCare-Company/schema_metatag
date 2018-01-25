@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_person\Plugin\metatag\Tag;
 
-use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaTypeBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaTypeBase;
 
 /**
  * Provides a plugin for the 'type' meta tag.
@@ -33,4 +33,5 @@ class SchemaPersonType extends SchemaTypeBase {
       'Person',
     ];
   }
+
 }

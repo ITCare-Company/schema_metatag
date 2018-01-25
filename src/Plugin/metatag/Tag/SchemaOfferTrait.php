@@ -4,7 +4,7 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 trait SchemaOfferTrait {
 
-  public static function offer_form_keys() {
+  public static function offerFormKeys() {
     return [
       '@type',
       'price',
@@ -15,7 +15,7 @@ trait SchemaOfferTrait {
     ];
   }
 
-  public function offer_input_values() {
+  public function offerInputValues() {
     return [
       'title' => '',
       'description' => '',
@@ -27,7 +27,7 @@ trait SchemaOfferTrait {
 
   public function offer_form($input_values) {
 
-    $input_values += $this->offer_input_values();
+    $input_values += $this->offerInputValues();
     $value = $input_values['value'];
 
     $form['#type'] = 'fieldset';
@@ -90,7 +90,7 @@ trait SchemaOfferTrait {
     // Add #states to show/hide the fields based on the value of @type,
     // if a selector was provided.
     if (!empty($input_values['visibility_selector'])) {
-      $keys = self::offer_form_keys();
+      $keys = self::offerFormKeys();
       $visibility = ['visible' => [
         ':input[name="' . $input_values['visibility_selector'] . '"]' => [
 								  'value' => 'Offer']

@@ -19,7 +19,7 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
   /**
    * The top level keys on this form.
    */
-  public static function form_keys() {
+  public static function formKeys() {
     return [
       '@type',
       'name',
@@ -87,7 +87,7 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
       'visibility_selector' => $this->visibilitySelector() . '[address][@type]',
     ];
 
-    $form['address'] = $this->postal_address_form($input_values);
+    $form['address'] = $this->postalAddressForm($input_values);
     $form['address']['#states'] = $visibility;
 
     $input_values = [
@@ -98,7 +98,7 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
       'visibility_selector' => $this->visibilitySelector() . '[geo][@type]',
     ];
 
-    $form['geo'] = $this->geo_form($input_values);
+    $form['geo'] = $this->geoForm($input_values);
     $form['geo']['#states'] = $visibility;
 
     return $form;
@@ -109,7 +109,7 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
    */
   static public function testValue() {
     $items = [];
-    $keys = self::form_keys();
+    $keys = self::formKeys();
     foreach ($keys as $key) {
       switch ($key) {
         case 'address':

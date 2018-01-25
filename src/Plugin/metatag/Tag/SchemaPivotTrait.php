@@ -4,7 +4,7 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 trait SchemaPivotTrait {
 
-  public function pivot_form($value) {
+  public function pivotForm($value) {
 
     $form = [
       '#type' => 'select',

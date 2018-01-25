@@ -29,7 +29,7 @@ abstract class SchemaImageBase extends SchemaNameBase {
       'visibility_selector' => $this->visibilitySelector() . '[@type]',
     ];
 
-    $form = $this->image_form($input_values);
+    $form = $this->imageForm($input_values);
 
     return $form;
   }
@@ -39,7 +39,7 @@ abstract class SchemaImageBase extends SchemaNameBase {
    */
   static public function testValue() {
     $items = [];
-    $keys = self::image_form_keys();
+    $keys = self::imageFormKeys();
     foreach ($keys as $key) {
       switch ($key) {
         case '@type':

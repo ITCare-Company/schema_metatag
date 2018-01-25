@@ -18,8 +18,8 @@ abstract class SchemaAddressBase extends SchemaNameBase {
   /**
    * The top level keys on this form.
    */
-  public static function form_keys() {
-    return ['pivot'] + self::postal_address_form_keys();
+  public static function formKeys() {
+    return ['pivot'] + self::postalAddressFormKeys();
   }
 
   /**
@@ -36,9 +36,9 @@ abstract class SchemaAddressBase extends SchemaNameBase {
       'visibility_selector' => $this->visibilitySelector() . '[@type]',
     ];
 
-    $form = $this->postal_address_form($input_values);
+    $form = $this->postalAddressForm($input_values);
 
-    $form['pivot'] = $this->pivot_form($value);
+    $form['pivot'] = $this->pivotForm($value);
     $form['pivot']['#states'] = ['invisible' => [
       ':input[name="' . $input_values['visibility_selector'] . '"]' => [
 			  'value' => '']
@@ -53,7 +53,7 @@ abstract class SchemaAddressBase extends SchemaNameBase {
    */
   static public function testValue() {
     $items = [];
-    $keys = self::postal_address_form_keys();
+    $keys = self::postalAddressFormKeys();
     foreach ($keys as $key) {
       switch ($key) {
         case '@type':

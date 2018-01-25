@@ -4,7 +4,7 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 trait SchemaAddressTrait {
 
-  public static function postal_address_form_keys() {
+  public static function postalAddressFormKeys() {
     return [
       '@type',
       'streetAddress',
@@ -15,7 +15,7 @@ trait SchemaAddressTrait {
     ];
   }
 
-  public function postal_address_input_values() {
+  public function postalAddressInputValues() {
     return [
       'title' => '',
       'description' => '',
@@ -25,9 +25,9 @@ trait SchemaAddressTrait {
     ];
   }
 
-  public function postal_address_form($input_values) {
+  public function postalAddressForm($input_values) {
 
-    $input_values += $this->postal_address_input_values();
+    $input_values += $this->postalAddressInputValues();
     $value = $input_values['value'];
 
     $form['#type'] = 'fieldset';
@@ -94,7 +94,7 @@ trait SchemaAddressTrait {
     // Add #states to show/hide the fields based on the value of @type,
     // if a selector was provided.
     if (!empty($input_values['visibility_selector'])) {
-      $keys = $this->postal_address_form_keys();
+      $keys = $this->postalAddressFormKeys();
       $visibility = ['visible' => [
         ':input[name="' . $input_values['visibility_selector'] . '"]' => [
 								  'value' => 'PostalAddress']

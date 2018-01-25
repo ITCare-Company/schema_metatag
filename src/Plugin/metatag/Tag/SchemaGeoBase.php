@@ -30,9 +30,9 @@ abstract class SchemaGeoBase extends SchemaNameBase {
       'visibility_selector' => $this->visibilitySelector() . '[@type]',
     ];
 
-    $form = $this->geo_form($input_values);
+    $form = $this->geoForm($input_values);
 
-    $form['pivot'] = $this->pivot_form($value);
+    $form['pivot'] = $this->pivotForm($value);
     $form['pivot']['#states'] = ['invisible' => [
       ':input[name="' . $input_values['visibility_selector'] . '"]' => [
 			  'value' => '']
@@ -47,7 +47,7 @@ abstract class SchemaGeoBase extends SchemaNameBase {
    */
   static public function testValue() {
     $items = [];
-    $keys = self::geo_form_keys();
+    $keys = self::geoFormKeys();
     foreach ($keys as $key) {
       switch ($key) {
         case '@type':

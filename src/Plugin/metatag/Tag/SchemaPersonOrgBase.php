@@ -18,8 +18,8 @@ abstract class SchemaPersonOrgBase extends SchemaNameBase {
   /**
    * The top level keys on this form.
    */
-  function form_keys() {
-    return ['pivot'] + self::person_org_form_keys();
+  function formKeys() {
+    return ['pivot'] + self::personOrgFormKeys();
   }
 
   /**
@@ -38,8 +38,8 @@ abstract class SchemaPersonOrgBase extends SchemaNameBase {
     ];
 
     $form = $this->person_org_form($input_values);
-    $form['pivot'] = $this->pivot_form($value);
-    $form['pivot'] = $this->pivot_form($value);
+    $form['pivot'] = $this->pivotForm($value);
+    $form['pivot'] = $this->pivotForm($value);
     $form['pivot']['#states'] = ['invisible' => [
       ':input[name="' . $input_values['visibility_selector'] . '"]' => [
 			  'value' => '']
@@ -54,7 +54,7 @@ abstract class SchemaPersonOrgBase extends SchemaNameBase {
    */
   static public function testValue() {
     $items = [];
-    $keys = self::person_org_form_keys();
+    $keys = self::personOrgFormKeys();
     foreach ($keys as $key) {
       switch ($key) {
         case 'pivot':

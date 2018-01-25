@@ -12,7 +12,7 @@ abstract class SchemaGroupBase extends GroupBase {
   /**
    * Whether this is structured data.
    *
-   * @var boolean
+   * @var bool
    */
   protected $schemaMetatag;
 

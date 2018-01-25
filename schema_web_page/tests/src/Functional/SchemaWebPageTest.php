@@ -31,10 +31,10 @@ class SchemaWebPageTest extends SchemaMetatagTagsTestBase {
    * {@inheritdoc}
    */
   public $schemaTags = [
-    //'schema_web_page_breadcrumb' => 'SchemaWebPageBreadcrumb',
-    //'schema_web_page_has_part' => 'SchemaWebPageHasPart',
+    'schema_web_page_breadcrumb' => 'SchemaWebPageBreadcrumb',
+    'schema_web_page_has_part' => 'SchemaWebPageHasPart',
     'schema_web_page_id' => 'SchemaWebPageId',
-    //'schema_web_page_is_accessible_for_free' => 'SchemaWebPageIsAccessibleForFree',
+    'schema_web_page_is_accessible_for_free' => 'SchemaWebPageIsAccessibleForFree',
     'schema_web_page_type' => 'SchemaWebPageType',
   ];
 

@@ -28,7 +28,7 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
       'visibility_selector' => $this->visibilitySelector() . '[@type]',
     ];
 
-    $form = $this->aggregaterating_form($input_values);
+    $form = $this->aggregateRatingForm($input_values);
     return $form;
   }
 
@@ -115,7 +115,7 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
   /**
    * Get ratings for vote_up_down module.
    */
-  public function vote_up_down($value, $results, $entity) {
+  public function voteUpDown($value, $results, $entity) {
     $rating = 0;
     $count = 0;
 
@@ -136,7 +136,7 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
   /**
    * Get ratings for like_and_dislike module.
    */
-  public function like_and_dislike($value, $results, $entity) {
+  public function likeAndDislike($value, $results, $entity) {
     $rating = 0;
     $count = 0;
 
@@ -201,7 +201,7 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
   /**
    * Get ratings for votingapi_widgets module.
    */
-  public function votingapi_widgets($value, $results, $entity) {
+  public function votingapiWidgets($value, $results, $entity) {
     $rating = 0;
     $count = 0;
     $vote_type = '';

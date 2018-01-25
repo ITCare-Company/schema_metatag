@@ -9,7 +9,7 @@ trait SchemaPersonOrgTrait {
    */
   use SchemaImageTrait;
 
- public static function person_org_form_keys() {
+ public static function personOrgFormKeys() {
     return [
       '@type',
       '@id',
@@ -20,7 +20,7 @@ trait SchemaPersonOrgTrait {
     ];
   }
 
-  public function person_org_input_values() {
+  public function personOrgInputValues() {
     return [
       'title' => '',
       'description' => '',
@@ -32,7 +32,7 @@ trait SchemaPersonOrgTrait {
 
   public function person_org_form($input_values) {
 
-    $input_values += $this->person_org_input_values();
+    $input_values += $this->personOrgInputValues();
     $value = $input_values['value'];
 
     // Get the id for the nested @type element.
@@ -113,7 +113,7 @@ trait SchemaPersonOrgTrait {
     ];
 
     // Display the logo only for Organization.
-    $form['logo'] = $this->image_form($input_values);
+    $form['logo'] = $this->imageForm($input_values);
     $form['logo']['#states'] = $org_visibility;
 
     return $form;

@@ -31,7 +31,7 @@ abstract class SchemaOfferBase extends SchemaNameBase {
 
     $form = $this->offer_form($input_values);
 
-    $form['pivot'] = $this->pivot_form($value);
+    $form['pivot'] = $this->pivotForm($value);
     $form['pivot']['#states'] = ['invisible' => [
       ':input[name="' . $input_values['visibility_selector'] . '"]' => [
 			  'value' => '']
@@ -46,7 +46,7 @@ abstract class SchemaOfferBase extends SchemaNameBase {
    */
   static public function testValue() {
     $items = [];
-    $keys = self::offer_form_keys();
+    $keys = self::offerFormKeys();
     foreach ($keys as $key) {
       switch ($key) {
         case '@type':

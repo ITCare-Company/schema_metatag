@@ -4,7 +4,7 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 trait SchemaAggregateRatingTrait {
 
-  public function aggregaterating_form_keys() {
+  public function aggregateRatingFormKeys() {
     return [
       '@type',
       'votingAPI',
@@ -16,7 +16,7 @@ trait SchemaAggregateRatingTrait {
     ];
   }
 
-  public function aggregaterating_input_values() {
+  public function aggregateRatingInputValues() {
     return [
       'title' => '',
       'description' => '',
@@ -26,9 +26,9 @@ trait SchemaAggregateRatingTrait {
     ];
   }
 
-  public function aggregaterating_form($input_values) {
+  public function aggregateRatingForm($input_values) {
 
-    $input_values += $this->aggregaterating_input_values();
+    $input_values += $this->aggregateRatingInputValues();
     $value = $input_values['value'];
 
     $form['#type'] = 'fieldset';
@@ -58,9 +58,9 @@ trait SchemaAggregateRatingTrait {
       '#empty_value' => '',
       '#options' => [
         //'Yes' => $this->t('Yes'),
-        'votingapi_widgets' => $this->t('VotingAPI Widgets'),
-        'vote_up_down' => $this->t('Vote Up Down'),
-        'like_and_dislike' => $this->t('Like and Dislike'),
+        'votingapiWidgets' => $this->t('VotingAPI Widgets'),
+        'voteUpDown' => $this->t('Vote Up Down'),
+        'likeAndDislike' => $this->t('Like and Dislike'),
         'rate' => $this->t('Rate'),
       ],
       '#default_value' => !empty($value['votingAPI']) ? $value['votingAPI'] : '',

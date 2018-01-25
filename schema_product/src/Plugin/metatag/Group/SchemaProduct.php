@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_product\Plugin\metatag\Group;
 
-use \Drupal\schema_metatag\Plugin\metatag\Group\SchemaGroupBase;
+use Drupal\schema_metatag\Plugin\metatag\Group\SchemaGroupBase;
 
 /**
  * Provides a plugin for the 'Product' meta tag group.

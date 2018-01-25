@@ -4,7 +4,7 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 trait SchemaImageTrait {
 
- public static function image_form_keys() {
+ public static function imageFormKeys() {
     return [
       '@type',
       'representativeOfPage',
@@ -14,7 +14,7 @@ trait SchemaImageTrait {
     ];
   }
 
-  public function image_input_values() {
+  public function imageInputValues() {
     return [
       'title' => '',
       'description' => '',
@@ -24,9 +24,9 @@ trait SchemaImageTrait {
     ];
   }
 
-  public function image_form($input_values) {
+  public function imageForm($input_values) {
 
-    $input_values += $this->image_input_values();
+    $input_values += $this->imageInputValues();
     $value = $input_values['value'];
 
     $form['#type'] = 'fieldset';
@@ -81,7 +81,7 @@ trait SchemaImageTrait {
     // Add #states to show/hide the fields based on the value of @type,
     // if a selector was provided.
     if (!empty($input_values['visibility_selector'])) {
-      $keys = self::image_form_keys();
+      $keys = self::imageFormKeys();
       $visibility = ['visible' => [
         ':input[name="' . $input_values['visibility_selector'] . '"]' => [
 								  'value' => 'ImageObject']
