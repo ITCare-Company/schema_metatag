@@ -10,9 +10,6 @@ use Drupal\field\Entity\FieldConfig;
  */
 abstract class SchemaAggregateRatingBase extends SchemaNameBase {
 
-  /**
-   * Traits provide re-usable form elements.
-   */
   use SchemaAggregateRatingTrait;
 
   /**
@@ -79,7 +76,7 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
    */
   public static function testValue() {
     $items = [];
-    $keys = ['@type','ratingValue','ratingCount','bestRating','worstRating'];
+    $keys = ['@type', 'ratingValue', 'ratingCount', 'bestRating', 'worstRating'];
     foreach ($keys as $key) {
       switch ($key) {
         case '@type':
@@ -93,18 +90,6 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
       }
     }
     return $items;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __output() {
-    $element = parent::output();
-    if (!empty($element)) {
-      $input_value = $element['#attributes']['content'];
-      $element['#attributes']['content'] = self::outputValue($input_value);
-    }
-    return $element;
   }
 
   /**
@@ -219,8 +204,9 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
     $vote_type = '';
     $result_function = '';
 
-    // Each field has its own configuration that determines the index and function to use.
-    // Get vote configuration from the voting_api_field on this entity.
+    // Each field has its own configuration that determines the index and
+    // function to use. Get vote configuration from the voting_api_field on this
+    // entity.
     $field_manager = \Drupal::service('entity_field.manager');
     $field_map = $field_manager->getFieldMapByFieldType('voting_api_field');
     $entity_type = $entity->getEntityTypeId();

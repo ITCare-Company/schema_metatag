@@ -9,9 +9,6 @@ use Drupal\schema_metatag\SchemaMetatagManager;
  */
 abstract class SchemaGeoBase extends SchemaNameBase {
 
-  /**
-   * Traits provide re-usable form elements.
-   */
   use SchemaGeoTrait;
   use SchemaPivotTrait;
 

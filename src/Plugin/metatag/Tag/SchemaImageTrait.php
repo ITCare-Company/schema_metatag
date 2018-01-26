@@ -97,12 +97,9 @@ trait SchemaImageTrait {
     // Add #states to show/hide the fields based on the value of @type,
     // if a selector was provided.
     if (!empty($input_values['visibility_selector'])) {
+      $selector = ':input[name="' . $input_values['visibility_selector'] . '"]';
+      $visibility = ['visible' => [$selector => ['value' => 'ImageObject']]];
       $keys = self::imageFormKeys();
-      $visibility = ['visible' => [
-        ':input[name="' . $input_values['visibility_selector'] . '"]' => [
-								  'value' => 'ImageObject']
-        ]
-      ];
       foreach ($keys as $key) {
         if ($key != '@type') {
           $form[$key]['#states'] = $visibility;

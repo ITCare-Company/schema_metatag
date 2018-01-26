@@ -95,7 +95,7 @@ abstract class SchemaNameBase extends MetaNameBase {
   }
 
   /**
-   * parseImageURLValue().
+   * Parse the image url out of image markup.
    *
    * A copy of the base method of the same name, but where $value is passed
    * in instead of assumed to be $this->value().
@@ -174,12 +174,13 @@ abstract class SchemaNameBase extends MetaNameBase {
    * Provide a random test value.
    *
    * A helper function to create a random test value. Use the delimiter to
-   *  create comma-separated values, or a few "words" separated by spaces.
+   * create comma-separated values, or a few "words" separated by spaces.
    *
-   * @param $count
+   * @param int $count
    *   Number of "words"
-   * @param $delimiter
+   * @param int $delimiter
    *   Delimiter used to connect "words"
+   *
    * @return mixed
    *   Return the test value, either a string or array, depending on the
    *   property.
@@ -189,7 +190,7 @@ abstract class SchemaNameBase extends MetaNameBase {
     $min = 1;
     $max = isset($count) ? $count : 2;
     $delimiter = isset($delimiter) ? $delimiter : ' ';
-    for($i = $min; $i <= $max; $i++) {
+    for ($i = $min; $i <= $max; $i++) {
       $items[] = SchemaMetatagManager::randomMachineName();
     }
     return implode($delimiter, $items);

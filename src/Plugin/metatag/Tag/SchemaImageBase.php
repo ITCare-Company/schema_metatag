@@ -9,9 +9,6 @@ use Drupal\schema_metatag\SchemaMetatagManager;
  */
 abstract class SchemaImageBase extends SchemaNameBase {
 
-  /**
-   * Traits provide re-usable form elements.
-   */
   use SchemaImageTrait;
 
   /**

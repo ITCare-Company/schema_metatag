@@ -1,8 +1,7 @@
 <?php
+
 /**
- * @file
- *
- * Contains \Drupal\Tests\schema_metatag\Unit\SchemaMetatagManagerTest
+  * Contains \Drupal\Tests\schema_metatag\Unit\SchemaMetatagManagerTest
  */
 
 namespace Drupal\Tests\schema_metatag\Unit;
@@ -105,7 +104,7 @@ class SchemaMetatagManagerTest extends UnitTestCase {
   public function pivotData() {
     $values = [
       'Simple pivot' => [
-        ['@type' => 'Person', 'name' => 'George', 'Tags' => ['First','Second','Third']],
+        ['@type' => 'Person', 'name' => 'George', 'Tags' => ['First', 'Second', 'Third']],
         [
           0 => ['@type' => 'Person', 'name' => 'George', 'Tags' => 'First'],
           1 => ['@type' => 'Person', 'name' => 'George', 'Tags' => 'Second'],
@@ -130,14 +129,14 @@ class SchemaMetatagManagerTest extends UnitTestCase {
       'a:1:{s:5:"@type";a:1:{s:12:"Organization";a:2:{s:4:"name";s:4:"test";s:11:"description";s:9:"more text";}}}',
     ];
     $values['Nested array'] = [
-      ['arraytrim','serialize','unserialize','explode','recompute'],
+      ['arraytrim','serialize', 'unserialize', 'explode', 'recompute'],
       ['@type' => ['Organization' => ['name' => 'test', 'description' => 'more text']]],
       'a:1:{s:5:"@type";a:1:{s:12:"Organization";a:2:{s:4:"name";s:4:"test";s:11:"description";s:9:"more text";}}}',
       ['@type' => ['Organization' => ['name' => 'test', 'description' => 'more text']]],
       'a:1:{s:5:"@type";a:1:{s:12:"Organization";a:2:{s:4:"name";s:4:"test";s:11:"description";s:9:"more text";}}}',
     ];
     $values['Empty array'] = [
-      ['arraytrim','serialize','unserialize','explode'],
+      ['arraytrim','serialize', 'unserialize', 'explode'],
       ['@type' => ['Organization' => ['name' => '', 'description' => '']]],
       'a:1:{s:5:"@type";a:1:{s:12:"Organization";a:2:{s:4:"name";s:0:"";s:11:"description";s:0:"";}}}',
       [],
@@ -154,7 +153,7 @@ class SchemaMetatagManagerTest extends UnitTestCase {
   }
 
   /**
-   *	Provides string data.
+   * Provides string data.
    *
    * @return array
    */
@@ -171,4 +170,5 @@ class SchemaMetatagManagerTest extends UnitTestCase {
     ];
     return $values;
   }
+
 }

@@ -3,22 +3,20 @@
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 use Drupal\schema_metatag\SchemaMetatagManager;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaImageBase;
 
 /**
  * Schema.org Person/Org items should extend this class.
  */
 abstract class SchemaPersonOrgBase extends SchemaNameBase {
 
-  /**
-   * Traits provide re-usable form elements.
-   */
   use SchemaPersonOrgTrait;
   use SchemaPivotTrait;
 
   /**
    * The top level keys on this form.
    */
-  function formKeys() {
+  public function formKeys() {
     return ['pivot'] + self::personOrgFormKeys();
   }
 
@@ -37,7 +35,7 @@ abstract class SchemaPersonOrgBase extends SchemaNameBase {
       'visibility_selector' => $this->visibilitySelector() . '[@type]',
     ];
 
-    $form = $this->person_org_form($input_values);
+    $form = $this->personOrgForm($input_values);
     $form['pivot'] = $this->pivotForm($value);
     $form['pivot'] = $this->pivotForm($value);
     $selector = ':input[name="' . $input_values['visibility_selector'] . '"]';
@@ -58,7 +56,7 @@ abstract class SchemaPersonOrgBase extends SchemaNameBase {
           break;
 
         case 'logo':
-          $items[$key] = \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaImageBase::testValue();
+          $items[$key] = SchemaImageBase::testValue();
           break;
 
         case '@type':

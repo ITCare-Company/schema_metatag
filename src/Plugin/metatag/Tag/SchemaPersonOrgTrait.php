@@ -7,9 +7,6 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
  */
 trait SchemaPersonOrgTrait {
 
-  /**
-   * Traits provide re-usable form elements, like postal_address.
-   */
   use SchemaImageTrait;
 
   /**
@@ -42,7 +39,7 @@ trait SchemaPersonOrgTrait {
   /**
    * The form element.
    */
-  public function person_org_form($input_values) {
+  public function personOrgForm($input_values) {
 
     $input_values += $this->personOrgInputValues();
     $value = $input_values['value'];

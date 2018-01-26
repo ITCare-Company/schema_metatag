@@ -28,4 +28,5 @@ trait SchemaPivotTrait {
 
     return $form;
   }
+
 }

@@ -58,6 +58,6 @@ abstract class SchemaItemListElementViewsBase extends SchemaItemListElementBase 
       }
     }
     return $values;
- }
+  }
 
 }

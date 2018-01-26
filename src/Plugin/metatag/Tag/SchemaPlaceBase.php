@@ -3,16 +3,14 @@
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 use Drupal\schema_metatag\SchemaMetatagManager;
-use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAddressBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAddressBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaGeoBase;
 
 /**
  * Schema.org Place items should extend this class.
  */
 abstract class SchemaPlaceBase extends SchemaAddressBase {
 
-  /**
-   * Traits provide re-usable form elements.
-   */
   use SchemaAddressTrait;
   use SchemaGeoTrait;
 
@@ -32,16 +30,13 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
   /**
    * {@inheritdoc}
    */
-
   public function form(array $element = []) {
 
     $value = SchemaMetatagManager::unserialize($this->value());
 
     // Get the id for the nested @type element.
     $selector = $this->visibilitySelector() . '[@type]';
-    $visibility = ['visible' => [
-      ":input[name='$selector']" => ['value' => 'Place']]
-    ];
+    $visibility = ['visible' => [":input[name='$selector']" => ['value' => 'Place']]];
 
     $form['#type'] = 'fieldset';
     $form['#description'] = $this->description();
@@ -113,11 +108,11 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
     foreach ($keys as $key) {
       switch ($key) {
         case 'address':
-          $items[$key] = \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAddressBase::testValue();
+          $items[$key] = SchemaAddressBase::testValue();
           break;
 
         case 'geo':
-          $items[$key] = \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaGeoBase::testValue();
+          $items[$key] = SchemaGeoBase::testValue();
           break;
 
         case '@type':

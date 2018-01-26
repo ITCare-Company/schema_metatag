@@ -15,7 +15,7 @@ abstract class SchemaTypeBase extends SchemaNameBase {
    * and spaces to indicate their hierarchy. The prefixed dashes and spaces will
    * be removed when creating the raw list of available types.
    *
-   * @see SchemaOrganizationType::labels().
+   * @see SchemaOrganizationType::labels()
    */
   public static function labels() {
     return ['Organization'];
@@ -66,7 +66,7 @@ abstract class SchemaTypeBase extends SchemaNameBase {
    * Clean up a list of labels by removing leading spaces and dashes.
    */
   public static function removePrefix($item) {
-    return str_replace(['-',' '], '', $item);
+    return str_replace(['-', ' '], '', $item);
   }
 
 }
