@@ -10,10 +10,10 @@ abstract class SchemaTypeBase extends SchemaNameBase {
   /**
    * Return a list of object labels.
    *
-   * This is generally the only method that needs to be extended for type tags. Either
-   * return a simple array of types, or prefix the type names with dashes and spaces to
-   * indicate their hierarchy. The prefixed dashes and spaces will be removed when
-   * creating the raw list of available types.
+   * This is generally the only method that needs to be extended for type tags.
+   * Either return a simple array of types, or prefix the type names with dashes
+   * and spaces to indicate their hierarchy. The prefixed dashes and spaces will
+   * be removed when creating the raw list of available types.
    *
    * @see SchemaOrganizationType::labels().
    */

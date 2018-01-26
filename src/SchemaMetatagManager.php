@@ -269,4 +269,5 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
     $randomGenerator = new Random();
     return $randomGenerator->name($length, TRUE);
   }
+
 }

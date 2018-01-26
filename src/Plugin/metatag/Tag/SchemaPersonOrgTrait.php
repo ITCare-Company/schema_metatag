@@ -2,6 +2,9 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
+/**
+ * Schema.org Person/Organization trait.
+ */
 trait SchemaPersonOrgTrait {
 
   /**
@@ -9,7 +12,10 @@ trait SchemaPersonOrgTrait {
    */
   use SchemaImageTrait;
 
- public static function personOrgFormKeys() {
+  /**
+   * Form keys.
+   */
+  public static function personOrgFormKeys() {
     return [
       '@type',
       '@id',
@@ -20,6 +26,9 @@ trait SchemaPersonOrgTrait {
     ];
   }
 
+  /**
+   * Input values.
+   */
   public function personOrgInputValues() {
     return [
       'title' => '',
@@ -30,6 +39,9 @@ trait SchemaPersonOrgTrait {
     ];
   }
 
+  /**
+   * The form element.
+   */
   public function person_org_form($input_values) {
 
     $input_values += $this->personOrgInputValues();
@@ -118,4 +130,5 @@ trait SchemaPersonOrgTrait {
 
     return $form;
   }
+
 }

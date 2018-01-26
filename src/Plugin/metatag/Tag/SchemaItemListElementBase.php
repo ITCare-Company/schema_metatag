@@ -2,7 +2,6 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
 use Drupal\schema_metatag\SchemaMetatagManager;
 
 /**
@@ -47,8 +46,9 @@ abstract class SchemaItemListElementBase extends SchemaNameBase {
   /**
    * Process the input value into an array of items.
    *
-   * Each type of ItemList can extend this to process the input value into a list of
-   * items. The default behavior will be a simple array from a comma-separated list.
+   * Each type of ItemList can extend this to process the input value into a
+   * list of items. The default behavior will be a simple array from a
+   * comma-separated list.
    */
   public static function getItems($input_value) {
     if (!is_array($input_value)) {
@@ -60,7 +60,7 @@ abstract class SchemaItemListElementBase extends SchemaNameBase {
   /**
    * {@inheritdoc}
    */
-  static public function testValue() {
+  public static function testValue() {
     return static::testDefaultValue(3, ',');
   }
 

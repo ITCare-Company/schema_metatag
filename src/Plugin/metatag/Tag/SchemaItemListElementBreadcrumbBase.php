@@ -2,7 +2,6 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaItemListElementBase;
 use Drupal\Core\Url;
 
 /**

@@ -107,7 +107,7 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
   /**
    * {@inheritdoc}
    */
-  static public function testValue() {
+  public static function testValue() {
     $items = [];
     $keys = self::formKeys();
     foreach ($keys as $key) {
@@ -115,15 +115,19 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
         case 'address':
           $items[$key] = \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAddressBase::testValue();
           break;
+
         case 'geo':
           $items[$key] = \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaGeoBase::testValue();
           break;
+
         case '@type':
           $items[$key] = 'Place';
           break;
+
         default:
           $items[$key] = parent::testDefaultValue(2, ' ');
           break;
+
       }
     }
     return $items;

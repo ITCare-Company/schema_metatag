@@ -2,9 +2,15 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
+/**
+ * Schema.org Image trait.
+ */
 trait SchemaImageTrait {
 
- public static function imageFormKeys() {
+  /**
+   * Form keys.
+   */
+  public static function imageFormKeys() {
     return [
       '@type',
       'representativeOfPage',
@@ -14,6 +20,9 @@ trait SchemaImageTrait {
     ];
   }
 
+  /**
+   * Input values.
+   */
   public function imageInputValues() {
     return [
       'title' => '',
@@ -24,6 +33,9 @@ trait SchemaImageTrait {
     ];
   }
 
+  /**
+   * The form element.
+   */
   public function imageForm($input_values) {
 
     $input_values += $this->imageInputValues();
@@ -45,6 +57,7 @@ trait SchemaImageTrait {
       ],
       '#required' => $input_values['#required'],
     ];
+
     $form['representativeOfPage'] = [
       '#type' => 'select',
       '#title' => $this->t('representative Of Page'),
@@ -55,6 +68,7 @@ trait SchemaImageTrait {
       '#required' => $input_values['#required'],
       '#description' => $this->t('Whether this image is representative of the content of the page.'),
     ];
+
     $form['url'] = [
       '#type' => 'textfield',
       '#title' => $this->t('url'),
@@ -63,6 +77,7 @@ trait SchemaImageTrait {
       '#required' => $input_values['#required'],
       '#description' => $this->t('Absolute URL of the image.'),
     ];
+
     $form['width'] = [
       '#type' => 'textfield',
       '#title' => $this->t('width'),
@@ -70,6 +85,7 @@ trait SchemaImageTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
     ];
+
     $form['height'] = [
       '#type' => 'textfield',
       '#title' => $this->t('height'),
@@ -95,6 +111,6 @@ trait SchemaImageTrait {
     }
 
     return $form;
-
   }
+
 }

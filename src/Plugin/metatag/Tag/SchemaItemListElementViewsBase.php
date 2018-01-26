@@ -2,7 +2,6 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaItemListElementBase;
 use Drupal\Core\Url;
 
 /**
@@ -43,7 +42,7 @@ abstract class SchemaItemListElementViewsBase extends SchemaItemListElementBase 
           // If this is a display that does not provide an entity in the result,
           // there is really nothing more to do.
           if (empty($item->_entity)) {
-             return '';
+            return '';
           }
           // Get the absolute path to this entity.
           // The entity that Views returns does not have the toUrl() method

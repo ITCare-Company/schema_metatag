@@ -2,8 +2,14 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
+/**
+ * Schema.org PostalAddress trait.
+ */
 trait SchemaAddressTrait {
 
+  /**
+   * Form keys.
+   */
   public static function postalAddressFormKeys() {
     return [
       '@type',
@@ -15,6 +21,9 @@ trait SchemaAddressTrait {
     ];
   }
 
+  /**
+   * Input values.
+   */
   public function postalAddressInputValues() {
     return [
       'title' => '',
@@ -25,6 +34,9 @@ trait SchemaAddressTrait {
     ];
   }
 
+  /**
+   * The form element.
+   */
   public function postalAddressForm($input_values) {
 
     $input_values += $this->postalAddressInputValues();
@@ -82,6 +94,7 @@ trait SchemaAddressTrait {
       '#required' => $input_values['#required'],
       '#description' => $this->t('The postal code. For example, 94043.'),
     ];
+
     $form['addressCountry'] = [
       '#type' => 'textfield',
       '#title' => $this->t('addressCountry'),
@@ -95,11 +108,8 @@ trait SchemaAddressTrait {
     // if a selector was provided.
     if (!empty($input_values['visibility_selector'])) {
       $keys = $this->postalAddressFormKeys();
-      $visibility = ['visible' => [
-        ':input[name="' . $input_values['visibility_selector'] . '"]' => [
-								  'value' => 'PostalAddress']
-        ]
-      ];
+      $selector = ':input[name="' . $input_values['visibility_selector'] . '"]';
+      $visibility = ['visible' => [$selector => ['value' => 'PostalAddress']]];
       foreach ($keys as $key) {
         if ($key != '@type') {
           $form[$key]['#states'] = $visibility;
@@ -109,4 +119,5 @@ trait SchemaAddressTrait {
 
     return $form;
   }
+
 }

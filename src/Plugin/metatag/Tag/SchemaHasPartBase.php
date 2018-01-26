@@ -2,13 +2,13 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
 use Drupal\schema_metatag\SchemaMetatagManager;
 
 /**
  * Provides a plugin for the 'hasPart' meta tag.
  *
  * Currently applies only to isAccessibleForFree.
+ *
  * @see https://developers.google.com/search/docs/data-types/paywalled-content
  */
 abstract class SchemaHasPartBase extends SchemaNameBase {

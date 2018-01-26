@@ -2,8 +2,14 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
+/**
+ * Schema.org Geo trait.
+ */
 trait SchemaGeoTrait {
 
+  /**
+   * Form keys.
+   */
   public static function geoFormKeys() {
     return [
       '@type',
@@ -12,6 +18,9 @@ trait SchemaGeoTrait {
     ];
   }
 
+  /**
+   * Input values.
+   */
   public function geoInputValues() {
     return [
       'title' => '',
@@ -22,6 +31,9 @@ trait SchemaGeoTrait {
     ];
   }
 
+  /**
+   * The form element.
+   */
   public function geoForm($input_values) {
 
     $input_values += $this->geoInputValues();
@@ -65,12 +77,9 @@ trait SchemaGeoTrait {
     // Add #states to show/hide the fields based on the value of @type,
     // if a selector was provided.
     if (!empty($input_values['visibility_selector'])) {
+      $selector = ':input[name="' . $input_values['visibility_selector'] . '"]';
+      $visibility = ['visible' => [$selector => ['value' => 'GeoCoordinates']]];
       $keys = self::geoFormKeys();
-      $visibility = ['visible' => [
-        ':input[name="' . $input_values['visibility_selector'] . '"]' => [
-								  'value' => 'GeoCoordinates']
-        ]
-      ];
       foreach ($keys as $key) {
         if ($key != '@type') {
           $form[$key]['#states'] = $visibility;
@@ -79,8 +88,6 @@ trait SchemaGeoTrait {
     }
 
     return $form;
-
   }
-
 
 }

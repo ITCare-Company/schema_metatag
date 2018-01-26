@@ -77,7 +77,7 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
   /**
    * {@inheritdoc}
    */
-  static public function testValue() {
+  public static function testValue() {
     $items = [];
     $keys = ['@type','ratingValue','ratingCount','bestRating','worstRating'];
     foreach ($keys as $key) {
@@ -85,9 +85,11 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
         case '@type':
           $items[$key] = 'AggregateRating';
           break;
+
         default:
           $items[$key] = parent::testDefaultValue(2, ' ');
           break;
+
       }
     }
     return $items;
@@ -108,7 +110,7 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
   /**
    * {@inheritdoc}
    */
-  static public function outputValue($input_value) {
+  public static function outputValue($input_value) {
     return $input_value;
   }
 
@@ -128,6 +130,7 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
           $rating = $results[$tag]['vote_sum'];
           $count = $results[$tag]['vote_count'];
           break;
+
       }
     }
     return [$rating, $count];
@@ -146,9 +149,11 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
         case 'dislike':
           $rating -= $votes['vote_sum'];
           break;
+
         case 'like':
           $rating += $votes['vote_sum'];
           break;
+
       }
       $count += $votes['vote_count'];
     }
@@ -171,24 +176,31 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
         case 'up':
           $rating += $votes['vote_sum'];
           break;
+
         case 'down':
           $rating -= $votes['vote_sum'];
           break;
+
         case 'star1':
           $rating += ($votes['vote_sum'] * 1);
           break;
+
         case 'star2':
           $rating += ($votes['vote_sum'] * 2);
           break;
+
         case 'star3':
           $rating += ($votes['vote_sum'] * 3);
           break;
+
         case 'star4':
           $rating += ($votes['vote_sum'] * 4);
           break;
+
         case 'star5':
           $rating += ($votes['vote_sum'] * 5);
           break;
+
       }
       $count += $votes['vote_count'];
     }
@@ -231,6 +243,7 @@ abstract class SchemaAggregateRatingBase extends SchemaNameBase {
           $rating = $votes[$result_function];
           $count = $votes['vote_count'];
           break;
+
       }
     }
     return [$rating, $count];

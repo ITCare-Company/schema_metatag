@@ -2,8 +2,14 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
+/**
+ * Schema.org AggregateRating trait.
+ */
 trait SchemaAggregateRatingTrait {
 
+  /**
+   * Form keys.
+   */
   public function aggregateRatingFormKeys() {
     return [
       '@type',
@@ -16,6 +22,9 @@ trait SchemaAggregateRatingTrait {
     ];
   }
 
+  /**
+   * Input values.
+   */
   public function aggregateRatingInputValues() {
     return [
       'title' => '',
@@ -26,6 +35,9 @@ trait SchemaAggregateRatingTrait {
     ];
   }
 
+  /**
+   * The form element.
+   */
   public function aggregateRatingForm($input_values) {
 
     $input_values += $this->aggregateRatingInputValues();
@@ -141,8 +153,6 @@ trait SchemaAggregateRatingTrait {
     ];
 
     return $form;
-
   }
-
 
 }

@@ -40,11 +40,8 @@ abstract class SchemaPersonOrgBase extends SchemaNameBase {
     $form = $this->person_org_form($input_values);
     $form['pivot'] = $this->pivotForm($value);
     $form['pivot'] = $this->pivotForm($value);
-    $form['pivot']['#states'] = ['invisible' => [
-      ':input[name="' . $input_values['visibility_selector'] . '"]' => [
-			  'value' => '']
-      ]
-    ];
+    $selector = ':input[name="' . $input_values['visibility_selector'] . '"]';
+    $form['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
 
     return $form;
   }
@@ -52,22 +49,26 @@ abstract class SchemaPersonOrgBase extends SchemaNameBase {
   /**
    * {@inheritdoc}
    */
-  static public function testValue() {
+  public static function testValue() {
     $items = [];
     $keys = self::personOrgFormKeys();
     foreach ($keys as $key) {
       switch ($key) {
         case 'pivot':
           break;
+
         case 'logo':
           $items[$key] = \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaImageBase::testValue();
           break;
+
         case '@type':
           $items[$key] = 'Organization';
           break;
+
         default:
           $items[$key] = parent::testDefaultValue(2, ' ');
           break;
+
       }
     }
     return $items;

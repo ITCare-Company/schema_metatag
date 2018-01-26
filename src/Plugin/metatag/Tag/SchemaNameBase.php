@@ -33,7 +33,7 @@ abstract class SchemaNameBase extends MetaNameBase {
 
       // If the item is an array of values,
       // walk the array and process the values.
-      array_walk_recursive($value, 'static::process_item');
+      array_walk_recursive($value, 'static::processItem');
 
       // See if any nested items need to be pivoted.
       // If pivot is set to 0, it would have been removed as an empty value.
@@ -45,7 +45,7 @@ abstract class SchemaNameBase extends MetaNameBase {
     }
     // Process a simple string.
     else {
-     $this->process_item($value);
+      $this->processItem($value);
     }
     $output = [
       '#tag' => 'meta',
@@ -54,7 +54,7 @@ abstract class SchemaNameBase extends MetaNameBase {
         'content' => static::outputValue($value),
         'group' => $this->group,
         'schema_metatag' => TRUE,
-      ]
+      ],
     ];
 
     return $output;
@@ -78,9 +78,9 @@ abstract class SchemaNameBase extends MetaNameBase {
   }
 
   /**
-   * @inherit
+   * {@inheritdoc}
    */
-  protected function process_item(&$value, $key = 0) {
+  protected function processItem(&$value, $key = 0) {
     // Parse out the image URL, if needed.
     $value = $this->parseImageURLValue($value);
 
@@ -95,6 +95,8 @@ abstract class SchemaNameBase extends MetaNameBase {
   }
 
   /**
+   * parseImageURLValue().
+   *
    * A copy of the base method of the same name, but where $value is passed
    * in instead of assumed to be $this->value().
    */
@@ -142,8 +144,9 @@ abstract class SchemaNameBase extends MetaNameBase {
    * stored value should extend this method and do the transformation here.
    *
    * @param mixed $input_value
-   *   Input value, could be either a string or array. This will be the unserialized
-   *   value stored in the tag configuration, after token replacement.
+   *   Input value, could be either a string or array. This will be the
+   *   unserialized value stored in the tag configuration, after token
+   *   replacement.
    *
    * @return mixed $output_value
    *   Return the (possibly expanded) value which will be rendered in JSON-LD.
@@ -155,11 +158,13 @@ abstract class SchemaNameBase extends MetaNameBase {
   /**
    * Provide a test value for the property that will validate.
    *
-   * Tags like @type that contain values other than simple strings, for instance
-   * a list of allowed options, should extend this method and return a valid value.
+   * Tags like @type that contain values other than simple strings, for
+   * instance a list of allowed options, should extend this method and return
+   * a valid value.
    *
    * @return mixed
-   *   Return the test value, either a string or array, depending on the property.
+   *   Return the test value, either a string or array, depending on the
+   *   property.
    */
   public static function testValue() {
     return static::testDefaultValue(2, ' ');
@@ -168,15 +173,16 @@ abstract class SchemaNameBase extends MetaNameBase {
   /**
    * Provide a random test value.
    *
-   * A helper function to create a random test value. Use the delimiter to create comma-
-   * separated values, or a few "words" separated by spaces.
+   * A helper function to create a random test value. Use the delimiter to
+   *  create comma-separated values, or a few "words" separated by spaces.
    *
    * @param $count
    *   Number of "words"
    * @param $delimiter
    *   Delimiter used to connect "words"
    * @return mixed
-   *   Return the test value, either a string or array, depending on the property.
+   *   Return the test value, either a string or array, depending on the
+   *   property.
    */
   public static function testDefaultValue($count = NULL, $delimiter = NULL) {
     $items = [];

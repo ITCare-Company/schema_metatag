@@ -2,8 +2,14 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
+/**
+ * Schema.org pivot trait.
+ */
 trait SchemaPivotTrait {
 
+  /**
+   * The form element.
+   */
   public function pivotForm($value) {
 
     $form = [

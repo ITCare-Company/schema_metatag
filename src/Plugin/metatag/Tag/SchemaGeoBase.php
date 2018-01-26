@@ -33,11 +33,8 @@ abstract class SchemaGeoBase extends SchemaNameBase {
     $form = $this->geoForm($input_values);
 
     $form['pivot'] = $this->pivotForm($value);
-    $form['pivot']['#states'] = ['invisible' => [
-      ':input[name="' . $input_values['visibility_selector'] . '"]' => [
-			  'value' => '']
-      ]
-    ];
+    $selector = ':input[name="' . $input_values['visibility_selector'] . '"]';
+    $form['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
 
     return $form;
   }
@@ -45,7 +42,7 @@ abstract class SchemaGeoBase extends SchemaNameBase {
   /**
    * {@inheritdoc}
    */
-  static public function testValue() {
+  public static function testValue() {
     $items = [];
     $keys = self::geoFormKeys();
     foreach ($keys as $key) {
@@ -53,9 +50,11 @@ abstract class SchemaGeoBase extends SchemaNameBase {
         case '@type':
           $items[$key] = 'GeoCoordinates';
           break;
+
         default:
           $items[$key] = parent::testDefaultValue(1, '');
           break;
+
       }
     }
     return $items;

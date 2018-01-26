@@ -29,14 +29,11 @@ abstract class SchemaOfferBase extends SchemaNameBase {
       'visibility_selector' => $this->visibilitySelector() . '[@type]',
     ];
 
-    $form = $this->offer_form($input_values);
+    $form = $this->offerForm($input_values);
 
     $form['pivot'] = $this->pivotForm($value);
-    $form['pivot']['#states'] = ['invisible' => [
-      ':input[name="' . $input_values['visibility_selector'] . '"]' => [
-			  'value' => '']
-      ]
-    ];
+    $selector = ':input[name="' . $input_values['visibility_selector'] . '"]';
+    $form['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
 
     return $form;
   }
@@ -44,7 +41,7 @@ abstract class SchemaOfferBase extends SchemaNameBase {
   /**
    * {@inheritdoc}
    */
-  static public function testValue() {
+  public static function testValue() {
     $items = [];
     $keys = self::offerFormKeys();
     foreach ($keys as $key) {
@@ -52,9 +49,11 @@ abstract class SchemaOfferBase extends SchemaNameBase {
         case '@type':
           $items[$key] = 'Offer';
           break;
+
         default:
           $items[$key] = parent::testDefaultValue(2, ' ');
           break;
+
       }
     }
     return $items;

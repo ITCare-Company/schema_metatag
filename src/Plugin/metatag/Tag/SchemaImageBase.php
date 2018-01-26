@@ -37,7 +37,7 @@ abstract class SchemaImageBase extends SchemaNameBase {
   /**
    * {@inheritdoc}
    */
-  static public function testValue() {
+  public static function testValue() {
     $items = [];
     $keys = self::imageFormKeys();
     foreach ($keys as $key) {
@@ -45,12 +45,15 @@ abstract class SchemaImageBase extends SchemaNameBase {
         case '@type':
           $items[$key] = 'ImageObject';
           break;
+
         case 'representativeOfPage':
           $items[$key] = 'True';
           break;
+
         default:
           $items[$key] = parent::testDefaultValue(1, '');
           break;
+
       }
     }
     return $items;

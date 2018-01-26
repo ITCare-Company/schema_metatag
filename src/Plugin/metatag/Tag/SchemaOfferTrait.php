@@ -2,8 +2,14 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
+/**
+ * Schema.org Offer trait.
+ */
 trait SchemaOfferTrait {
 
+  /**
+   * Form keys.
+   */
   public static function offerFormKeys() {
     return [
       '@type',
@@ -15,6 +21,9 @@ trait SchemaOfferTrait {
     ];
   }
 
+  /**
+   * Input values.
+   */
   public function offerInputValues() {
     return [
       'title' => '',
@@ -25,7 +34,10 @@ trait SchemaOfferTrait {
     ];
   }
 
-  public function offer_form($input_values) {
+  /**
+   * The form element.
+   */
+  public function offerForm($input_values) {
 
     $input_values += $this->offerInputValues();
     $value = $input_values['value'];
@@ -90,12 +102,9 @@ trait SchemaOfferTrait {
     // Add #states to show/hide the fields based on the value of @type,
     // if a selector was provided.
     if (!empty($input_values['visibility_selector'])) {
+      $selector = ':input[name="' . $input_values['visibility_selector'] . '"]';
+      $visibility = ['visible' => [$selector => ['value' => 'Offer']]];
       $keys = self::offerFormKeys();
-      $visibility = ['visible' => [
-        ':input[name="' . $input_values['visibility_selector'] . '"]' => [
-								  'value' => 'Offer']
-        ]
-      ];
       foreach ($keys as $key) {
         if ($key != '@type') {
           $form[$key]['#states'] = $visibility;
@@ -104,8 +113,6 @@ trait SchemaOfferTrait {
     }
 
     return $form;
-
   }
-
 
 }

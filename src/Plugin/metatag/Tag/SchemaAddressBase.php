@@ -39,11 +39,9 @@ abstract class SchemaAddressBase extends SchemaNameBase {
     $form = $this->postalAddressForm($input_values);
 
     $form['pivot'] = $this->pivotForm($value);
-    $form['pivot']['#states'] = ['invisible' => [
-      ':input[name="' . $input_values['visibility_selector'] . '"]' => [
-			  'value' => '']
-      ]
-    ];
+
+    $selector = ':input[name="' . $input_values['visibility_selector'] . '"]';
+    $form['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
 
     return $form;
   }
@@ -51,7 +49,7 @@ abstract class SchemaAddressBase extends SchemaNameBase {
   /**
    * {@inheritdoc}
    */
-  static public function testValue() {
+  public static function testValue() {
     $items = [];
     $keys = self::postalAddressFormKeys();
     foreach ($keys as $key) {
@@ -59,9 +57,11 @@ abstract class SchemaAddressBase extends SchemaNameBase {
         case '@type':
           $items[$key] = 'PostalAddress';
           break;
+
         default:
           $items[$key] = parent::testDefaultValue(2, ' ');
           break;
+
       }
     }
     return $items;
