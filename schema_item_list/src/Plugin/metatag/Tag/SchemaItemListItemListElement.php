@@ -12,7 +12,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaItemListElementViewsBase;
  * - 'group' should match the id of the group that defines the Schema.org type.
  *
  * @MetatagTag(
- *   id = "schema_item_list_element",
+ *   id = "schema_item_list_item_list_element",
  *   label = @Translation("itemListElement"),
  *   description = @Translation(""),
  *   name = "itemListElement",
@@ -23,6 +23,6 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaItemListElementViewsBase;
  *   multiple = FALSE
  * )
  */
-class SchemaItemListElement extends SchemaItemListElementViewsBase {
+class SchemaItemListItemListElement extends SchemaItemListElementViewsBase {
 
 }
