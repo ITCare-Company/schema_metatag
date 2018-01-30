@@ -1,8 +1,6 @@
 <?php
 
-namespace Drupal\schema_service\Plugin\metatag\Tag;
-
-use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAggregateRatingVotingApiBase;
+namespace Drupal\schema_votingapi\Plugin\metatag\Tag;
 
 /**
  * Provides a plugin for the 'schema_service_aggregate_rating_votingapi' meta tag.
@@ -14,7 +12,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAggregateRatingVotingApiBase;
  * @MetatagTag(
  *   id = "schema_service_aggregate_rating_votingapi",
  *   label = @Translation("AggregateRating for Voting API"),
- *   description = @Translation("AggregateRating (the numeric AggregateRating of the item), using Voting API to compute the rating. NOTE: This code is very experimental and may not work in all cases."),
+ *   description = @Translation(""),
  *   name = "aggregateRating",
  *   group = "schema_service",
  *   weight = 11,
@@ -23,6 +21,6 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAggregateRatingVotingApiBase;
  *   multiple = FALSE
  * )
  */
-class SchemaServiceAggregateRatingVotingApi extends SchemaAggregateRatingVotingApiBase {
+class SchemaServiceAggregateRatingVotingApi extends SchemaVotingapiAggregateRatingBase {
 
 }

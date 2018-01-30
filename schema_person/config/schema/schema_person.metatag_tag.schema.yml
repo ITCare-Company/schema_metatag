@@ -1,7 +1,9 @@
 # The 'type' should be "label" for short meta tags and "text" for ones which
 # could get longer, especially ones which use a textarea field instead of a
 # textfield.
-
+metatag.metatag_tag.schema_person_aggregate_rating:
+  type: text
+  label: 'aggregateRating'
 metatag.metatag_tag.schema_person_additional_name:
   type: text
   label: 'additionalName'

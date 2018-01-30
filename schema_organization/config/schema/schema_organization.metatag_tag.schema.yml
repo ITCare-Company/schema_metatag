@@ -1,10 +1,12 @@
 # The 'type' should be "label" for short meta tags and "text" for ones which
 # could get longer, especially ones which use a textarea field instead of a
 # textfield.
-
 metatag.metatag_tag.schema_organization_address:
   type: text
   label: 'address'
+metatag.metatag_tag.schema_organization_aggregate_rating:
+  type: text
+  label: 'aggregateRating'
 metatag.metatag_tag.schema_organization_geo:
   type: text
   label: 'geo'

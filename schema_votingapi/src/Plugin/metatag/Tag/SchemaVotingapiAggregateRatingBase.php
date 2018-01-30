@@ -1,20 +1,21 @@
 <?php
 
-namespace Drupal\schema_metatag\Plugin\metatag\Tag;
+namespace Drupal\schema_votingapi\Plugin\metatag\Tag;
 
 use Drupal\schema_metatag\SchemaMetatagManager;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAggregateRatingBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\Core\Entity\ContentEntityType;
 
 /**
- * Provides a plugin for the 'SchemaAggregateRatingBase' meta tag.
+ * Provides a plugin for the 'SchemaVotingapiAggregateRatingBase' meta tag.
  */
-abstract class SchemaAggregateRatingVotingApiBase extends SchemaAggregateRatingBase {
+abstract class SchemaVotingapiAggregateRatingBase extends SchemaAggregateRatingBase {
 
   /**
    * Form keys.
    */
-  public static function aggregateRatingVotingApiFormKeys() {
+  public static function votingapiAggregateRatingFormKeys() {
     $keys = static::aggregateRatingFormKeys();
     return $keys += [
       'votingAPI',
@@ -37,11 +38,11 @@ abstract class SchemaAggregateRatingVotingApiBase extends SchemaAggregateRatingB
 
     // Retrieve the base AggregateRating form.
     $form = $this->aggregateRatingForm($input_values);
+    $form['#description'] = $this->t("AggregateRating (the numeric AggregateRating of the item), using Voting API to compute the rating. NOTE: This code is very experimental and may not work in all cases.");
 
-    // See if VotingAPI is going to be used. If so, we also need to know the
-    // specific voting module to figure out which values to retrieve from the
-    // results. The logic for each of these modules is contained in
-    // SchemaAggregateRatingBase.
+    // Choose voting module to figure out which values to retrieve from the
+    // results. The logic for each of these modules is contained in its own
+    // method.
     $info = static::votingApiModules();
     $options = [];
     foreach ($info as $module_name => $data) {
@@ -49,9 +50,9 @@ abstract class SchemaAggregateRatingVotingApiBase extends SchemaAggregateRatingB
     }
     $form['votingAPI'] = [
       '#type' => 'select',
-      '#title' => $this->t('Use Voting API?'),
+      '#title' => $this->t('Voting API module'),
       '#description' => $this->t('If using Voting API, choose the name of the voting module used for ratings.'),
-      '#empty_option' => t('No'),
+      '#empty_option' => t('- None -'),
       '#empty_value' => '',
       '#options' => $options,
       '#default_value' => !empty($value['votingAPI']) ? $value['votingAPI'] : '',
@@ -60,17 +61,12 @@ abstract class SchemaAggregateRatingVotingApiBase extends SchemaAggregateRatingB
 
     // Add #states to show/hide the fields based on the value of @type,
     // if a selector was provided.
+    $type_visibility = [];
     if (!empty($input_values['visibility_selector'])) {
       $selector = ':input[name="' . $input_values['visibility_selector'] . '"]';
-      $visibility = ['visible' => [$selector => ['value' => 'AggregateRating']]];
-      $form['votingAPI']['#states'] = $visibility;
+      $type_visibility = ['visible' => [$selector => ['value' => 'AggregateRating']]];
+      $form['votingAPI']['#states'] = $type_visibility;
     }
-
-    // Add another selector to show/hide fields based on the value of votingAPI.
-    $selector = $this->visibilitySelector() . '[votingAPI]';
-    $selector = ':input[name="' . $selector . '"]';
-    $votingapi_visibility = ['invisible' => [$selector => ['value' => '']]];
-    $votingapi_invisibility = ['visible' => [$selector => ['value' => '']]];
 
     $options = [];
     $entities = \Drupal::entityTypeManager()->getDefinitions();
@@ -88,7 +84,7 @@ abstract class SchemaAggregateRatingVotingApiBase extends SchemaAggregateRatingB
       '#default_value' => !empty($value['ratingEntityType']) ? $value['ratingEntityType'] : '',
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
       '#description' => $this->t('The type of entity being rated.'),
-      '#states' => $votingapi_visibility,
+      '#states' => $type_visibility,
       '#weight' => 0,
     ];
 
@@ -97,8 +93,8 @@ abstract class SchemaAggregateRatingVotingApiBase extends SchemaAggregateRatingB
     // It is not easy or automatic to populate these values from the voting
     // module results or settings.
 
-    $form['ratingValue']['#states'] = $votingapi_invisibility;
-    $form['ratingCount']['#states'] = $votingapi_invisibility;
+    unset($form['ratingValue']);
+    unset($form['ratingCount']);
 
     return $form;
   }
@@ -126,14 +122,9 @@ abstract class SchemaAggregateRatingVotingApiBase extends SchemaAggregateRatingB
         unset($element['#attributes']['content']['ratingEntityType']);
       }
       if (!empty($voting_api) && !empty($rating_entity_type)) {
-        $moduleHandler = \Drupal::service('module_handler');
-        if (!$moduleHandler->moduleExists($voting_api)) {
-          return $element;
-        }
         if ($entity = \Drupal::routeMatch()->getParameter($rating_entity_type)) {
           $votes = \Drupal::service('plugin.manager.votingapi.resultfunction');
           $results = $votes->getResults($rating_entity_type, $entity->id());
-          dpm($results);
           $info = static::votingApiModules();
           $method = $info[$voting_api]['method'];
           if (!empty($results)) {
@@ -160,17 +151,8 @@ abstract class SchemaAggregateRatingVotingApiBase extends SchemaAggregateRatingB
         'label' => 'Vote Up Down',
         'method' => 'voteUpDown',
       ],
-      'rate' => [
-        'label' => 'Rate',
-        'method' => 'rate',
-      ],
-      'like_and_dislike' => [
-        'label' => 'Like and Dislike',
-        'method' => 'likeAndDislike',
-      ]
     ];
   }
-
 
   /**
    * Get ratings for vote_up_down module.
@@ -178,92 +160,14 @@ abstract class SchemaAggregateRatingVotingApiBase extends SchemaAggregateRatingB
   public function voteUpDown($value, $results, $entity) {
     $rating = 0;
     $count = 0;
-
-    // Get the vud configuration, which identifies the index to use.
-    $config = \Drupal::config('vud.settings');
-    $tag = $config->get('tag');
     foreach ($results as $type => $votes) {
       switch ($type) {
-        case $tag:
-          $rating = $results[$tag]['vote_sum'];
-          $count = $results[$tag]['vote_count'];
+        case 'points':
+          $rating = $votes['vote_sum'];
+          $count = $votes['vote_count'];
           break;
 
       }
-    }
-    return [$rating, $count];
-  }
-
-  /**
-   * Get ratings for like_and_dislike module.
-   */
-  public function likeAndDislike($value, $results, $entity) {
-    $rating = 0;
-    $count = 0;
-
-    // Like and dislike stores votes in 'like' and 'dislike'.
-    foreach ($results as $type => $votes) {
-      switch ($type) {
-        case 'dislike':
-          $rating -= $votes['vote_sum'];
-          break;
-
-        case 'like':
-          $rating += $votes['vote_sum'];
-          break;
-
-      }
-      $count += $votes['vote_count'];
-    }
-    return [$rating, $count];
-  }
-
-  /**
-   * Get ratings for rate module.
-   */
-  public function rate($value, $results, $entity) {
-    $rating = 0;
-    $count = 0;
-
-    // Get rate configuration. Each widget has its own.
-    $config = \Drupal::config('rate.settings');
-    $widget_type = $config->get('widget_type');
-
-    foreach ($results as $type => $votes) {
-      switch ($type) {
-        case 'up':
-          $rating += $votes['vote_sum'];
-          break;
-
-        case 'down':
-          $rating -= $votes['vote_sum'];
-          break;
-
-        case 'star1':
-          $rating += ($votes['vote_sum'] * 1);
-          break;
-
-        case 'star2':
-          $rating += ($votes['vote_sum'] * 2);
-          break;
-
-        case 'star3':
-          $rating += ($votes['vote_sum'] * 3);
-          break;
-
-        case 'star4':
-          $rating += ($votes['vote_sum'] * 4);
-          break;
-
-        case 'star5':
-          $rating += ($votes['vote_sum'] * 5);
-          break;
-
-      }
-      $count += $votes['vote_count'];
-    }
-    if ($widget_type == 'fivestar') {
-      $rating = round(($rating / $count), 1);
     }
     return [$rating, $count];
   }
