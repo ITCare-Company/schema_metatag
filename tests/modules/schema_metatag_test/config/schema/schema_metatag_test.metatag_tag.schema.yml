@@ -22,7 +22,7 @@ metatag.metatag_tag.schema_metatag_test_has_part:
   label: 'hasPart'
 metatag.metatag_tag.schema_metatag_test_has_part_multiple:
   type: text
-  label: 'hasPart'
+  label: 'hasPartMultiple'
 metatag.metatag_tag.schema_metatag_test_image:
   type: text
   label: 'image'

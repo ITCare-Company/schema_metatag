@@ -8,10 +8,9 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaHasPartBase;
  * A metatag tag for testing.
  *
  * @MetatagTag(
- *   id = "schema_metatag_test_has_part_multiple
- ",
+ *   id = "schema_metatag_test_has_part_multiple",
  *   label = @Translation("Schema Metatag Test HasPart"),
- *   name = "hasPart",
+ *   name = "hasPartMultiple",
  *   description = @Translation("Test element"),
  *   group = "schema_metatag_test_group",
  *   weight = 0,
