@@ -266,15 +266,15 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
     return substr_replace($string, '>&', $replacement_pos, 0);
   }
 
- /**
-  * Generates a unique random string containing letters and numbers.
-  *
-  * @param int $length
-  *   Length of random string to generate.
-  *
-  * @return string
-  *   Randomly generated unique string.
-  */
+  /**
+   * Generates a unique random string containing letters and numbers.
+   *
+   * @param int $length
+   *   Length of random string to generate.
+   *
+   * @return string
+   *   Randomly generated unique string.
+   */
   public static function randomMachineName($length = 8) {
     $randomGenerator = new Random();
     return $randomGenerator->name($length, TRUE);

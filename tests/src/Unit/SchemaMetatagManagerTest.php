@@ -126,56 +126,86 @@ class SchemaMetatagManagerTest extends UnitTestCase {
    */
   public function arrayData() {
     $values['Dirty input'] = [
-      ['explode'],
-      ['@type' => ' Organization',
+      [
+        'explode',
+      ],
+      [
+        '@type' => ' Organization',
         'name' => 'test ',
         'description' => 'more text',
       ],
       'a:1:{s:5:"@type";a:1:{s:13:" Organization";a:2:{s:4:"name";s:5:"test ";s:11:"description";s:9:"more text";}}}',
-      ['@type' => 'Organization',
+      [
+        '@type' => 'Organization',
         'name' => 'test',
         'description' => 'more text',
       ],
       'a:1:{s:5:"@type";a:1:{s:12:"Organization";a:2:{s:4:"name";s:4:"test";s:11:"description";s:9:"more text";}}}',
     ];
     $values['Nested array'] = [
-      ['arraytrim', 'serialize', 'unserialize', 'explode', 'recompute'],
-      ['@type' => [
-        'Organization' => [
-          'name' => 'test',
-          'description' => 'more text',
+      [
+        'arraytrim',
+        'serialize',
+        'unserialize',
+        'explode',
+        'recompute',
+      ],
+      [
+        '@type' => [
+          'Organization' => [
+            'name' => 'test',
+            'description' => 'more text',
+          ],
         ],
-      ]],
+      ],
       'a:1:{s:5:"@type";a:1:{s:12:"Organization";a:2:{s:4:"name";s:4:"test";s:11:"description";s:9:"more text";}}}',
-      ['@type' => ['Organization' => ['name' => 'test', 'description' => 'more text']]],
+      [
+        '@type' => [
+          'Organization' => [
+            'name' => 'test',
+            'description' => 'more text',
+          ],
+        ],
+      ],
       'a:1:{s:5:"@type";a:1:{s:12:"Organization";a:2:{s:4:"name";s:4:"test";s:11:"description";s:9:"more text";}}}',
     ];
     $values['Empty array'] = [
-      ['arraytrim', 'serialize', 'unserialize', 'explode'],
-      ['@type' => [
-        'Organization' => [
-          'name' => '',
-          'description' => '',
+      [
+        'arraytrim',
+        'serialize',
+        'unserialize',
+        'explode',
+      ],
+      [
+        '@type' => [
+          'Organization' => [
+            'name' => '',
+            'description' => '',
+          ],
         ],
-      ]],
+      ],
       'a:1:{s:5:"@type";a:1:{s:12:"Organization";a:2:{s:4:"name";s:0:"";s:11:"description";s:0:"";}}}',
       [],
       '',
     ];
     $values['Empty parts'] = [
       ['recompute'],
-      ['@type' => [
-        'Organization' => [
-          'name' => 'test',
-          'description' => '',
+      [
+        '@type' => [
+          'Organization' => [
+            'name' => 'test',
+            'description' => '',
+          ],
         ],
-      ]],
+      ],
       'a:1:{s:5:"@type";a:1:{s:12:"Organization";a:2:{s:4:"name";s:4:"test";s:11:"description";s:0:"";}}}',
-      ['@type' => [
-        'Organization' => [
-          'description' => 'more text',
+      [
+        '@type' => [
+          'Organization' => [
+            'description' => 'more text',
+          ],
         ],
-      ]],
+      ],
       'a:1:{s:5:"@type";a:1:{s:12:"Organization";a:1:{s:11:"description";s:9:"more text";}}}',
     ];
     return $values;
