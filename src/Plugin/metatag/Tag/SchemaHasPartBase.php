@@ -26,16 +26,14 @@ abstract class SchemaHasPartBase extends SchemaNameBase {
    * {@inheritdoc}
    */
   public static function testValue() {
-    return parent::testDefaultValue(1, '');
+    return parent::testDefaultValue(3, ',');
   }
 
   /**
    * {@inheritdoc}
    */
   public static function outputValue($input_value) {
-    $items = [];
-    $class_names = (array) SchemaMetatagManager::explode($input_value);
-    foreach ($class_names as $class_name) {
+    foreach ( (array) $input_value as $class_name) {
       $items[] = [
         '@type' => 'WebPageElement',
         'isAccessibleForFree' => 'False',

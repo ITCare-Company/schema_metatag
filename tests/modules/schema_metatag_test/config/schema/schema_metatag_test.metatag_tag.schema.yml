@@ -20,6 +20,9 @@ metatag.metatag_tag.schema_metatag_test_geo:
 metatag.metatag_tag.schema_metatag_test_has_part:
   type: text
   label: 'hasPart'
+metatag.metatag_tag.schema_metatag_test_has_part_multiple:
+  type: text
+  label: 'hasPart'
 metatag.metatag_tag.schema_metatag_test_image:
   type: text
   label: 'image'
