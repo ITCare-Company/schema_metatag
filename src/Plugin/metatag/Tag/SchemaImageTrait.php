@@ -75,7 +75,7 @@ trait SchemaImageTrait {
       '#default_value' => !empty($value['url']) ? $value['url'] : '',
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
-      '#description' => $this->t('Absolute URL of the image.'),
+      '#description' => $this->t('Absolute URL of the image. If using tokens include the image preset name, and the URL attribute. [node:field_name:image_preset_name:url]. If using referenced entities like Media or Paragraphs, your token would look like [node:field_name:entity:field_name:image_preset_name:url].'),
     ];
 
     $form['width'] = [
