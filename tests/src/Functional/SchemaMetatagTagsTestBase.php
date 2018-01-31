@@ -49,10 +49,10 @@ abstract class SchemaMetatagTagsTestBase extends BrowserTestBase {
    * Convert the tag_name into the camelCase key used in the JSON array.
    *
    * @param string $tag_name
-   *  The name of the tag.
+   *   The name of the tag.
    *
    * @return string
-   *  The key used in the JSON array for this tag.
+   *   The key used in the JSON array for this tag.
    */
   public function getKey($tag_name) {
     $replace = [

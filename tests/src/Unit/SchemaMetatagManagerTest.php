@@ -15,7 +15,6 @@ class SchemaMetatagManagerTest extends UnitTestCase {
 
   /**
    * @covers ::pivot
-   *
    * @dataProvider pivotData
    */
   public function testPivot($original, $desired) {
@@ -25,7 +24,6 @@ class SchemaMetatagManagerTest extends UnitTestCase {
 
   /**
    * @covers ::explode
-   *
    * @dataProvider stringData
    */
   public function testExplode($original, $desired) {
@@ -35,7 +33,6 @@ class SchemaMetatagManagerTest extends UnitTestCase {
 
   /**
    * @covers ::arrayTrim
-   *
    * @dataProvider arrayData
    */
   public function testArrayTrim($tests, $original, $original_serialized, $desired, $desired_serialized) {
@@ -49,7 +46,6 @@ class SchemaMetatagManagerTest extends UnitTestCase {
 
   /**
    * @covers ::unserialize
-   *
    * @dataProvider arrayData
    */
   public function testUnserialize($tests, $original, $original_serialized, $desired, $desired_serialized) {
@@ -63,7 +59,6 @@ class SchemaMetatagManagerTest extends UnitTestCase {
 
   /**
    * @covers ::serialize
-   *
    * @dataProvider arrayData
    */
   public function testSerialize($tests, $original, $original_serialized, $desired, $desired_serialized) {

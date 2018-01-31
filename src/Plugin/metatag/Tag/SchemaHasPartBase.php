@@ -33,7 +33,10 @@ abstract class SchemaHasPartBase extends SchemaNameBase {
    * {@inheritdoc}
    */
   public static function outputValue($input_value) {
-    foreach ( (array) $input_value as $class_name) {
+    if (is_string($input_value)) {
+      $input_value = SchemaMetatag::explode($input_value);
+    }
+    foreach ((array) $input_value as $class_name) {
       $items[] = [
         '@type' => 'WebPageElement',
         'isAccessibleForFree' => 'False',

@@ -14,7 +14,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public static function parseJsonld( array &$elements) {
+  public static function parseJsonld(array &$elements) {
     // Elements are in indeterminable order.
     // First time through, collect and nest by group.
     $schema_metatags = [];
@@ -45,7 +45,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public static function encodeJsonld( array $items) {
+  public static function encodeJsonld(array $items) {
     // If some group has been found, render the JSON LD,
     // otherwise return nothing.
     if (!empty($items)) {
