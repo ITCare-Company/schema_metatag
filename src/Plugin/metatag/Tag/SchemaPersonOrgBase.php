@@ -3,7 +3,6 @@
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 use Drupal\schema_metatag\SchemaMetatagManager;
-use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaImageBase;
 
 /**
  * Schema.org Person/Org items should extend this class.

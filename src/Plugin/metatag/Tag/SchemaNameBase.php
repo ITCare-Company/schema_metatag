@@ -82,7 +82,7 @@ abstract class SchemaNameBase extends MetaNameBase {
    */
   protected function processItem(&$value, $key = 0) {
     // Parse out the image URL, if needed.
-    $value = $this->parseImageURLValue($value);
+    $value = $this->parseImageUrlValue($value);
 
     $value = trim($value);
 
@@ -100,7 +100,7 @@ abstract class SchemaNameBase extends MetaNameBase {
    * A copy of the base method of the same name, but where $value is passed
    * in instead of assumed to be $this->value().
    */
-  protected function parseImageURLValue($value) {
+  protected function parseImageUrlValue($value) {
 
     // If this contains embedded image tags, extract the image URLs.
     if ($this->type() === 'image') {
@@ -148,7 +148,7 @@ abstract class SchemaNameBase extends MetaNameBase {
    *   unserialized value stored in the tag configuration, after token
    *   replacement.
    *
-   * @return mixed $output_value
+   * @return mixed
    *   Return the (possibly expanded) value which will be rendered in JSON-LD.
    */
   public static function outputValue($input_value) {
@@ -177,9 +177,9 @@ abstract class SchemaNameBase extends MetaNameBase {
    * create comma-separated values, or a few "words" separated by spaces.
    *
    * @param int $count
-   *   Number of "words"
+   *   Number of "words".
    * @param int $delimiter
-   *   Delimiter used to connect "words"
+   *   Delimiter used to connect "words".
    *
    * @return mixed
    *   Return the test value, either a string or array, depending on the
@@ -195,4 +195,5 @@ abstract class SchemaNameBase extends MetaNameBase {
     }
     return implode($delimiter, $items);
   }
+
 }

@@ -18,18 +18,18 @@ interface SchemaMetatagManagerInterface {
    * @return array
    *   Array of Schema metatag tags, ready to be turned into JSON LD.
    */
-  public static function parseJsonld(&$elements);
+  public static function parseJsonld( array &$elements);
 
   /**
    * Convert a metatags-style data array to JSON LD.
    *
-   * @param $items
+   * @param array $items
    *   Array of Schema metatag tags, ready to be turned into JSON LD.
    *
    * @return string
    *   Json-encoded representation of the structured data.
    */
-  public static function encodeJsonld($items);
+  public static function encodeJsonld( array $items);
 
   /**
    * Create the JSON LD render array.
@@ -77,6 +77,7 @@ interface SchemaMetatagManagerInterface {
    * If the result is an empty array, the nested array is completely empty.
    */
   public static function arrayTrim($input);
+
   /**
    * Update serialized item length computations.
    *

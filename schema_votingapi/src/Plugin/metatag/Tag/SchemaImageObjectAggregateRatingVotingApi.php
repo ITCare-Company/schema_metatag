@@ -3,7 +3,7 @@
 namespace Drupal\schema_votingapi\Plugin\metatag\Tag;
 
 /**
- * Provides a plugin for the 'schema_image_object_aggregate_rating_votingapi' meta tag.
+ * Provides a plugin for 'schema_image_object_aggregate_rating_votingapi'.
  *
  * - 'id' should be a globally unique id.
  * - 'name' should match the Schema.org element name.

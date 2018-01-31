@@ -196,6 +196,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
           return TRUE;
         }
         break;
+
       case 'b':
       case 'i':
       case 'd':
@@ -203,6 +204,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
           return TRUE;
         }
         break;
+
     }
     return FALSE;
   }

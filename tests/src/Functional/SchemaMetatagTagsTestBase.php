@@ -26,16 +26,22 @@ abstract class SchemaMetatagTagsTestBase extends BrowserTestBase {
 
   /**
    * The name of the module being tested.
+   *
+   * @var string
    */
   public $moduleName = '';
 
   /**
    * The namespace of the tags which will be tested.
+   *
+   * @var string
    */
   public $schemaTagsNamespace = '';
 
   /**
    * All of the individual tags which will be tested.
+   *
+   * @var array
    */
   public $schemaTags = [];
 
@@ -44,7 +50,7 @@ abstract class SchemaMetatagTagsTestBase extends BrowserTestBase {
    *
    * @param string $tag_name
    *
-   * @return string $key
+   * @return string
    */
   public function getKey($tag_name) {
     $replace = [
@@ -90,8 +96,7 @@ abstract class SchemaMetatagTagsTestBase extends BrowserTestBase {
   }
 
   /**
-   * Confirm that each tag can be saved and that the output of each tag is
-   * correct.
+   * Confirm that tags can be saved and that the output of each tag is correct.
    */
   public function testTagsInputOutput() {
 
@@ -230,8 +235,8 @@ abstract class SchemaMetatagTagsTestBase extends BrowserTestBase {
   }
 
  /**
-  * A way to clear caches.
-  */
+   * A way to clear caches.
+   */
   protected function clear() {
     $this->rebuildContainer();
   }

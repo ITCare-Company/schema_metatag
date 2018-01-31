@@ -3,10 +3,9 @@
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 use Drupal\schema_metatag\SchemaMetatagManager;
-use Drupal\field\Entity\FieldConfig;
 
 /**
- * Provides a plugin for the 'SchemaAggregateRating' meta tag.
+ * Provides a plugin to extend for the 'aggregateRating' meta tag.
  */
 abstract class SchemaAggregateRatingBase extends SchemaNameBase {
 

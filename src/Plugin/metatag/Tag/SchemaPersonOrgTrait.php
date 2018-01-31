@@ -45,13 +45,9 @@ trait SchemaPersonOrgTrait {
     $value = $input_values['value'];
 
     // Get the id for the nested @type element.
-    $selector = $this->visibilitySelector() . '[@type]';
-    $visibility = ['invisible' => [
-      ":input[name='$selector']" => ['value' => '']]
-    ];
-    $org_visibility = ['visible' => [
-      ":input[name='$selector']" => ['value' => 'Organization']]
-    ];
+    $selector = ':input[name=' . $this->visibilitySelector() . '[@type]' . ']';
+    $visibility = ['invisible' => [$selector  => ['value' => '']]];
+    $org_visibility = ['visible' => [$selector => ['value' => 'Organization']]];
 
     $form['#type'] = 'fieldset';
     $form['#title'] = $input_values['title'];

@@ -3,8 +3,6 @@
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 use Drupal\schema_metatag\SchemaMetatagManager;
-use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAddressBase;
-use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaGeoBase;
 
 /**
  * Schema.org Place items should extend this class.

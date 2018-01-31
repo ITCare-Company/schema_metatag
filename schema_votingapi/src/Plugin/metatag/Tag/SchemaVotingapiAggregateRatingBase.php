@@ -8,7 +8,7 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\Core\Entity\ContentEntityType;
 
 /**
- * Provides a plugin for the 'SchemaVotingapiAggregateRatingBase' meta tag.
+ * Provides a plugin for 'SchemaVotingapiAggregateRatingBase'.
  */
 abstract class SchemaVotingapiAggregateRatingBase extends SchemaAggregateRatingBase {
 
@@ -46,7 +46,7 @@ abstract class SchemaVotingapiAggregateRatingBase extends SchemaAggregateRatingB
     $info = static::votingApiModules();
     $options = [];
     foreach ($info as $module_name => $data) {
-      $options[$module_name] = $this->t($data['label']);
+      $options[$module_name] = $data['label'];
     }
     $form['votingAPI'] = [
       '#type' => 'select',
@@ -92,7 +92,6 @@ abstract class SchemaVotingapiAggregateRatingBase extends SchemaAggregateRatingB
     // For now leave bestRating and worstRating to be filled out manually.
     // It is not easy or automatic to populate these values from the voting
     // module results or settings.
-
     unset($form['ratingValue']);
     unset($form['ratingCount']);
 
