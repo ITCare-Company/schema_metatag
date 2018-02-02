@@ -34,7 +34,7 @@ abstract class SchemaHasPartBase extends SchemaNameBase {
    */
   public static function outputValue($input_value) {
     if (is_string($input_value)) {
-      $input_value = SchemaMetatag::explode($input_value);
+      $input_value = SchemaMetatagManager::explode($input_value);
     }
     foreach ((array) $input_value as $class_name) {
       $items[] = [

@@ -20,4 +20,5 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaHasPartBase;
  * )
  */
 class SchemaMetatagTestHasPartMultiple extends SchemaHasPartBase {
+
 }
