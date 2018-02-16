@@ -4,9 +4,6 @@
 metatag.metatag_tag.schema_organization_address:
   type: text
   label: 'address'
-metatag.metatag_tag.schema_organization_aggregate_rating:
-  type: text
-  label: 'aggregateRating'
 metatag.metatag_tag.schema_organization_geo:
   type: text
   label: 'geo'
@@ -40,3 +37,9 @@ metatag.metatag_tag.schema_organization_type:
 metatag.metatag_tag.schema_organization_url:
   type: text
   label: 'url'
+metatag.metatag_tag.schema_organization_rating:
+  type: label
+  label: 'rating'
+metatag.metatag_tag.schema_organization_review:
+  type: label
+  label: 'review'

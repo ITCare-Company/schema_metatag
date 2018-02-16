@@ -31,7 +31,8 @@ class SchemaServiceTest extends SchemaMetatagTagsTestBase {
    * {@inheritdoc}
    */
   public $schemaTags = [
-    'schema_service_aggregate_rating' => 'SchemaServiceAggregateRating',
+    'schema_service_rating' => 'SchemaServiceRating',
+    'schema_service_review' => 'SchemaServiceReview',
     'schema_service_description' => 'SchemaServiceDescription',
     'schema_service_image' => 'SchemaServiceImage',
     'schema_service_name' => 'SchemaServiceName',

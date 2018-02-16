@@ -31,7 +31,8 @@ class SchemaPersonTest extends SchemaMetatagTagsTestBase {
    * {@inheritdoc}
    */
   public $schemaTags = [
-    'schema_person_aggregate_rating' => 'SchemaPersonAggregateRating',
+    'schema_person_rating' => 'SchemaPersonRating',
+    'schema_person_review' => 'SchemaPersonReview',
     'schema_person_additional_name' => 'SchemaPersonAdditionalName',
     'schema_person_address' => 'SchemaPersonAddress',
     'schema_person_affiliation' => 'SchemaPersonAffiliation',

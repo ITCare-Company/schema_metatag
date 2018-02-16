@@ -31,7 +31,8 @@ class SchemaProductTest extends SchemaMetatagTagsTestBase {
    * {@inheritdoc}
    */
   public $schemaTags = [
-    'schema_product_aggregate_rating' => 'SchemaProductAggregateRating',
+    'schema_product_rating' => 'SchemaProductRating',
+    'schema_product_review' => 'SchemaProductReview',
     'schema_product_description' => 'SchemaProductDescription',
     'schema_product_image' => 'SchemaProductImage',
     'schema_product_name' => 'SchemaProductName',

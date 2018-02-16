@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Update scripts for the Schema Metatag module.
+ */
+
+use Drupal\metatag\Entity\MetatagDefaults;
+
+/**
+ * Implementions of hook_update_N().
+ */
+
+/**
+ * Rename aggregate_rating tags.
+ *
+ * The "MODULE_aggregate_rating" meta tag is renamed to "MODULE_rating".
+ */
+function schema_metatag_update_8101() {
+  /* @var $configs Drupal\metatag\Entity\MetatagDefaults */
+  $configs = MetatagDefaults::loadMultiple();
+
+  foreach ($configs as $config) {
+    $changed = FALSE;
+    $tags = $config->get('tags');
+    foreach ($tags as $tag_name => $tag) {
+      if (strpos($tag_name, '_aggregate_rating') !== FALSE) {
+        $new_name = str_replace('_aggregate_rating', '_rating', $tag_name);
+        $tags[$new_name] = $tags[$tag_name];
+        unset($tags[$tag_name]);
+        $changed = TRUE;
+      }
+    }
+    if ($changed) {
+      $config->set("tags", $tags);
+      $config->save();
+    }
+  }
+}

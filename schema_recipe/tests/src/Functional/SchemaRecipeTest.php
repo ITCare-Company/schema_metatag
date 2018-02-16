@@ -31,7 +31,8 @@ class SchemaRecipeTest extends SchemaMetatagTagsTestBase {
    * {@inheritdoc}
    */
   public $schemaTags = [
-    'schema_recipe_aggregate_rating' => 'SchemaRecipeAggregateRating',
+    'schema_recipe_rating' => 'SchemaRecipeRating',
+    'schema_recipe_review' => 'SchemaRecipeReview',
     'schema_recipe_author' => 'SchemaRecipeAuthor',
     'schema_recipe_cook_time' => 'SchemaRecipeCookTime',
     'schema_recipe_date_published' => 'SchemaRecipeDatePublished',
