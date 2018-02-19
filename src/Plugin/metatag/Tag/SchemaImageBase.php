@@ -23,10 +23,16 @@ abstract class SchemaImageBase extends SchemaNameBase {
       'description' => $this->description(),
       'value' => SchemaMetatagManager::unserialize($this->value()),
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
-      'visibility_selector' => $this->visibilitySelector() . '[@type]',
+      'visibility_selector' => $this->visibilitySelector(),
     ];
 
     $form = $this->imageForm($input_values);
+
+    if (!empty($this->info['multiple'])) {
+      $form['pivot'] = $this->pivotForm($value);
+      $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
+      $form['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
+    }
 
     return $form;
   }

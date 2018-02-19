@@ -2,6 +2,8 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
+use Drupal\schema_metatag\SchemaMetatagManager;
+
 /**
  * Schema.org Offer trait.
  */
@@ -22,25 +24,16 @@ trait SchemaOfferTrait {
   }
 
   /**
-   * Input values.
-   */
-  public function offerInputValues() {
-    return [
-      'title' => '',
-      'description' => '',
-      'value' => [],
-      '#required' => FALSE,
-      'visibility_selector' => '',
-    ];
-  }
-
-  /**
    * The form element.
    */
   public function offerForm($input_values) {
 
-    $input_values += $this->offerInputValues();
+    $input_values += SchemaMetatagManager::defaultInputValues();
     $value = $input_values['value'];
+
+    // Get the id for the nested @type element.
+    $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
+    $visibility = ['invisible' => [$selector => ['value' => '']]];
 
     $form['#type'] = 'fieldset';
     $form['#title'] = $input_values['title'];
@@ -99,16 +92,10 @@ trait SchemaOfferTrait {
       '#description' => $this->t('The date when the item becomes valid.'),
     ];
 
-    // Add #states to show/hide the fields based on the value of @type,
-    // if a selector was provided.
-    if (!empty($input_values['visibility_selector'])) {
-      $selector = ':input[name="' . $input_values['visibility_selector'] . '"]';
-      $visibility = ['visible' => [$selector => ['value' => 'Offer']]];
-      $keys = self::offerFormKeys();
-      foreach ($keys as $key) {
-        if ($key != '@type') {
-          $form[$key]['#states'] = $visibility;
-        }
+    $keys = static::offerFormKeys();
+    foreach ($keys as $key) {
+      if ($key != '@type') {
+        $form[$key]['#states'] = $visibility;
       }
     }
 

@@ -22,7 +22,7 @@ abstract class SchemaRatingBase extends SchemaNameBase {
       'description' => $this->description(),
       'value' => $value,
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
-      'visibility_selector' => $this->visibilitySelector() . '[@type]',
+      'visibility_selector' => $this->visibilitySelector(),
     ];
 
     $form = parent::form($element);
@@ -30,7 +30,7 @@ abstract class SchemaRatingBase extends SchemaNameBase {
 
     if (!empty($this->info['multiple'])) {
       $form['pivot'] = $this->pivotForm($value);
-      $selector = ':input[name="' . $input_values['visibility_selector'] . '"]';
+      $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
       $form['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
     }
 

@@ -30,15 +30,16 @@ abstract class SchemaAddressBase extends SchemaNameBase {
       'description' => $this->description(),
       'value' => $value,
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
-      'visibility_selector' => $this->visibilitySelector() . '[@type]',
+      'visibility_selector' => $this->visibilitySelector(),
     ];
 
     $form = $this->postalAddressForm($input_values);
 
-    $form['pivot'] = $this->pivotForm($value);
-
-    $selector = ':input[name="' . $input_values['visibility_selector'] . '"]';
-    $form['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
+    if (!empty($this->info['multiple'])) {
+      $form['pivot'] = $this->pivotForm($value);
+      $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
+      $form['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
+    }
 
     return $form;
   }
