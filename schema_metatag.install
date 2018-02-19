@@ -37,3 +37,11 @@ function schema_metatag_update_8101() {
     }
   }
 }
+
+/**
+ * Warning about deprecation of the Schema.org VotingAPI module.
+ */
+function schema_metatag_update_8102() {
+  return (string) t("The Schema.org VotingAPI module has been deprecated and will be removed in a future release. Please uninstall it.");
+}
+
