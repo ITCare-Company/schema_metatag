@@ -55,17 +55,15 @@ abstract class SchemaMetatagTagsTestBase extends BrowserTestBase {
    *   The key used in the JSON array for this tag.
    */
   public function getKey($tag_name) {
-    $replace = [
-      '_type' => '_@type',
-      '_id' => '_@id',
-    ];
-    $key = strtr($tag_name, $replace);
-    $key = str_replace($this->moduleName . '_', '', $key);
+    $key = str_replace($this->moduleName . '_', '', $tag_name);
     $parts = explode('_', $key);
     foreach ($parts as $i => $part) {
       $parts[$i] = $i > 0 ? ucfirst($part) : $part;
     }
     $key = implode($parts);
+    if (in_array($key, ['type', 'id'])) {
+      $key = '@' . $key;
+    }
     return $key;
   }
 
