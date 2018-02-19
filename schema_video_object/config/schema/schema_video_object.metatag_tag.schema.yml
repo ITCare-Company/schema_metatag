@@ -43,3 +43,6 @@ metatag.metatag_tag.schema_video_object_rating:
 metatag.metatag_tag.schema_video_object_review:
   type: label
   label: 'review'
+metatag.metatag_tag.schema_video_object_transcript:
+  type: text
+  label: 'transcript'

@@ -45,6 +45,7 @@ class SchemaVideoObjectTest extends SchemaMetatagTagsTestBase {
     'schema_video_object_thumbnail_url' => 'SchemaVideoObjectThumbnailUrl',
     'schema_video_object_type' => 'SchemaVideoObjectType',
     'schema_video_object_upload_date' => 'SchemaVideoObjectUploadDate',
+    'schema_video_object_transcript' => 'SchemaVideoObjectTranscript',
   ];
 
 }
