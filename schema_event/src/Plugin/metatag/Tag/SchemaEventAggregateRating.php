@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_event\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAggregateRatingBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaRatingBase;
 
 /**
  * Provides a plugin for the 'schema_event_aggregate_rating' meta tag.
@@ -23,6 +23,6 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaAggregateRatingBase;
  *   multiple = FALSE
  * )
  */
-class SchemaEventAggregateRating extends SchemaAggregateRatingBase {
+class SchemaEventAggregateRating extends SchemaRatingBase {
 
 }
