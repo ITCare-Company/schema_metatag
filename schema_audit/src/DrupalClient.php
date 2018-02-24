@@ -62,30 +62,50 @@ class DrupalClient {
     $items = [];
     if ($directories = $this->getDirectoryList($this->baseUrl, $version)) {
       foreach ($directories as $name => $dir) {
-        $result = [];
-        $module_name = $dir->nodeValue;
-        if (in_array($module_name, ['schema_article_example', 'schema_votingapi', 'schema_audit'])) {
-          continue;
-        }
-        $result['module'] = $module_name;
-        $prefix = $module_name == 'src' ? $this->baseUrl : $this->baseUrl . $module_name;
-        $url = $prefix. '/src/Plugin/metatag/Group';
-        if ($pages = $this->getPageList($url, $version)) {
-          foreach ($pages as $page) {
-            $object = $this->parseClassName($page->nodeValue, '');
-            $class = str_replace('.php', '', $page->nodeValue);
-            $result['object'] = $object;
-            $result['class'] = $class;
+        // Base items
+        if ($name == 'src') {
+          $module_name = 'schema_metatag';
+          $prefix = $this->baseUrl;
+          $tag_url = $prefix . '/src/Plugin/metatag/Tag';
+          if ($tags = $this->getPageList($tag_url, $version)) {
+            foreach ($tags as $tag_name => $tag) {
+              $results = $this->getBaseResults($tag_name);
+              foreach ($results as $result) {
+                $items[$result['object']] = $result;
+              }
+            }
           }
         }
-        $tag_url = $prefix . '/src/Plugin/metatag/Tag';
-        if ($tags = $this->getPageList($tag_url, $version)) {
-          foreach ($tags as $tag_name => $tag) {
-            $name = lcfirst($this->parseClassName($tag_name, $module_name));
-            $result['properties'][$name] = $name;
+        // Modules
+        else {
+          $result = [];
+          $module_name = $dir->nodeValue;
+          if (in_array($module_name, ['schema_article_example', 'schema_votingapi', 'schema_audit'])) {
+            continue;
           }
+          $result['module'] = $module_name;
+          $prefix = $this->baseUrl . $module_name;
+          $url = $prefix. '/src/Plugin/metatag/Group';
+          if ($pages = $this->getPageList($url, $version)) {
+            foreach ($pages as $page) {
+              $object = $this->parseClassName($page->nodeValue, '');
+              $class = str_replace('.php', '', $page->nodeValue);
+              $result['object'] = $object;
+              $result['class'] = $class;
+            }
+          }
+          $tag_url = $prefix . '/src/Plugin/metatag/Tag';
+          if ($tags = $this->getPageList($tag_url, $version)) {
+            foreach ($tags as $tag_name => $tag) {
+              $name = lcfirst($this->parseClassName($tag_name, $module_name));
+              if (in_array($name, ['type', 'id'])) {
+                $name = '@' . $name;
+              }
+              $result['properties'][$name] = $name;
+            }
+          }
+          $items[$object] = $result;
         }
-        $items[$object] = $result;
       }
     }
     return $items;
@@ -227,4 +247,165 @@ class DrupalClient {
     return $items;
   }
 
+  /**
+   * Get objects and properties for base items.
+   *
+   * Only define these for base items that are not already represented
+   * by a primary object in a module. There is no easy or automatic way
+   * to discovery these, so just do this statically in code. This will
+   * need to be updated for new base classes as they are added.
+   *
+   * @param string
+   *   The name of the base file.
+   *
+   * @return array
+   *   Return array of object and properties defined by the base module.
+   */
+  public function getBaseResults($name) {
+
+    $result = [];
+    switch ($name) {
+      case 'SchemaAddressBase.php':
+        $result['PostalAddress'] = [
+          'module' => 'schema_metatag',
+          'object' => 'PostalAddress',
+          'class' => 'SchemaAddressBase',
+          'properties' => [
+            '@type',
+            'streetAddress',
+            'addressLocality',
+            'addressRegion',
+            'postalCode',
+            'addressCountry',
+          ],
+        ];
+        break;
+
+      case 'SchemaGeoBase.php':
+        $result['Geo'] = [
+          'module' => 'schema_metatag',
+          'object' => 'Geo',
+          'class' => 'SchemaGeoBase',
+          'properties' => [
+            '@type',
+            'latitude',
+            'longitude',
+          ],
+        ];
+        break;
+
+      case 'SchemaHasPartBase.php':
+        $result['WebPageElement'] = [
+          'module' => 'schema_metatag',
+          'object' => 'postalAddress',
+          'class' => 'postalAddress',
+          'properties' => [
+             'isAccessibleForFree',
+             'cssSelector',
+          ],
+        ];
+        break;
+
+      case 'SchemaItemListElementBase.php':
+        $result['ListItem'] = [
+          'module' => 'schema_metatag',
+          'object' => 'ListItem',
+          'class' => 'SchemaItemListElementBase',
+          'properties' => [
+            '@type',
+            'position',
+            'item',
+          ],
+        ];
+        break;
+
+      case 'SchemaItemListElementBreadcrumbBase.php':
+        $result['BreadcrumbList'] = [
+          'module' => 'schema_metatag',
+          'object' => 'BreadcrumbList',
+          'class' => 'SchemaItemListElementBreadcrumbBase',
+          'properties' => [
+            '@type',
+            'itemListElement',
+          ],
+        ];
+        break;
+
+      case 'SchemaItemListElementViewsBase.php':
+        $result['itemListElement'] = [
+          'module' => 'schema_metatag',
+          'object' => 'itemListElement',
+          'class' => 'SchemaItemListElementViewsBase',
+          'properties' => [
+            '@type',
+            '@id',
+            'url',
+          ],
+        ];
+        break;
+
+      case 'SchemaOfferBase.php':
+        $result['Offer'] = [
+          'module' => 'schema_metatag',
+          'object' => 'Offer',
+          'class' => 'SchemaOfferBase',
+          'properties' => [
+            '@type',
+            'price',
+            'priceCurrency',
+            'url',
+            'availability',
+            'validFrom',
+          ],
+        ];
+        break;
+
+      case 'SchemaPlaceBase.php':
+        $result['Place'] = [
+          'module' => 'schema_metatag',
+          'object' => 'Place',
+          'class' => 'SchemaPlaceBase',
+          'properties' => [
+            '@type',
+            'name',
+            'url',
+            'address',
+            'geo',
+          ],
+        ];
+        break;
+
+      case 'SchemaRatingBase.php':
+        $result['Rating'] = [
+          'module' => 'schema_metatag',
+          'object' => 'Rating',
+          'class' => 'SchemaRatingBase',
+          'properties' => [
+            '@type',
+            'ratingValue',
+            'bestRating',
+            'worstRating',
+            'ratingCount',
+          ],
+        ];
+        $result['AggregateRating'] = [
+          'module' => 'schema_metatag',
+          'object' => 'AggregateRating',
+          'class' => 'SchemaRatingBase',
+          'properties' => [
+            '@type',
+            'ratingValue',
+            'bestRating',
+            'worstRating',
+            'ratingCount',
+          ],
+        ];
+        break;
+
+    }
+    foreach ($result as $object => $item) {
+      $result[$object]['properties'] = array_combine($result[$object]['properties'], $result[$object]['properties']);
+    }
+    return $result;
+  }
 }

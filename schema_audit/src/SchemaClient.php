@@ -170,30 +170,37 @@ class SchemaClient {
     $list = (array) $this->getOptionList($objects, $i);
     $list = array_merge([$i], $list);
     $list = ['#theme' => 'item_list', '#items' => $list];
-    $count = count($all_properties);
+    $mismatch = [];
+    $count = count($all_properties) + 1;
     $delta = 0;
     // See if there is a comparable Drupal object.
     $drupal_item = '';
     if (array_key_exists($i, $drupal)) {
       $drupal_item = $drupal[$i];
+      foreach ($drupal_item['properties'] as $name => $item) {
+        $mismatch[$name] = $name;
+      }
     }
     foreach ($all_properties as $property) {
        // See if there is a comparable Drupal property.
       $drupal_property = '';
       $key = $property['property'];
-      if (!empty($drupal_item) && array_key_exists($key, $drupal_item['properties'])) {
-        $drupal_property = 'X'; //$drupal_item['properties'][$key];
+      if (in_array($key, $mismatch)) {
+        unset($mismatch[$key]);
       }
-      $selected = !empty($drupal_item) ? 'X' : '';
+      if (!empty($drupal_item) && array_key_exists($key, $drupal_item['properties'])) {
+        $drupal_property = $drupal_item['module']; //'X'; //$drupal_item['properties'][$key];
+      }
+      $selected = !empty($drupal_item) ? $drupal_item['module'] : '';
       $class = !empty($selected) ? ['selected'] : ['empty'];
       $property_class = !empty($drupal_property) ? ['selected'] : ['empty'];
       if ($delta == 0) {
         $class[] = 'first';
         $class_checkbox = $class;
-        $class_checkbox[] = 'checkbox';
+        //$class_checkbox[] = 'checkbox';
         $property_class[] = 'first';
         $property_class_checkbox = $property_class;
-        $property_class_checkbox[] = 'checkbox';
+        //$property_class_checkbox[] = 'checkbox';
         $items[] = [
           ['data' => $selected, 'rowspan' => $count, 'class' => $class_checkbox],
           ['data' => $i, 'rowspan' => $count, 'class' => $class],
@@ -204,7 +211,7 @@ class SchemaClient {
       }
       else {
         $property_class_checkbox = $property_class;
-        $property_class_checkbox[] = 'checkbox';
+        //$property_class_checkbox[] = 'checkbox';
         $items[] = [
           ['data' => $drupal_property, 'class' => $property_class_checkbox],
           ['data' => $property['property'], 'class' => $property_class],
@@ -212,6 +219,11 @@ class SchemaClient {
       }
       $delta++;
     }
+    $mismatch_list = ['#theme' => 'item_list', '#items' => $mismatch];
+    $items[] = [
+      ['data' => $mismatch_list, 'class' => $property_class_checkbox],
+      ['data' => '-', 'class' => $property_class],
+    ];
     return $items;
   }
 
