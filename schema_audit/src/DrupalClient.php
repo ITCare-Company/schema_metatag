@@ -64,7 +64,7 @@ class DrupalClient {
       foreach ($directories as $name => $dir) {
         $result = [];
         $module_name = $dir->nodeValue;
-        if (in_array($module_name, ['schema_article_example', 'schema_votingapi'])) {
+        if (in_array($module_name, ['schema_article_example', 'schema_votingapi', 'schema_audit'])) {
           continue;
         }
         $result['module'] = $module_name;
