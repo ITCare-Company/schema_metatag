@@ -13,8 +13,8 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaRatingBase;
  *
  * @MetatagTag(
  *   id = "schema_event_aggregate_rating",
- *   label = @Translation("AggregateRating"),
- *   description = @Translation("AggregateRating (the numeric AggregateRating of the item)."),
+ *   label = @Translation("aggregateRating"),
+ *   description = @Translation("aggregateRating (the numeric AggregateRating of the item)."),
  *   name = "aggregateRating",
  *   group = "schema_event",
  *   weight = 11,

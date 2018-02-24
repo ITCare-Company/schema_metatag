@@ -40,9 +40,9 @@ metatag.metatag_tag.schema_event_type:
 metatag.metatag_tag.schema_event_url:
   type: text
   label: 'url'
-metatag.metatag_tag.schema_event_rating:
+metatag.metatag_tag.schema_event_aggregate_rating:
   type: label
-  label: 'rating'
+  label: 'aggregateRating'
 metatag.metatag_tag.schema_event_review:
   type: label
   label: 'review'

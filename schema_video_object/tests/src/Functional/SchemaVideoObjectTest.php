@@ -31,7 +31,7 @@ class SchemaVideoObjectTest extends SchemaMetatagTagsTestBase {
    * {@inheritdoc}
    */
   public $schemaTags = [
-    'schema_video_object_rating' => 'SchemaVideoObjectRating',
+    'schema_video_object_aggregate_rating' => 'SchemaVideoObjectAggregateRating',
     'schema_video_object_review' => 'SchemaVideoObjectReview',
     'schema_video_object_content_url' => 'SchemaVideoObjectContentUrl',
     'schema_video_object_description' => 'SchemaVideoObjectDescription',

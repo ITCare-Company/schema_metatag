@@ -19,9 +19,9 @@ metatag.metatag_tag.schema_image_object_url:
 metatag.metatag_tag.schema_image_object_width:
   type: text
   label: 'width'
-metatag.metatag_tag.schema_image_object_rating:
+metatag.metatag_tag.schema_image_object_aggregate_rating:
   type: label
-  label: 'rating'
+  label: 'aggregateRating'
 metatag.metatag_tag.schema_image_object_review:
   type: label
   label: 'review'

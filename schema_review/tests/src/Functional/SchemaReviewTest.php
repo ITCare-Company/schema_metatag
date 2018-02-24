@@ -31,7 +31,7 @@ class SchemaReviewTest extends SchemaMetatagTagsTestBase {
    * {@inheritdoc}
    */
   public $schemaTags = [
-    'schema_review_rating' => 'SchemaReviewRating',
+    'schema_review_review_rating' => 'SchemaReviewReviewRating',
     'schema_review_review_body' => 'SchemaReviewReviewBody',
     'schema_review_date_published' => 'SchemaReviewDatePublished',
     'schema_review_item_reviewed' => 'SchemaReviewItemReviewed',

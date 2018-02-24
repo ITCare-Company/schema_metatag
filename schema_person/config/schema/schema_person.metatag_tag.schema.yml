@@ -55,9 +55,3 @@ metatag.metatag_tag.schema_person_url:
 metatag.metatag_tag.schema_person_works_for:
   type: text
   label: 'works_for'
-metatag.metatag_tag.schema_person_rating:
-  type: label
-  label: 'rating'
-metatag.metatag_tag.schema_person_review:
-  type: label
-  label: 'review'

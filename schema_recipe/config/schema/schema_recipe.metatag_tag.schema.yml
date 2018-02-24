@@ -40,9 +40,9 @@ metatag.metatag_tag.schema_recipe_total_time:
 metatag.metatag_tag.schema_recipe_type:
   type: text
   label: '@type'
-metatag.metatag_tag.schema_recipe_rating:
+metatag.metatag_tag.schema_recipe_aggregate_rating:
   type: label
-  label: 'rating'
+  label: 'aggregateRating'
 metatag.metatag_tag.schema_recipe_review:
   type: label
   label: 'review'

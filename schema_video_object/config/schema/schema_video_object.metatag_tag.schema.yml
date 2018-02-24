@@ -37,9 +37,9 @@ metatag.metatag_tag.schema_video_object_type:
 metatag.metatag_tag.schema_video_object_upload_date:
   type: text
   label: 'uploadDate'
-metatag.metatag_tag.schema_video_object_rating:
+metatag.metatag_tag.schema_video_object_aggregate_rating:
   type: label
-  label: 'rating'
+  label: 'aggregateRating'
 metatag.metatag_tag.schema_video_object_review:
   type: label
   label: 'review'

@@ -49,6 +49,8 @@ class SchemaMetatagTagsTest extends SchemaMetatagTagsTestBase {
     'schema_metatag_test_name' => 'SchemaMetatagTestName',
     'schema_metatag_test_offer' => 'SchemaMetatagTestOffer',
     'schema_metatag_test_organization' => 'SchemaMetatagTestPersonOrg',
+    'schema_metatag_test_aggregate_rating' => 'SchemaMetatagTestAggregateRating',
+    'schema_metatag_test_review' => 'SchemaMetatagTestReview',
     'schema_metatag_test_place' => 'SchemaMetatagTestPlace',
   ];
 

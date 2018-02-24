@@ -16,9 +16,9 @@ metatag.metatag_tag.schema_service_offers:
 metatag.metatag_tag.schema_service_type:
   type: text
   label: '@type'
-metatag.metatag_tag.schema_service_rating:
+metatag.metatag_tag.schema_service_aggregate_rating:
   type: label
-  label: 'rating'
+  label: 'aggregateRating'
 metatag.metatag_tag.schema_service_review:
   type: label
   label: 'review'

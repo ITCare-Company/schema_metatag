@@ -32,7 +32,7 @@ class SchemaOrganizationTest extends SchemaMetatagTagsTestBase {
    */
   public $schemaTags = [
     'schema_organization_address' => 'SchemaOrganizationAddress',
-    'schema_organization_rating' => 'SchemaOrganizationRating',
+    'schema_organization_aggregate_rating' => 'SchemaOrganizationAggregateRating',
     'schema_organization_review' => 'SchemaOrganizationReview',
     'schema_organization_geo' => 'SchemaOrganizationGeo',
     'schema_organization_id' => 'SchemaOrganizationId',

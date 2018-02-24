@@ -45,3 +45,37 @@ function schema_metatag_update_8102() {
   return (string) t("The Schema.org VotingAPI module has been deprecated and will be removed in a future release. Please uninstall it.");
 }
 
+/**
+ * Rename aggregate_rating tags again.
+ *
+ * The "MODULE_rating" meta tag is renamed to "MODULE_aggregate_rating" and
+ * review:rating should be review:reviewRating.
+ */
+function schema_metatag_update_8103() {
+  /* @var $configs Drupal\metatag\Entity\MetatagDefaults */
+  $configs = MetatagDefaults::loadMultiple();
+
+  foreach ($configs as $config) {
+    $changed = FALSE;
+    $tags = $config->get('tags');
+    foreach ($tags as $tag_name => $tag) {
+      if ($tag_name == 'schema_review_rating') {
+        $tags['schema_review_review_rating'] = $tags['schema_review_rating'];
+        unset($tags['schema_review_rating']);
+        $changed = TRUE;
+      }
+      elseif (strpos($tag_name, '_rating') !== FALSE) {
+        $new_name = str_replace('_rating', '_aggregate_rating', $tag_name);
+        $tags[$new_name] = $tags[$tag_name];
+        unset($tags[$tag_name]);
+        $changed = TRUE;
+      }
+    }
+    if ($changed) {
+      $config->set("tags", $tags);
+      $config->save();
+    }
+  }
+}
+
+
