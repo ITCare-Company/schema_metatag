@@ -118,7 +118,7 @@ class SchemaClient {
    * @return array
    *   An array of rows suitable for theme_table.
    */
-  public function getSchemaTable($drupal) {
+  public function getSchemaTable($drupal, $google) {
     $items = [];
     $data = $this->getLocalResponse();
     $objects = $this->getObjects($data);
@@ -131,31 +131,44 @@ class SchemaClient {
     foreach ($tree as $i => $branch) {
       $properties1 = array_key_exists($i, $properties) ? $properties[$i] : [];
       $all_properties = $properties1 + $thing_properties;
-      $cells = $this->getCells($i, $all_properties, $objects, $properties, $drupal);
+      $cells = $this->getCells($i, $all_properties, $objects, $properties, $drupal, $google);
       $items = array_merge($items, $cells);
 
       // For some objects, stop after highest level.
-      if (in_array($i, ['Organization', 'Action', 'Place', 'Event'])) {
+      $top_level = ['Place', 'Event'];
+      if (in_array($i, $top_level)) {
         continue;
       }
       // For all objects but the ones above go down to the second level.
       foreach ($branch as $i2 => $branch2) {
         $properties2 = array_key_exists($i2, $properties) ? $properties[$i2] : [];
         $all_properties = $properties2 + $properties1 + $thing_properties;
-        $cells = $this->getCells($i2, $all_properties, $objects, $properties, $drupal);
+        $cells = $this->getCells($i2, $all_properties, $objects, $properties, $drupal, $google);
         $items = array_merge($items, $cells);
 
         // Keep going only if we need a third level.
-        if (!in_array($i2, ['MediaObject', 'HowTo'])) {
+        $third_level_parents = [
+          'MediaObject',
+          'HowTo',
+          'MusicPlaylist',
+          'StructuredValue',
+        ];
+        if (!in_array($i2, $third_level_parents)) {
           continue;
         }
 
         foreach ($branch2 as $i3 => $branch3) {
           // These objects go down to the third level.
-          if (in_array($i3, ['ImageObject', 'VideoObject', 'Recipe'])) {
+          $third_level = [
+            'ImageObject',
+            'VideoObject',
+            'Recipe',
+            'ContactPoint',
+          ];
+          if (in_array($i3, $third_level)) {
             $properties3 = array_key_exists($i3, $properties) ? $properties[$i3] : [];
             $all_properties = $properties3 + $properties2 + $properties1 + $thing_properties;
-            $cells = $this->getCells($i3, $all_properties, $objects, $properties, $drupal);
+            $cells = $this->getCells($i3, $all_properties, $objects, $properties, $drupal, $google);
             $items = array_merge($items, $cells);
             continue;
           }
@@ -165,7 +178,7 @@ class SchemaClient {
     return $items;
   }
 
-  public function getCells($i, $all_properties, $objects, $properties, $drupal) {
+  public function getCells($i, $all_properties, $objects, $properties, $drupal, $google) {
     $items = [];
     $list = (array) $this->getOptionList($objects, $i);
     $list = array_merge([$i], $list);
@@ -181,19 +194,28 @@ class SchemaClient {
         $mismatch[$name] = $name;
       }
     }
+    if (array_key_exists($i, $google)) {
+      $google_item = $google[$i];
+    }
     foreach ($all_properties as $property) {
        // See if there is a comparable Drupal property.
       $drupal_property = '';
+      $google_property = '';
       $key = $property['property'];
       if (in_array($key, $mismatch)) {
         unset($mismatch[$key]);
       }
       if (!empty($drupal_item) && array_key_exists($key, $drupal_item['properties'])) {
-        $drupal_property = $drupal_item['module']; //'X'; //$drupal_item['properties'][$key];
+        $drupal_property = $drupal_item['module'];
+      }
+      if (!empty($google_item) && array_key_exists($key, $google_item['properties'])) {
+        $google_property = $google_item['properties'][$key];
       }
       $selected = !empty($drupal_item) ? $drupal_item['module'] : '';
+      $google_selected = !empty($google_item) ? $google_item['title'] : '';
       $class = !empty($selected) ? ['selected'] : ['empty'];
       $property_class = !empty($drupal_property) ? ['selected'] : ['empty'];
+
       if ($delta == 0) {
         $class[] = 'first';
         $class_checkbox = $class;
@@ -202,19 +224,21 @@ class SchemaClient {
         $property_class_checkbox = $property_class;
         //$property_class_checkbox[] = 'checkbox';
         $items[] = [
-          ['data' => $selected, 'rowspan' => $count, 'class' => $class_checkbox],
-          ['data' => $i, 'rowspan' => $count, 'class' => $class],
           ['data' => $list, 'rowspan' => $count, 'class' => $class],
-          ['data' => $drupal_property, 'class' => $property_class_checkbox],
+          ['data' => $google_selected, 'rowspan' => $count, 'class' => $class_checkbox],
+          ['data' => $selected, 'rowspan' => $count, 'class' => $class_checkbox],
           ['data' => $property['property'], 'class' => $property_class],
+          ['data' => $google_property, 'class' => $property_class_checkbox],
+          ['data' => $drupal_property, 'class' => $property_class_checkbox],
         ];
       }
       else {
         $property_class_checkbox = $property_class;
         //$property_class_checkbox[] = 'checkbox';
         $items[] = [
-          ['data' => $drupal_property, 'class' => $property_class_checkbox],
           ['data' => $property['property'], 'class' => $property_class],
+          ['data' => $google_property, 'class' => $property_class_checkbox],
+          ['data' => $drupal_property, 'class' => $property_class_checkbox],
         ];
       }
       $delta++;

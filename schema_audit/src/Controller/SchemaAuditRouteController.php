@@ -17,15 +17,19 @@ class SchemaAuditRouteController extends ControllerBase {
     $drupal_client = \Drupal::service('schema_audit.drupal_client');
     $drupal = $drupal_client->parseDrupal();
 
+    $google_client = \Drupal::service('schema_audit.google_client');
+    $google = $google_client->parseGoogle();
+
     $schema_client = \Drupal::service('schema_audit.schema_client');
-    $rows = $schema_client->getSchemaTable($drupal);
+    $rows = $schema_client->getSchemaTable($drupal, $google);
 
     $header = [
-      'D8',
       'Schema.org Object',
-      'Object Types',
-      'D8',
-      'Schema.org Property'
+      'Google',
+      'Drupal',
+      'Schema.org Property',
+      'Google',
+      'Drupal',
     ];
     $build = [
       '#markup' => t('<h2>Schema.org Audit Page</h2>'),
