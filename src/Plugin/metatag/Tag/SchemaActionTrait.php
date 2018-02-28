@@ -536,6 +536,7 @@ trait SchemaActionTrait {
         ];
         break;
 
+      case 'InteractAction':
       case 'PlayAction':
         return [
           //'audience' => [
