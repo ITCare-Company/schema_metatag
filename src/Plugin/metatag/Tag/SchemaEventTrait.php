@@ -5,25 +5,26 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 use Drupal\schema_metatag\SchemaMetatagManager;
 
 /**
- * Schema.org Geo trait.
+ * Schema.org Event trait.
  */
-trait SchemaGeoTrait {
+trait SchemaEventTrait {
 
   /**
    * Form keys.
    */
-  public static function geoFormKeys() {
+  public static function eventFormKeys() {
     return [
       '@type',
-      'latitude',
-      'longitude',
+      '@id',
+      'name',
+      'url',
     ];
   }
 
   /**
    * The form element.
    */
-  public function geoForm($input_values) {
+  public function eventForm($input_values) {
 
     $input_values += SchemaMetatagManager::defaultInputValues();
     $value = $input_values['value'];
@@ -44,35 +45,45 @@ trait SchemaGeoTrait {
       '#empty_option' => t('- None -'),
       '#empty_value' => '',
       '#options' => [
-        'GeoCoordinates' => $this->t('GeoCoordinates'),
+        'Event' => $this->t('Event'),
       ],
       '#required' => $input_values['#required'],
     ];
 
-    $form['latitude'] = [
+    $form['@id'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('latitude'),
-      '#default_value' => !empty($value['latitude']) ? $value['latitude'] : '',
+      '#title' => $this->t('@id'),
+      '#default_value' => !empty($value['@id']) ? $value['@id'] : '',
       '#maxlength' => 255,
-      '#required' => $input_values['#required'],
-      '#description' => $this->t("The latitude of a location. For example 37.42242 (WGS 84)."),
+      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#description' => $this->t("Globally unique @id of the Event, usually a url, used to to link other properties to this object."),
     ];
 
-    $form['longitude'] = [
+    $form['name'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('longitude'),
-      '#default_value' => !empty($value['longitude']) ? $value['longitude'] : '',
+      '#title' => $this->t('name'),
+      '#default_value' => !empty($value['name']) ? $value['name'] : '',
       '#maxlength' => 255,
-      '#required' => $input_values['#required'],
-      '#description' => $this->t("The longitude of a location. For example -122.08585 (WGS 84)."),
+      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#description' => $this->t("Name of the Event."),
     ];
 
-    $keys = static::geoFormKeys();
+    $form['url'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('url'),
+      '#default_value' => !empty($value['url']) ? $value['url'] : '',
+      '#maxlength' => 255,
+      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#description' => $this->t("Absolute URL of the canonical Web page for the Event."),
+    ];
+
+    $keys = static::eventFormKeys();
     foreach ($keys as $key) {
       if ($key != '@type') {
         $form[$key]['#states'] = $visibility;
       }
     }
+
     return $form;
   }
 

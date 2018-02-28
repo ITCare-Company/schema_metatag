@@ -5,25 +5,25 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 use Drupal\schema_metatag\SchemaMetatagManager;
 
 /**
- * Schema.org Geo trait.
+ * Schema.org EntryPoint trait.
  */
-trait SchemaGeoTrait {
+trait SchemaEntryPointTrait {
 
   /**
    * Form keys.
    */
-  public static function geoFormKeys() {
+  public static function entryPointFormKeys() {
     return [
       '@type',
-      'latitude',
-      'longitude',
+      'urlTemplate',
+      'actionPlatform',
     ];
   }
 
   /**
    * The form element.
    */
-  public function geoForm($input_values) {
+  public function entryPointForm($input_values) {
 
     $input_values += SchemaMetatagManager::defaultInputValues();
     $value = $input_values['value'];
@@ -44,35 +44,36 @@ trait SchemaGeoTrait {
       '#empty_option' => t('- None -'),
       '#empty_value' => '',
       '#options' => [
-        'GeoCoordinates' => $this->t('GeoCoordinates'),
+        'EntryPoint' => $this->t('EntryPoint'),
       ],
       '#required' => $input_values['#required'],
     ];
 
-    $form['latitude'] = [
+    $form['urlTemplate'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('latitude'),
-      '#default_value' => !empty($value['latitude']) ? $value['latitude'] : '',
+      '#title' => $this->t('urlTemplate'),
+      '#default_value' => !empty($value['urlTemplate']) ? $value['urlTemplate'] : '',
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
-      '#description' => $this->t("The latitude of a location. For example 37.42242 (WGS 84)."),
+      '#description' => $this->t("An url template (RFC6570) that will be used to construct the target of the execution of the action, i.e. http://www.example.com/forrest_gump?autoplay=true."),
     ];
 
-    $form['longitude'] = [
+    $form['actionPlatform'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('longitude'),
-      '#default_value' => !empty($value['longitude']) ? $value['longitude'] : '',
+      '#title' => $this->t('actionPlatform'),
+      '#default_value' => !empty($value['actionPlatform']) ? $value['actionPlatform'] : '',
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
-      '#description' => $this->t("The longitude of a location. For example -122.08585 (WGS 84)."),
+      '#description' => $this->t("Comma-separated list of the high level platform(s) where the Action can be performed for the given URL. Examples: http://schema.org/DesktopWebPlatform, http://schema.org/MobileWebPlatform, http://schema.org/IOSPlatform, http://schema.googleapis.com/GoogleVideoCast."),
     ];
 
-    $keys = static::geoFormKeys();
+    $keys = static::entryPointFormKeys();
     foreach ($keys as $key) {
       if ($key != '@type') {
         $form[$key]['#states'] = $visibility;
       }
     }
+
     return $form;
   }
 

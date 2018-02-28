@@ -35,7 +35,7 @@ trait SchemaReviewTrait {
 
     // Get the id for the nested @type element.
     $visibility_selector = $input_values['visibility_selector'];
-    $selector = ':input[name="' . $visibility_selector . '[@type]"]';
+    $selector = ':input[name="' . $input_values['visibility_selector'] . '[' . $input_values['visibility_type'] . ']"]';
     $visibility = ['invisible' => [$selector => ['value' => '']]];
 
     $form['#type'] = 'fieldset';

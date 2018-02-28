@@ -298,6 +298,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
       'value' => [],
       '#required' => FALSE,
       'visibility_selector' => '',
+      'visibility_type' => '@type',
     ];
   }
 

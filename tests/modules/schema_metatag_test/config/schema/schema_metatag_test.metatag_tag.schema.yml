@@ -52,3 +52,15 @@ metatag.metatag_tag.schema_metatag_test_place:
 metatag.metatag_tag.schema_metatag_test_type:
   type: label
   label: '@type'
+metatag.metatag_tag.schema_metatag_test_thing:
+  type: text
+  label: 'thing'
+metatag.metatag_tag.schema_metatag_test_event:
+  type: text
+  label: 'event'
+metatag.metatag_tag.schema_metatag_test_entry_point:
+  type: text
+  label: 'entryPoint'
+metatag.metatag_tag.schema_metatag_test_action:
+  type: text
+  label: 'action'

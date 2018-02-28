@@ -145,8 +145,16 @@ abstract class SchemaMetatagTagsTestBase extends BrowserTestBase {
               foreach ($value as $key2 => $value2) {
                 if (is_array($value2)) {
                   foreach ($value2 as $key3 => $value3) {
-                    $keys = implode('][', [$key, $key2, $key3]);
-                    $form_values[$tag_name . '[' . $keys . ']'] = $value3;
+                    if (is_array($value3)) {
+                      foreach ($value3 as $key4 => $value4) {
+                        $keys = implode('][', [$key, $key2, $key3, $key4]);
+                        $form_values[$tag_name . '[' . $keys . ']'] = $value4;
+                      }
+                    }
+                    else {
+                      $keys = implode('][', [$key, $key2, $key3]);
+                      $form_values[$tag_name . '[' . $keys . ']'] = $value3;
+                    }
                   }
                 }
                 else {

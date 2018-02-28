@@ -43,3 +43,6 @@ metatag.metatag_tag.schema_organization_aggregate_rating:
 metatag.metatag_tag.schema_organization_review:
   type: label
   label: 'review'
+metatag.metatag_tag.schema_organization_potential_action:
+  type: label
+  label: 'potentialAction'

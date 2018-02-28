@@ -52,6 +52,10 @@ class SchemaMetatagTagsTest extends SchemaMetatagTagsTestBase {
     'schema_metatag_test_aggregate_rating' => 'SchemaMetatagTestAggregateRating',
     'schema_metatag_test_review' => 'SchemaMetatagTestReview',
     'schema_metatag_test_place' => 'SchemaMetatagTestPlace',
-  ];
+    'schema_metatag_test_thing' => 'SchemaMetatagTestThing',
+    'schema_metatag_test_event' => 'SchemaMetatagTestEvent',
+    'schema_metatag_test_entry_point' => 'SchemaMetatagTestEntryPoint',
+    'schema_metatag_test_action' => 'SchemaMetatagTestAction',
+   ];
 
 }

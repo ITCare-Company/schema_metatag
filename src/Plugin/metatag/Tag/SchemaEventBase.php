@@ -5,11 +5,11 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 use Drupal\schema_metatag\SchemaMetatagManager;
 
 /**
- * Schema.org Place items should extend this class.
+ * Schema.org Event items should extend this class.
  */
-abstract class SchemaPlaceBase extends SchemaAddressBase {
+abstract class SchemaEventBase extends SchemaNameBase {
 
-  use SchemaPlaceTrait;
+  use SchemaEventTrait;
   use SchemaPivotTrait;
 
   /**
@@ -27,7 +27,7 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
       'visibility_selector' => $this->visibilitySelector(),
     ];
 
-    $form = $this->placeForm($input_values);
+    $form = $this->eventForm($input_values);
 
     if (!empty($this->info['multiple'])) {
       $form['pivot'] = $this->pivotForm($value);
@@ -38,29 +38,20 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
     return $form;
   }
 
-
   /**
    * {@inheritdoc}
    */
   public static function testValue() {
     $items = [];
-    $keys = self::placeFormKeys();
+    $keys = self::eventFormKeys();
     foreach ($keys as $key) {
       switch ($key) {
-        case 'address':
-          $items[$key] = SchemaAddressBase::testValue();
-          break;
-
-        case 'geo':
-          $items[$key] = SchemaGeoBase::testValue();
-          break;
-
         case '@type':
-          $items[$key] = 'Place';
+          $items[$key] = 'Event';
           break;
 
         default:
-          $items[$key] = parent::testDefaultValue(2, ' ');
+          $items[$key] = parent::testDefaultValue(1, '');
           break;
 
       }
