@@ -1,4 +1,4 @@
-name: Schema Video Object
+name: Schema.org Video Object
 type: module
 description: Adds Schema.org/VideoObject to the JSON LD array.
 core: 8.x
