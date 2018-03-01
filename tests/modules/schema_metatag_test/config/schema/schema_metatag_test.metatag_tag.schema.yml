@@ -64,3 +64,6 @@ metatag.metatag_tag.schema_metatag_test_entry_point:
 metatag.metatag_tag.schema_metatag_test_action:
   type: text
   label: 'action'
+metatag.metatag_tag.schema_metatag_test_creative_work:
+  type: text
+  label: 'creativeWork'

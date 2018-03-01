@@ -17,7 +17,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaCreativeWorkBase;
  *   description = @Translation("An example of the book."),
  *   name = "workExample",
  *   group = "schema_book",
- *   weight = -1,
+ *   weight = 10,
  *   type = "string",
  *   secure = FALSE,
  *   multiple = TRUE

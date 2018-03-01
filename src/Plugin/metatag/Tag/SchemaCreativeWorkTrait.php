@@ -234,12 +234,12 @@ trait SchemaCreativeWorkTrait {
             'form' => '',
             'description' => "Publication date.",
           ],
-          'potentialAction' => [
-            'class' => 'SchemaActionBase',
-            'formKeys' => 'actionFormKeys',
-            'form' => 'actionForm',
-            'description' => "Potential action for the work, like a ReadAction.",
-          ],
+          //'potentialAction' => [
+          //  'class' => 'SchemaActionBase',
+          //  'formKeys' => 'actionFormKeys',
+          //  'form' => 'actionForm',
+          //  'description' => "Potential action for the work, like a ReadAction.",
+          //],
         ];
         break;
 
