@@ -13,9 +13,9 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *
  * @MetatagTag(
  *   id = "schema_book_url",
- *   label = @Translation("URL"),
+ *   label = @Translation("url"),
  *   description = @Translation("URL to the page on your site about the book. The page may list all available editions."),
- *   name = "URL",
+ *   name = "url",
  *   group = "schema_book",
  *   weight = 0,
  *   type = "string",
