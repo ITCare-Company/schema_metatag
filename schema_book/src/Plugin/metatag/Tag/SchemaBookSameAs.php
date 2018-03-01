@@ -13,9 +13,9 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *
  * @MetatagTag(
  *   id = "schema_book_same_as",
- *   label = @Translation("SameAs"),
+ *   label = @Translation("sameAs"),
  *   description = @Translation("URL of a reference Web page that unambiguously indicates the item's identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or official website."),
- *   name = "SameAs",
+ *   name = "sameAs",
  *   group = "schema_book",
  *   weight = 0,
  *   type = "string",
