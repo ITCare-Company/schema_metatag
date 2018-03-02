@@ -3,6 +3,7 @@
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 use Drupal\schema_metatag\SchemaMetatagManager;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Schema.org Action trait.
@@ -17,24 +18,37 @@ trait SchemaActionTrait {
   use SchemaEntryPointTrait;
 
   /**
-   * Form keys.
+   * The keys for this form.
+   *
+   * @param string $action_type
+   *   Optional, limit the keys to those that are required for a specific
+   *   action type.
+   *
+   * @return array
+   *   Return an array of the form keys.
    */
   public static function actionFormKeys($action_type = NULL) {
     $list = ['@type'];
     $types = static::actionTypes();
     foreach ($types as $type) {
-      if ($type == $action_type || empty($action_type) || $type == 'Action') {
-        $list = array_merge(array_keys(static::getProperties($type)), $list);
+      if ($type == $action_type || empty($action_type) || $type == 'All') {
+        $list = array_merge(array_keys(static::actionProperties($type)), $list);
       }
     }
-    $list = array_merge(array_keys(static::getProperties('Action')), $list);
+    $list = array_merge(array_keys(static::actionProperties('Action')), $list);
     return $list;
   }
 
   /**
-   * The form element.
+   * Create the form element.
+   *
+   * @param array $input_values
+   *   An array of values passed from a higher level form element to this.
+   *
+   * @return array
+   *   The form element.
    */
-  public function actionForm($input_values) {
+  public function actionForm(array $input_values) {
 
     $input_values += SchemaMetatagManager::defaultInputValues();
     $value = $input_values['value'];
@@ -60,18 +74,15 @@ trait SchemaActionTrait {
       '#weight' => -10,
     ];
 
-    // A global @type selector with all actions is always hidden.
-    // We'll swap the selected type into that value during form submission.
-    $actions = static::getAllActions(TRUE);
-    $all_options = array_combine($actions, $actions);
     $action_type_selector = ':input[name="' . $input_values['visibility_selector'] . '[actionType]"]';
     $invisibility = ['visible' => [$action_type_selector => ['value' => 'Invalid']]];
 
     // Build the form one action type at a time, using the visibility settings
-    // to hide/show only form elements for the selected type.
+    // to hide/show only form elements for the selected type. The form values
+    // for each action type are created as a nested form value.
     $types = static::actionTypes();
     foreach ($types as $type) {
-      $options = static::getActions($type);
+      $options = static::actionObjects($type);
       $options = array_combine($options, $options);
       $action_type_visibility = ['visible' => [$action_type_selector => ['value' => $type]]];
       $all_action_visibility = ['invisible' => [$action_type_selector => ['value' => '']]];
@@ -98,11 +109,8 @@ trait SchemaActionTrait {
 
       // Properties specific to an action type appear only for that type.
       // Weight these properties ahead of general action properties.
-      $properties = static::getProperties($type);
+      $properties = static::actionProperties($type);
       foreach ($properties as $key => $property) {
-        $property_selector = ':input[name="' . $input_values['visibility_selector'] . '[' . $type . '][' . $key . ']"]';
-        $property_visibility = ['invisible' => [$property_selector => ['value' => '']]];
-
         if (empty($property['formKeys'])) {
           $form[$type][$key] = [
             '#type' => 'textfield',
@@ -134,11 +142,8 @@ trait SchemaActionTrait {
 
       // Properties common to all actions appear for any action type.
       // Weight these after the action-specific properties.
-      $properties = static::getProperties('Action');
+      $properties = static::actionProperties('All');
       foreach ($properties as $key => $property) {
-        $property_selector = ':input[name="' . $input_values['visibility_selector'] . '[' . $type . '][' . $key . ']"]';
-        $property_visibility = ['invisible' => [$property_selector => ['value' => '']]];
-
         if (empty($property['formKeys'])) {
           $form[$type][$key] = [
             '#type' => 'textfield',
@@ -168,8 +173,11 @@ trait SchemaActionTrait {
       }
     }
 
-    // Create a hidden non-nested form element.
-    // setValue() will populate this element, and it is used by tests.
+    // Create a hidden top-level form element with all the properties.
+    // The '#element_validate' method, actionValidation(), will populate this
+    // element from the selected action type, and it is also used by tests.
+    $form['#element_validate'] = [[$this, 'actionValidation']];
+
     $keys = static::actionFormKeys();
     foreach ($action_types as $type) {
       foreach ($keys as $key) {
@@ -179,15 +187,77 @@ trait SchemaActionTrait {
         }
       }
     }
+    $actions = static::getAllActions(TRUE);
+    $all_options = array_combine($actions, $actions);
+
     $form['@type'] = $form[$type]['@type'];
     $form['@type']['#states'] = $invisibility;
     $form['@type']['#options'] = $all_options;
+
+    $form = static::actionRemoveUnused($form);
 
     return $form;
   }
 
   /**
+   * Remove unused properties.
+   *
+   * @param array $form
+   *   The form to clean up.
+   *
+   * @return array
+   *   The form with some elements removed.
+   */
+  public static function actionRemoveUnused(array $form) {
+    // Simplify the form by removing some items that are not likely to be used.
+    // These values might be used in other contexts, like if the Action item
+    // is created as a top level object.
+    // @TODO Confirm whether these values are required by Google.
+    $types = static::actionTypes();
+    $unset = [
+      'startTime',
+      'endTime',
+      'agent',
+      'instrument',
+      'participant',
+      'object',
+      'location',
+      'error',
+    ];
+    foreach ($types as $type) {
+      foreach ($unset as $key) {
+        if (array_key_exists($type, $form) && array_key_exists($key, $form[$type])) {
+          unset($form[$type][$key]);
+        }
+      }
+    }
+    return $form;
+  }
+
+  /**
+   * Validates my action form.
+   *
+   * @param array $element
+   *   The form element to process.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param array $complete_form
+   *   The complete form structure.
+   */
+  public static function actionValidation(array &$element, FormStateInterface $form_state, array &$complete_form) {
+    $value = $form_state->getValue($element['#parents']);
+    if ($action = $value['actionType']) {
+      if ($sub_form = $value[$action]) {
+        $form_state->setValue($element['#parents'], $sub_form);
+      }
+    }
+  }
+
+  /**
    * Get an array of all actions, grouped by action type.
+   *
+   * @param string $flattened
+   *   Set TRUE to return a single-level array of values.
    *
    * @return array
    *   An array of all actions, grouped by type.
@@ -197,10 +267,10 @@ trait SchemaActionTrait {
     $types = static::actionTypes();
     foreach ($types as $type) {
       if ($flattened) {
-        $list = array_merge($list, static::getActions($type));
+        $list = array_merge($list, static::actionObjects($type));
       }
       else {
-        $list[$type] = static::getActions($type);
+        $list[$type] = static::actionObjects($type);
       }
     }
     return $list;
@@ -213,7 +283,7 @@ trait SchemaActionTrait {
    *   The action to assess.
    *
    * @return string
-   *   The action type for this action.
+   *   The action type for the specified action.
    */
   public static function getActionType($action) {
     $actions = static::getAllActions();
@@ -253,30 +323,26 @@ trait SchemaActionTrait {
   /**
    * Return an array of all actions for an action type.
    *
-   * @TODO Figure out if the top level action needs to be a selectable option
-   * or if that is only really useful for categorization.
-   *
    * @param string $action_type
    *   The type of action.
    *
    * @return array
-   *   An array of all the actions for that type.
+   *   An array of all the actions for the specified type.
    */
-  public static function getActions($action_type) {
+  public static function actionObjects($action_type) {
     switch ($action_type) {
 
       case 'MoveAction':
         return [
-          //'MoveAction',
+          'MoveAction',
           'TravelAction',
           'DepartAction',
           'ArriveAction',
         ];
-        break;
 
       case 'TransferAction':
         return [
-          //'TransferAction',
+          'TransferAction',
           'DownloadAction',
           'LendAction',
           'GiveAction',
@@ -286,11 +352,10 @@ trait SchemaActionTrait {
           'ReturnAction',
           'TakeAction',
         ];
-        break;
 
       case 'TradeAction':
         return [
-          //'TradeAction',
+          'TradeAction',
           'BuyAction',
           'QuoteAction',
           'SellAction',
@@ -300,30 +365,27 @@ trait SchemaActionTrait {
           'OrderAction',
           'TipAction',
         ];
-        break;
 
       case 'ControlAction':
         return [
-          //'ControlAction',
+          'ControlAction',
           'ResumeAction',
           'DeactivateAction',
           'ActivateAction',
           'SuspendAction',
         ];
-        break;
 
       case 'AchieveAction':
         return [
-          //'AchieveAction',
+          'AchieveAction',
           'WinAction',
           'LoseAction',
           'TieAction',
         ];
-        break;
 
       case 'OrganizeAction':
         return [
-          //'OrganizeAction',
+          'OrganizeAction',
           'PlanAction',
           'CancelAction',
           'ReserveAction',
@@ -336,11 +398,10 @@ trait SchemaActionTrait {
           'AcceptAction',
           'BookmarkAction',
         ];
-        break;
 
       case 'AssessAction':
         return [
-          //'AssessAction',
+          'AssessAction',
           'IgnoreAction',
           'ChooseAction',
           'VoteAction',
@@ -353,11 +414,10 @@ trait SchemaActionTrait {
           'WantAction',
           'ReviewAction',
         ];
-        break;
 
       case 'InteractAction':
         return [
-          //'InteractAction',
+          'InteractAction',
           'BefriendAction',
           'SubscribeAction',
           'LeaveAction',
@@ -378,10 +438,10 @@ trait SchemaActionTrait {
           'CheckInAction',
           'FollowAction',
         ];
-        break;
+
       case 'ConsumeAction':
         return [
-          //'ConsumeAction',
+          'ConsumeAction',
           'ViewAction',
           'DrinkAction',
           'ListenAction',
@@ -392,11 +452,10 @@ trait SchemaActionTrait {
           'ReadAction',
           'EatAction',
         ];
-        break;
 
       case 'CreateAction':
         return [
-          //'CreateAction',
+          'CreateAction',
           'DrawAction',
           'FilmAction',
           'CookAction',
@@ -404,34 +463,30 @@ trait SchemaActionTrait {
           'PaintAction',
           'WriteAction',
         ];
-        break;
 
       case 'PlayAction':
         return [
-          //'PlayAction',
+          'PlayAction',
           'ExerciseAction',
           'PerformAction',
         ];
-        break;
 
       case 'SearchAction':
         return [
           'SearchAction',
         ];
-        break;
 
       case 'FindAction':
         return [
-          //'FindAction',
+          'FindAction',
           'CheckAction',
           'DiscoverAction',
           'TrackAction',
         ];
-        break;
 
       case 'UpdateAction':
         return [
-          //'UpdateAction',
+          'UpdateAction',
           'AddAction',
           'InsertAction',
           'AppendAction',
@@ -439,14 +494,14 @@ trait SchemaActionTrait {
           'DeleteAction',
           'ReplaceAction',
         ];
-        break;
 
       default:
         return [
           'Action',
         ];
-        break;
+
     }
+
   }
 
   /**
@@ -457,13 +512,13 @@ trait SchemaActionTrait {
    *
    * @param string $action_type
    *   The type of action. Use an action name for properties specific to that
-   *   action type. Use 'Action' for general properties that apply
+   *   action type. Use 'All' for general properties that apply
    *   to all actions.
    *
    * @return array
    *   An array of all the unique properties for that type.
    */
-  public static function getProperties($action_type) {
+  public static function actionProperties($action_type) {
     switch ($action_type) {
 
       case 'MoveAction':
@@ -482,7 +537,6 @@ trait SchemaActionTrait {
             'description' => "A sub property of location. The final location of the object or the agent after the action.",
           ],
         ];
-       break;
 
       case 'TradeAction':
         return [
@@ -523,7 +577,6 @@ trait SchemaActionTrait {
             'description' => "The participant who is at the receiving end of the action.",
           ],
         ];
-       break;
 
       case 'ConsumeAction':
         return [
@@ -534,7 +587,6 @@ trait SchemaActionTrait {
             'description' => "An Offer which must be accepted before the user can perform the Action. For example, the user may need to buy a movie before being able to watch it.",
           ],
         ];
-        break;
 
       case 'InteractAction':
       case 'PlayAction':
@@ -545,45 +597,42 @@ trait SchemaActionTrait {
           //  'form' => '',
           //  'description' => "An intended audience, i.e. a group for whom something was created",
           //],
-          'event'=> [
+          'event' => [
             'class' => 'SchemaEventBase',
             'formKeys' => 'eventFormKeys',
             'form' => 'eventForm',
             'description' => "Upcoming or past event associated with this place, organization, or action.",
           ],
         ];
-        break;
 
       case 'SearchAction':
         return [
-          'query'=> [
+          'query' => [
             'class' => 'SchemaNameBase',
             'formKeys' => '',
             'form' => '',
             'description' => "The query used on this action, i.e. https://query.example.com/search?q={search_term_string}.",
           ],
-          'query-input'=> [
+          'query-input' => [
             'class' => 'SchemaNameBase',
             'formKeys' => '',
             'form' => '',
             'description' => "The placeholder for the query, i.e. required name=search_term_string.",
           ],
         ];
-        break;
 
       case 'UpdateAction':
         return [
-          'targetCollection'=> [
+          'targetCollection' => [
             'class' => 'SchemaThingBase',
             'formKeys' => 'thingFormKeys',
             'form' => 'thingForm',
             'description' => "The collection target of the action.",
           ],
         ];
-        break;
 
       // General properties that apply to all actions.
-      case 'Action':
+      case 'All':
         return [
           'result' => [
             'class' => 'SchemaThingBase',
@@ -652,11 +701,9 @@ trait SchemaActionTrait {
             'description' => "The endTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to end. For actions that span a period of time, when the action was performed. e.g. John wrote a book from January to December.",
           ],
         ];
-        break;
 
       default:
         return [];
-        break;
     }
   }
 

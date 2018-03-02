@@ -9,11 +9,22 @@ use Drupal\schema_metatag\SchemaMetatagManager;
  */
 trait SchemaCreativeWorkTrait {
 
-  //use SchemaPersonOrgTrait;
-  use SchemaActionTrait;
+  use SchemaPersonOrgTrait, SchemaActionTrait {
+    SchemaPersonOrgTrait::personOrgFormKeys insteadof SchemaActionTrait;
+    SchemaPersonOrgTrait::personOrgForm insteadof SchemaActionTrait;
+    SchemaPersonOrgTrait::imageFormKeys insteadof SchemaActionTrait;
+    SchemaPersonOrgTrait::imageForm insteadof SchemaActionTrait;
+  }
 
   /**
-   * Form keys.
+   * The keys for this form.
+   *
+   * @param string $object_type
+   *   Optional, limit the keys to those that are required for a specific
+   *   object type.
+   *
+   * @return array
+   *   Return an array of the form keys.
    */
   public static function creativeWorkFormKeys($object_type = NULL) {
     $list = ['@type'];
@@ -28,9 +39,15 @@ trait SchemaCreativeWorkTrait {
   }
 
   /**
-   * The form element.
+   * Create the form element.
+   *
+   * @param array $input_values
+   *   An array of values passed from a higher level form element to this.
+   *
+   * @return array
+   *   The form element.
    */
-  public function creativeWorkForm($input_values) {
+  public function creativeWorkForm(array $input_values) {
 
     $input_values += SchemaMetatagManager::defaultInputValues();
     $value = $input_values['value'];
@@ -95,7 +112,7 @@ trait SchemaCreativeWorkTrait {
         }
       }
 
-      // Properties common to all objects appear for any action type.
+      // Properties common to all objects appear for any object type.
       // Weight these after the object-specific properties.
       $properties = static::creativeWorkProperties('All');
       foreach ($properties as $key => $property) {
@@ -194,7 +211,6 @@ trait SchemaCreativeWorkTrait {
             'description' => "The format of the book (comma-separated), i.e. http://schema.org/Hardcover,http://schema.org/Paperback,http://schema.org/EBook",
           ],
         ];
-        break;
 
       case 'All':
         return [
@@ -234,18 +250,16 @@ trait SchemaCreativeWorkTrait {
             'form' => '',
             'description' => "Publication date.",
           ],
-          //'potentialAction' => [
-          //  'class' => 'SchemaActionBase',
-          //  'formKeys' => 'actionFormKeys',
-          //  'form' => 'actionForm',
-          //  'description' => "Potential action for the work, like a ReadAction.",
-          //],
+          'potentialAction' => [
+            'class' => 'SchemaActionBase',
+            'formKeys' => 'actionFormKeys',
+            'form' => 'actionForm',
+            'description' => "Potential action for the work, like a ReadAction.",
+          ],
         ];
-        break;
 
       default:
         return [];
-        break;
     }
   }
 

@@ -27,7 +27,7 @@ abstract class SchemaCreativeWorkBase extends SchemaNameBase {
       'visibility_selector' => $this->visibilitySelector(),
     ];
 
-    $form = $this->CreativeWorkForm($input_values);
+    $form = $this->creativeWorkForm($input_values);
 
     if (!empty($this->info['multiple'])) {
       $form['pivot'] = $this->pivotForm($value);
@@ -52,21 +52,22 @@ abstract class SchemaCreativeWorkBase extends SchemaNameBase {
           break;
 
         case 'author':
-          $items[$key]=  SchemaPersonOrgBase::testValue();
+          $items[$key] = SchemaPersonOrgBase::testValue();
           break;
 
         case 'potentialAction':
-          $items[$key]=  SchemaActionBase::testValue();
+          $items[$key] = SchemaActionBase::testValue();
           break;
 
         default:
-          if(is_string($key) && array_key_exists($key, $items)) {
+          if (is_string($key) && array_key_exists($key, $items)) {
             $items[$key] = parent::testDefaultValue(1, '');
           }
           break;
 
       }
     }
-    return $items;  }
+    return $items;
+  }
 
 }
