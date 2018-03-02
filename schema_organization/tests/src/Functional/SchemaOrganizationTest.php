@@ -46,6 +46,7 @@ class SchemaOrganizationTest extends SchemaMetatagTagsTestBase {
     'schema_organization_type' => 'SchemaOrganizationType',
     'schema_organization_url' => 'SchemaOrganizationUrl',
     'schema_organization_potential_action' => 'SchemaOrganizationPotentialAction',
+    'schema_organization_member_of' => 'SchemaOrganizationMemberOf',
   ];
 
 }

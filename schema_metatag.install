@@ -78,4 +78,12 @@ function schema_metatag_update_8103() {
   }
 }
 
+/**
+ * Uninstall the deprecated SchemaVotingAPI and SchemaProgramMembership modules.
+ */
+function schema_metatag_update_8104(&$sandbox) {
+  \Drupal::service('module_installer')->uninstall(['schema_votingapi', 'schema_program_membership']);
+  return (string) t("The Schema.org ProgramMembership and Schema.org VotingAPI modules have been deprecated and will be removed in a future release. They have been uninstalled");
+
+}
 

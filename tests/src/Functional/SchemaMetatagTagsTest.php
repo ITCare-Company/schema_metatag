@@ -57,6 +57,7 @@ class SchemaMetatagTagsTest extends SchemaMetatagTagsTestBase {
     'schema_metatag_test_entry_point' => 'SchemaMetatagTestEntryPoint',
     'schema_metatag_test_action' => 'SchemaMetatagTestAction',
     'schema_metatag_test_creative_work' => 'SchemaMetatagTestCreativeWork',
+    'schema_metatag_test_member_of' => 'SchemaMetatagTestMemberOf',
    ];
 
 }

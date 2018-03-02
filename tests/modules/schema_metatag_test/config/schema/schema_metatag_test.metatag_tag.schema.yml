@@ -67,3 +67,6 @@ metatag.metatag_tag.schema_metatag_test_action:
 metatag.metatag_tag.schema_metatag_test_creative_work:
   type: text
   label: 'creativeWork'
+metatag.metatag_tag.schema_metatag_test_member_of:
+  type: text
+  label: 'memberOf'

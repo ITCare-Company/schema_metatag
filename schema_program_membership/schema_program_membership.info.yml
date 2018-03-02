@@ -1,6 +1,6 @@
 name: Schema.org ProgramMembership
 type: module
-description: Adds Schema.org/ProgramMembership to the JSON LD array.
+description: DEPRECATED!! DO NOT USE!! Will be removed in a future release.
 core: 8.x
 package: SEO
 dependencies:

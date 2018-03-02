@@ -1,6 +1,6 @@
 name: Schema.org Votingapi
 type: module
-description: DEPRECATED! Will be removed in a future relase. Adds Votingapi support to Aggregate rating. Very experimental due to unstable nature of Votingapi modules.
+description: DEPRECATED!! DO NOT USE!! Will be removed in a future release.
 core: 8.x
 package: SEO
 dependencies:

@@ -46,3 +46,6 @@ metatag.metatag_tag.schema_organization_review:
 metatag.metatag_tag.schema_organization_potential_action:
   type: label
   label: 'potentialAction'
+metatag.metatag_tag.schema_organization_member_of:
+  type: label
+  label: 'memberOf'

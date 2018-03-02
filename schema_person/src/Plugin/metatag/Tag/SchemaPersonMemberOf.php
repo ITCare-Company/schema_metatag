@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_person\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaPersonOrgBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaProgramMembershipBase;
 
 /**
  * Provides a plugin for the 'schema_person_member_of' meta tag.
@@ -23,16 +23,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaPersonOrgBase;
  *   multiple = FALSE
  * )
  */
-class SchemaPersonMemberOf extends SchemaPersonOrgBase {
+class SchemaPersonMemberOf extends SchemaProgramMembershipBase {
 
-  /**
-   * Generate a form element for this meta tag.
-   */
-  public function form(array $element = []) {
-    $form = parent::form($element);
-    $form['name']['#attributes']['placeholder'] = '[site:name]';
-    $form['url']['#attributes']['placeholder'] = '[site:url]';
-    return $form;
-  }
 
 }

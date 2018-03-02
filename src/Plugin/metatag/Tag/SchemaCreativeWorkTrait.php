@@ -53,7 +53,7 @@ trait SchemaCreativeWorkTrait {
     $value = $input_values['value'];
 
     // Get the id for the nested @type element.
-    $selector = ':input[name="' . $input_values['visibility_selector'] . '[' . $input_values['visibility_type'] . ']"]';
+    $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
     $visibility = ['invisible' => [$selector => ['value' => '']]];
 
     $form['#type'] = 'fieldset';
