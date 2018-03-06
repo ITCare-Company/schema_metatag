@@ -4,10 +4,15 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 use Drupal\schema_metatag\SchemaMetatagManager;
 
+/**
+ * Schema.org place trait.
+ */
 trait SchemaPlaceTrait {
 
-  use SchemaAddressTrait;
-  use SchemaGeoTrait;
+  use SchemaAddressTrait, SchemaGeoTrait, SchemaPivotTrait {
+    SchemaPivotTrait::pivotForm insteadof SchemaAddressTrait;
+    SchemaPivotTrait::pivotForm insteadof SchemaGeoTrait;
+  }
 
   /**
    * The top level keys on this form.
@@ -39,6 +44,10 @@ trait SchemaPlaceTrait {
     $form['#title'] = $input_values['title'];
     $form['#description'] = $input_values['description'];
     $form['#tree'] = TRUE;
+
+    // Add a pivot option to the form.
+    $form['pivot'] = $this->pivotForm($value);
+    $form['pivot']['#states'] = $visibility;
 
     $form['@type'] = [
       '#type' => 'select',

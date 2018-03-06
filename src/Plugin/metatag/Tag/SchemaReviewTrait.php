@@ -9,8 +9,10 @@ use Drupal\schema_metatag\SchemaMetatagManager;
  */
 trait SchemaReviewTrait {
 
-  use SchemaRatingTrait;
-  use SchemaPersonOrgTrait;
+  use SchemaRatingTrait, SchemaPersonOrgTrait, SchemaPivotTrait {
+    SchemaPivotTrait::pivotForm insteadof SchemaRatingTrait;
+    SchemaPivotTrait::pivotForm insteadof SchemaPersonOrgTrait;
+  }
 
   /**
    * Form keys.
@@ -42,6 +44,10 @@ trait SchemaReviewTrait {
     $form['#title'] = $input_values['title'];
     $form['#description'] = $input_values['description'];
     $form['#tree'] = TRUE;
+
+    // Add a pivot option to the form.
+    $form['pivot'] = $this->pivotForm($value);
+    $form['pivot']['#states'] = $visibility;
 
     $form['@type'] = [
       '#type' => 'select',

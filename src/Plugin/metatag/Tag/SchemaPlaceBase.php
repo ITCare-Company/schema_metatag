@@ -10,7 +10,6 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 abstract class SchemaPlaceBase extends SchemaAddressBase {
 
   use SchemaPlaceTrait;
-  use SchemaPivotTrait;
 
   /**
    * {@inheritdoc}
@@ -29,15 +28,12 @@ abstract class SchemaPlaceBase extends SchemaAddressBase {
 
     $form = $this->placeForm($input_values);
 
-    if (!empty($this->info['multiple'])) {
-      $form['pivot'] = $this->pivotForm($value);
-      $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
-      $form['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
+    if (empty($this->multiple())) {
+      unset($form['pivot']);
     }
 
     return $form;
   }
-
 
   /**
    * {@inheritdoc}

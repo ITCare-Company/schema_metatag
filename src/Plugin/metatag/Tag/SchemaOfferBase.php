@@ -10,7 +10,6 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 abstract class SchemaOfferBase extends SchemaNameBase {
 
   use SchemaOfferTrait;
-  use SchemaPivotTrait;
 
   /**
    * {@inheritdoc}
@@ -28,10 +27,8 @@ abstract class SchemaOfferBase extends SchemaNameBase {
 
     $form = $this->offerForm($input_values);
 
-    if (!empty($this->info['multiple'])) {
-      $form['pivot'] = $this->pivotForm($value);
-      $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
-      $form['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
+    if (empty($this->multiple())) {
+      unset($form['pivot']);
     }
 
     return $form;
@@ -47,6 +44,11 @@ abstract class SchemaOfferBase extends SchemaNameBase {
       switch ($key) {
         case '@type':
           $items[$key] = 'Offer';
+          break;
+
+        case 'eligibleRegion':
+        case 'ineligibleRegion':
+          $items[$key] = SchemaCountryBase::testValue();
           break;
 
         default:

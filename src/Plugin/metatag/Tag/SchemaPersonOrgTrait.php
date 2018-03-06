@@ -9,7 +9,9 @@ use Drupal\schema_metatag\SchemaMetatagManager;
  */
 trait SchemaPersonOrgTrait {
 
-  use SchemaImageTrait;
+  use SchemaImageTrait, SchemaPivotTrait {
+    SchemaPivotTrait::pivotForm insteadof SchemaImageTrait;
+  }
 
   /**
    * Form keys.
@@ -43,6 +45,10 @@ trait SchemaPersonOrgTrait {
     $form['#description'] = $input_values['description'];
     $form['#tree'] = TRUE;
 
+    // Add a pivot option to the form.
+    $form['pivot'] = $this->pivotForm($value);
+    $form['pivot']['#states'] = $visibility;
+
     $form['@type'] = [
       '#type' => 'select',
       '#title' => $this->t('@type'),
@@ -71,8 +77,7 @@ trait SchemaPersonOrgTrait {
       '#default_value' => !empty($value['name']) ? $value['name'] : '',
       '#maxlength' => 255,
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
-      '#description' => $this->t("Name of the person or organization."),
-      '#attributes' => ['placeholder' => '[node:author:display-name]'],
+      '#description' => $this->t("Name of the person or organization, i.e. [node:author:display-name]."),
     ];
 
     $form['url'] = [
@@ -81,8 +86,7 @@ trait SchemaPersonOrgTrait {
       '#default_value' => !empty($value['url']) ? $value['url'] : '',
       '#maxlength' => 255,
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
-      '#description' => $this->t("Absolute URL of the canonical Web page, like the URL of the author's profile page or the organization's official website."),
-      '#attributes' => ['placeholder' => '[node:author:url]'],
+      '#description' => $this->t("Absolute URL of the canonical Web page, like the URL of the author's profile page or the organization's official website, i.e. [node:author:url]."),
     ];
 
     $form['sameAs'] = [

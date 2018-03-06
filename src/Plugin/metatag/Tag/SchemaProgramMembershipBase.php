@@ -10,7 +10,6 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 abstract class SchemaProgramMembershipBase extends SchemaNameBase {
 
   use SchemaProgramMembershipTrait;
-  use SchemaPivotTrait;
 
   /**
    * {@inheritdoc}
@@ -29,10 +28,8 @@ abstract class SchemaProgramMembershipBase extends SchemaNameBase {
 
     $form = $this->programMembershipForm($input_values);
 
-    if (!empty($this->info['multiple'])) {
-      $form['pivot'] = $this->pivotForm($value);
-      $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
-      $form['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
+    if (empty($this->multiple())) {
+      unset($form['pivot']);
     }
 
     return $form;

@@ -9,7 +9,9 @@ use Drupal\schema_metatag\SchemaMetatagManager;
  */
 trait SchemaProgramMembershipTrait {
 
-  use SchemaPersonOrgTrait;
+  use SchemaPersonOrgTrait, SchemaPivotTrait {
+    SchemaPivotTrait::pivotForm insteadof SchemaPersonOrgTrait;
+  }
 
   /**
    * Form keys.
@@ -51,6 +53,10 @@ trait SchemaProgramMembershipTrait {
     $form['#title'] = $input_values['title'];
     $form['#description'] = $input_values['description'];
     $form['#tree'] = TRUE;
+
+    // Add a pivot option to the form.
+    $form['pivot'] = $this->pivotForm($value);
+    $form['pivot']['#states'] = $visibility;
 
     $form['@type'] = [
       '#type' => 'select',

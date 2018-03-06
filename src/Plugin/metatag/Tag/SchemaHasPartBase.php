@@ -13,12 +13,29 @@ use Drupal\schema_metatag\SchemaMetatagManager;
  */
 abstract class SchemaHasPartBase extends SchemaNameBase {
 
+  use SchemaHasPartTrait;
+
   /**
    * {@inheritdoc}
    */
   public function form(array $element = []) {
-    $form = parent::form($element);
-    $form['#description'] = $this->t('Comma-separated list of class names of the parts of the web page that are not free. Do NOT surround class names with quotation marks! Also fill out "isAccessibleForFree".');
+
+    $value = SchemaMetatagManager::unserialize($this->value());
+
+    $input_values = [
+      'title' => $this->label(),
+      'description' => $this->description(),
+      'value' => $value,
+      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      'visibility_selector' => $this->visibilitySelector(),
+    ];
+
+    $form = $this->hasPartForm($input_values);
+
+    if (empty($this->multiple())) {
+      unset($form['pivot']);
+    }
+
     return $form;
   }
 
@@ -26,24 +43,28 @@ abstract class SchemaHasPartBase extends SchemaNameBase {
    * {@inheritdoc}
    */
   public static function testValue() {
-    return parent::testDefaultValue(3, ',');
-  }
+    $items = [];
+    $keys = self::hasPartFormKeys();
+    foreach ($keys as $key) {
+      switch ($key) {
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function outputValue($input_value) {
-    if (is_string($input_value)) {
-      $input_value = SchemaMetatagManager::explode($input_value);
+        case '@type':
+          $items[$key] = 'WebPageElement';
+          break;
+
+        case 'potentialAction':
+          $items[$key] = SchemaActionBase::testValue();
+          break;
+
+        default:
+          if (is_string($key) && array_key_exists($key, $items)) {
+            $items[$key] = parent::testDefaultValue(1, '');
+          }
+          break;
+
+      }
     }
-    foreach ((array) $input_value as $class_name) {
-      $items[] = [
-        '@type' => 'WebPageElement',
-        'isAccessibleForFree' => 'False',
-        'cssSelector' => '.' . $class_name,
-      ];
-    }
-    return !empty($items) ? $items : '';
+    return $items;
   }
 
 }

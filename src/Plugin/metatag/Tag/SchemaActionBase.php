@@ -10,7 +10,29 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 abstract class SchemaActionBase extends SchemaNameBase {
 
   use SchemaActionTrait;
-  use SchemaPivotTrait;
+
+  /**
+   * Allowed action types.
+   *
+   * @var array
+   */
+  protected $actionTypes;
+
+  /**
+   * Allowed actions.
+   *
+   * @var array
+   */
+  protected $actions;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->actionTypes = [];
+    $this->actions = [];
+  }
 
   /**
    * {@inheritdoc}
@@ -25,14 +47,14 @@ abstract class SchemaActionBase extends SchemaNameBase {
       'value' => $value,
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
       'visibility_selector' => $this->visibilitySelector(),
+      'actionTypes' => $this->actionTypes,
+      'actions' => $this->actions,
     ];
 
     $form = $this->actionForm($input_values);
 
-    if (!empty($this->info['multiple'])) {
-      $form['pivot'] = $this->pivotForm($value);
-      $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
-      $form['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
+    if (empty($this->multiple())) {
+      unset($form['pivot']);
     }
 
     return $form;

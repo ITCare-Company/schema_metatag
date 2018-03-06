@@ -9,6 +9,8 @@ use Drupal\schema_metatag\SchemaMetatagManager;
  */
 trait SchemaEntryPointTrait {
 
+  use SchemaPivotTrait;
+
   /**
    * Form keys.
    */
@@ -17,6 +19,7 @@ trait SchemaEntryPointTrait {
       '@type',
       'urlTemplate',
       'actionPlatform',
+      'inLanguage',
     ];
   }
 
@@ -36,6 +39,10 @@ trait SchemaEntryPointTrait {
     $form['#title'] = $input_values['title'];
     $form['#description'] = $input_values['description'];
     $form['#tree'] = TRUE;
+
+    // Add a pivot option to the form.
+    $form['pivot'] = $this->pivotForm($value);
+    $form['pivot']['#states'] = $visibility;
 
     $form['@type'] = [
       '#type' => 'select',
@@ -65,6 +72,15 @@ trait SchemaEntryPointTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("Comma-separated list of the high level platform(s) where the Action can be performed for the given URL. Examples: http://schema.org/DesktopWebPlatform, http://schema.org/MobileWebPlatform, http://schema.org/IOSPlatform, http://schema.googleapis.com/GoogleVideoCast."),
+    ];
+
+    $form['inLanguage'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('inLanguage'),
+      '#default_value' => !empty($value['inLanguage']) ? $value['inLanguage'] : '',
+      '#maxlength' => 255,
+      '#required' => $input_values['#required'],
+      '#description' => $this->t("The BCP-47 language code of this item, e.g. 'ja' is Japanese, or 'en-US' for American English."),
     ];
 
     $keys = static::entryPointFormKeys();

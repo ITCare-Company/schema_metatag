@@ -104,6 +104,9 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
    * {@inheritdoc}
    */
   public static function pivot($content) {
+    if (!is_array($content) || empty($content)) {
+      return $content;
+    }
     // Figure out the maximum number of items to include in the pivot.
     // Nested associative arrays should be excluded, only count numeric arrays.
     $count = max(array_map('self::countNumericKeys', $content));
@@ -113,15 +116,15 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
         // Some properties, like @type, may need to repeat the first item,
         // others may have too few values to fill out the array.
         // Make sure all properties have the right number of values.
-        if (is_string($item) || (!is_string($item) && count($item) < $count)) {
+        if (is_string($item) || (!is_string($item) && self::countNumericKeys($item) < $count)) {
           $content[$key] = [];
           $prev = '';
           for ($x = 0; $x < $count; $x++) {
-            if (!is_string($item) && count($item) > $x) {
+            if (!is_string($item) && self::countNumericKeys($item) > $x) {
               $content[$key][$x] = $item[$x];
               $prev = $item[$x];
             }
-            elseif (!is_string($item)) {
+            elseif (!is_string($item) && self::countNumericKeys($item) > 0) {
               $content[$key][$x] = $prev;
             }
             else {
@@ -253,7 +256,12 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
         }
       }
     }
-    return $array;
+    if ($array == ['pivot' => 1]) {
+      return '';
+    }
+    else {
+      return $array;
+    }
   }
 
   /**
@@ -298,7 +306,8 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
       'value' => [],
       '#required' => FALSE,
       'visibility_selector' => '',
-      'visibility_type' => '@type',
+      'actionTypes' => [],
+      'actions' => [],
     ];
   }
 

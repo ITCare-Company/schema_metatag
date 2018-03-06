@@ -9,17 +9,27 @@ use Drupal\schema_metatag\SchemaMetatagManager;
  */
 trait SchemaOfferTrait {
 
+  use SchemaCountryTrait, SchemaPivotTrait {
+    SchemaPivotTrait::pivotForm insteadof SchemaCountryTrait;
+  }
+
   /**
    * Form keys.
    */
   public static function offerFormKeys() {
     return [
       '@type',
+      '@id',
       'price',
       'priceCurrency',
       'url',
       'availability',
+      'availabilityStarts',
+      'availabilityEnds',
       'validFrom',
+      'category',
+      'eligibleRegion',
+      'ineligibleRegion',
     ];
   }
 
@@ -32,13 +42,18 @@ trait SchemaOfferTrait {
     $value = $input_values['value'];
 
     // Get the id for the nested @type element.
-    $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
+    $visibility_selector = $input_values['visibility_selector'];
+    $selector = ':input[name="' . $visibility_selector . '[@type]"]';
     $visibility = ['invisible' => [$selector => ['value' => '']]];
 
     $form['#type'] = 'fieldset';
     $form['#title'] = $input_values['title'];
     $form['#description'] = $input_values['description'];
     $form['#tree'] = TRUE;
+
+    // Add a pivot option to the form.
+    $form['pivot'] = $this->pivotForm($value);
+    $form['pivot']['#states'] = $visibility;
 
     $form['@type'] = [
       '#type' => 'select',
@@ -51,6 +66,15 @@ trait SchemaOfferTrait {
       '#default_value' => !empty($value['@type']) ? $value['@type'] : '',
     ];
 
+    $form['@id'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('@id'),
+      '#default_value' => !empty($value['@id']) ? $value['@id'] : '',
+      '#maxlength' => 255,
+      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#description' => $this->t('Globally unique ID of the work in the form of a URL. The ID should be stable and not change over time. The URL is treated as an opaque string and does not have to be a working link.'),
+    ];
+
     $form['price'] = [
       '#type' => 'textfield',
       '#title' => $this->t('price'),
@@ -59,6 +83,7 @@ trait SchemaOfferTrait {
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
       '#description' => $this->t('The numeric price of the offer.'),
     ];
+
     $form['priceCurrency'] = [
       '#type' => 'textfield',
       '#title' => $this->t('priceCurrency'),
@@ -75,6 +100,7 @@ trait SchemaOfferTrait {
       '#required' => $input_values['#required'],
       '#description' => $this->t('The URL to the store where the offer can be acquired.'),
     ];
+
     $form['availability'] = [
       '#type' => 'textfield',
       '#title' => $this->t('availability'),
@@ -83,6 +109,25 @@ trait SchemaOfferTrait {
       '#required' => $input_values['#required'],
       '#description' => $this->t('The availability of this item—for example In stock, Out of stock, Pre-order, etc.'),
     ];
+
+    $form['availabilityStarts'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('availabilityStarts'),
+      '#default_value' => !empty($value['availabilityStarts']) ? $value['availabilityStarts'] : '',
+      '#maxlength' => 255,
+      '#required' => $input_values['#required'],
+      '#description' => $this->t('Date when the action is available, in ISO 8601 format.'),
+    ];
+
+    $form['availabilityEnds'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('availabilityEnds'),
+      '#default_value' => !empty($value['availabilityEnds']) ? $value['availabilityEnds'] : '',
+      '#maxlength' => 255,
+      '#required' => $input_values['#required'],
+      '#description' => $this->t('Date after which the item is no longer available, in ISO 8601 format.'),
+    ];
+
     $form['validFrom'] = [
       '#type' => 'textfield',
       '#title' => $this->t('validFrom'),
@@ -91,6 +136,48 @@ trait SchemaOfferTrait {
       '#required' => $input_values['#required'],
       '#description' => $this->t('The date when the item becomes valid.'),
     ];
+
+    $form['category'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('category'),
+      '#default_value' => !empty($value['category']) ? $value['category'] : '',
+      '#maxlength' => 255,
+      '#required' => $input_values['#required'],
+      '#description' => $this->t("One of the following values:
+'rental': The action is available to the user after purchase for a finite amount of time.
+'purchase': The action is available to the user after purchase for an indefinite amount of time.
+'subscription': The action is included with a subscription to the partner itself.
+'externalSubscription': The action is included with a subscription to an entity other than the action partner, e.g. HBO GO requires a cable provider.
+'free': The action is available with no purchase or subscription required of the user. The action may require a user login or contain ads."),
+    ];
+
+    $input_values = [
+      'title' => $this->t('eligibleRegion'),
+      'description' => "The region where the offer is valid.",
+      'value' => !empty($value['eligibleRegion']) ? $value['eligibleRegion'] : [],
+      '#required' => $input_values['#required'],
+      'visibility_selector' => $visibility_selector . '[eligibleRegion]',
+    ];
+    $form['eligibleRegion'] = static::countryForm($input_values);
+
+    // Pivot the country element.
+    $form['eligibleRegion']['pivot'] = $this->pivotForm($value);
+    $selector = ':input[name="' . $visibility_selector . '[eligibleRegion][@type]"]';
+    $form['eligibleRegion']['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
+
+    $input_values = [
+      'title' => $this->t('ineligibleRegion'),
+      'description' => "The region where the offer is not valid.",
+      'value' => !empty($value['ineligibleRegion']) ? $value['ineligibleRegion'] : [],
+      '#required' => $input_values['#required'],
+      'visibility_selector' => $visibility_selector . '[ineligibleRegion]',
+    ];
+    $form['ineligibleRegion'] = static::countryForm($input_values);
+
+    // Pivot the country element.
+    $form['ineligibleRegion']['pivot'] = $this->pivotForm($value);
+    $selector = ':input[name="' . $visibility_selector . '[ineligibleRegion][@type]"]';
+    $form['ineligibleRegion']['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
 
     $keys = static::offerFormKeys();
     foreach ($keys as $key) {

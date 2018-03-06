@@ -9,6 +9,10 @@ use Drupal\schema_metatag\SchemaMetatagManager;
  */
 trait SchemaEventTrait {
 
+  use SchemaPlaceTrait, SchemaPivotTrait {
+    SchemaPivotTrait::pivotForm insteadof SchemaPlaceTrait;
+  }
+
   /**
    * Form keys.
    */
@@ -18,6 +22,8 @@ trait SchemaEventTrait {
       '@id',
       'name',
       'url',
+      'startDate',
+      'location',
     ];
   }
 
@@ -30,13 +36,18 @@ trait SchemaEventTrait {
     $value = $input_values['value'];
 
     // Get the id for the nested @type element.
-    $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
+    $visibility_selector = $input_values['visibility_selector'];
+    $selector = ':input[name="' . $visibility_selector . '[@type]"]';
     $visibility = ['invisible' => [$selector => ['value' => '']]];
 
     $form['#type'] = 'fieldset';
     $form['#title'] = $input_values['title'];
     $form['#description'] = $input_values['description'];
     $form['#tree'] = TRUE;
+
+    // Add a pivot option to the form.
+    $form['pivot'] = $this->pivotForm($value);
+    $form['pivot']['#states'] = $visibility;
 
     $form['@type'] = [
       '#type' => 'select',
@@ -46,6 +57,7 @@ trait SchemaEventTrait {
       '#empty_value' => '',
       '#options' => [
         'Event' => $this->t('Event'),
+        'PublicationEvent' => $this->t('PublicationEvent'),
       ],
       '#required' => $input_values['#required'],
     ];
@@ -76,6 +88,24 @@ trait SchemaEventTrait {
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
       '#description' => $this->t("Absolute URL of the canonical Web page for the Event."),
     ];
+
+    $form['startDate'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('startDate'),
+      '#default_value' => !empty($value['startDate']) ? $value['startDate'] : '',
+      '#maxlength' => 255,
+      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#description' => $this->t("Start date of the Event."),
+    ];
+
+    $input_values = [
+      'title' => $this->t('Location'),
+      'description' => "The location of the event.",
+      'value' => !empty($value['location']) ? $value['location'] : [],
+      '#required' => $input_values['#required'],
+      'visibility_selector' => $visibility_selector . '[location]',
+    ];
+    $form['location'] = static::placeForm($input_values);
 
     $keys = static::eventFormKeys();
     foreach ($keys as $key) {

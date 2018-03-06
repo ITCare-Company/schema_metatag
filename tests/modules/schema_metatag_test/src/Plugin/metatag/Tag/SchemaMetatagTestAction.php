@@ -20,4 +20,17 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaActionBase;
  * )
  */
 class SchemaMetatagTestAction extends SchemaActionBase {
+
+  /**
+   * Generate a form element for this meta tag.
+   */
+  public function form(array $element = []) {
+
+    $this->actionTypes = ['ConsumeAction'];
+    $this->actions = ['WatchAction', 'ViewAction'];
+
+    $form = parent::form($element);
+    return $form;
+  }
+
 }

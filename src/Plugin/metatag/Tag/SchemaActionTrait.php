@@ -10,12 +10,20 @@ use Drupal\Core\Form\FormStateInterface;
  */
 trait SchemaActionTrait {
 
-  use SchemaPersonOrgTrait;
-  use SchemaOfferTrait;
-  use SchemaThingTrait;
-  use SchemaPlaceTrait;
-  use SchemaEventTrait;
-  use SchemaEntryPointTrait;
+  use SchemaPersonOrgTrait, SchemaOfferTrait, SchemaThingTrait, SchemaPlaceTrait, SchemaEventTrait, SchemaEntryPointTrait, SchemaPivotTrait {
+    SchemaPlaceTrait::placeFormKeys insteadof SchemaEventTrait;
+    SchemaPlaceTrait::placeForm insteadof SchemaEventTrait;
+    SchemaPlaceTrait::postalAddressFormKeys insteadof SchemaEventTrait;
+    SchemaPlaceTrait::postalAddressForm insteadof SchemaEventTrait;
+    SchemaPlaceTrait::geoFormKeys insteadof SchemaEventTrait;
+    SchemaPlaceTrait::geoForm insteadof SchemaEventTrait;
+    SchemaPivotTrait::pivotForm insteadof SchemaPersonOrgTrait;
+    SchemaPivotTrait::pivotForm insteadof SchemaOfferTrait;
+    SchemaPivotTrait::pivotForm insteadof SchemaThingTrait;
+    SchemaPivotTrait::pivotForm insteadof SchemaPlaceTrait;
+    SchemaPivotTrait::pivotForm insteadof SchemaEventTrait;
+    SchemaPivotTrait::pivotForm insteadof SchemaEntryPointTrait;
+  }
 
   /**
    * The keys for this form.
@@ -35,7 +43,7 @@ trait SchemaActionTrait {
         $list = array_merge(array_keys(static::actionProperties($type)), $list);
       }
     }
-    $list = array_merge(array_keys(static::actionProperties('Action')), $list);
+    $list = array_merge(array_keys(static::actionProperties('All')), $list);
     return $list;
   }
 
@@ -61,7 +69,7 @@ trait SchemaActionTrait {
     $current_action = !empty($value['@type']) ? $value['@type'] : '';
     $current_type = !empty($current_action) ? static::getActionType($current_action) : '';
 
-    $action_types = static::actionTypes();
+    $action_types = $input_values['actionTypes'];
     $options = array_combine($action_types, $action_types);
     $form['actionType'] = [
       '#type' => 'select',
@@ -75,14 +83,24 @@ trait SchemaActionTrait {
     ];
 
     $action_type_selector = ':input[name="' . $input_values['visibility_selector'] . '[actionType]"]';
+    $visibility = ['invisible' => [$action_type_selector => ['value' => '']]];
     $invisibility = ['visible' => [$action_type_selector => ['value' => 'Invalid']]];
+
+    // Add a pivot option to the form.
+    $form['pivot'] = $this->pivotForm($value);
+    $form['pivot']['#states'] = $visibility;
 
     // Build the form one action type at a time, using the visibility settings
     // to hide/show only form elements for the selected type. The form values
     // for each action type are created as a nested form value.
-    $types = static::actionTypes();
+    $types = $input_values['actionTypes'];
     foreach ($types as $type) {
-      $options = static::actionObjects($type);
+      $options = [];
+      foreach ($input_values['actions'] as $action) {
+        if ($type == static::getActionType($action)) {
+          $options[] = $action;
+        }
+      }
       $options = array_combine($options, $options);
       $action_type_visibility = ['visible' => [$action_type_selector => ['value' => $type]]];
       $all_action_visibility = ['invisible' => [$action_type_selector => ['value' => '']]];
@@ -104,7 +122,7 @@ trait SchemaActionTrait {
         '#empty_value' => '',
         '#options' => $options,
         '#required' => $input_values['#required'],
-        '#weight' => -5,
+        '#weight' => -20,
       ];
 
       // Properties specific to an action type appear only for that type.
@@ -194,43 +212,6 @@ trait SchemaActionTrait {
     $form['@type']['#states'] = $invisibility;
     $form['@type']['#options'] = $all_options;
 
-    $form = static::actionRemoveUnused($form);
-
-    return $form;
-  }
-
-  /**
-   * Remove unused properties.
-   *
-   * @param array $form
-   *   The form to clean up.
-   *
-   * @return array
-   *   The form with some elements removed.
-   */
-  public static function actionRemoveUnused(array $form) {
-    // Simplify the form by removing some items that are not likely to be used.
-    // These values might be used in other contexts, like if the Action item
-    // is created as a top level object.
-    // @TODO Confirm whether these values are required by Google.
-    $types = static::actionTypes();
-    $unset = [
-      'startTime',
-      'endTime',
-      'agent',
-      'instrument',
-      'participant',
-      'object',
-      'location',
-      'error',
-    ];
-    foreach ($types as $type) {
-      foreach ($unset as $key) {
-        if (array_key_exists($type, $form) && array_key_exists($key, $form[$type])) {
-          unset($form[$type][$key]);
-        }
-      }
-    }
     return $form;
   }
 
@@ -540,51 +521,55 @@ trait SchemaActionTrait {
 
       case 'TradeAction':
         return [
+          'target' => [
+            'class' => 'SchemaEntryPointBase',
+            'formKeys' => 'entryPointFormKeys',
+            'form' => 'entryPointForm',
+            'description' => "Indicates a target EntryPoint for an Action.",
+          ],
           //'priceSpecification' => [
           //  'class' => '',
           //  'formKeys' => '',
           //  'form' => '',
           //  'description' => "One or more detailed price specifications, indicating the unit price and delivery or payment charges.",
           //],
-          'price' => [
-            'class' => 'SchemaNameBase',
-            'formKeys' => '',
-            'form' => '',
-            'description' => "The offer price of a product, or of a price component.",
-          ],
           //'deliveryMethod' => [
           //  'class' => '',
           //  'formKeys' => '',
           //  'form' => '',
           //  'description' => "A sub property of instrument. The method of delivery.",
           //],
-          'buyer' => [
-            'class' => 'SchemaPersonOrgBase',
-            'formKeys' => 'personOrgFormKeys',
-            'form' => 'personOrgForm',
-            'description' => "The participant/person/organization that bought the object.",
-          ],
-          'seller' => [
-            'class' => 'SchemaPersonOrgBase',
-            'formKeys' => 'personOrgFormKeys',
-            'form' => 'personOrgForm',
-            'description' => "An entity which offers (sells / leases / lends / loans) the services / goods. A seller may also be a provider.",
-          ],
-          'recipient' => [
-            'class' => 'SchemaPersonOrgBase',
-            'formKeys' => 'personOrgFormKeys',
-            'form' => 'personOrgForm',
-            'description' => "The participant who is at the receiving end of the action.",
-          ],
         ];
 
       case 'ConsumeAction':
         return [
+          'target' => [
+            'class' => 'SchemaEntryPointBase',
+            'formKeys' => 'entryPointFormKeys',
+            'form' => 'entryPointForm',
+            'description' => "Indicates a target EntryPoint for an Action.",
+          ],
           'expectsAcceptanceOf' => [
             'class' => 'SchemaOfferBase',
             'formKeys' => 'offerFormKeys',
             'form' => 'offerForm',
             'description' => "An Offer which must be accepted before the user can perform the Action. For example, the user may need to buy a movie before being able to watch it.",
+          ],
+        ];
+
+      case 'OrganizeAction':
+        return [
+          'target' => [
+            'class' => 'SchemaEntryPointBase',
+            'formKeys' => 'entryPointFormKeys',
+            'form' => 'entryPointForm',
+            'description' => "Indicates a target EntryPoint for an Action.",
+          ],
+          'result' => [
+            'class' => 'SchemaThingBase',
+            'formKeys' => 'thingFormKeys',
+            'form' => 'thingForm',
+            'description' => "The result produced in the action. e.g. John wrote a book.",
           ],
         ];
 
@@ -631,9 +616,42 @@ trait SchemaActionTrait {
           ],
         ];
 
-      // General properties that apply to all actions.
       case 'All':
+        return [];
+
+      // General properties that apply to all actions.
+      case 'Other':
         return [
+          'price' => [
+            'class' => 'SchemaNameBase',
+            'formKeys' => '',
+            'form' => '',
+            'description' => "The offer price of a product, or of a price component.",
+          ],
+          'buyer' => [
+            'class' => 'SchemaPersonOrgBase',
+            'formKeys' => 'personOrgFormKeys',
+            'form' => 'personOrgForm',
+            'description' => "The participant/person/organization that bought the object.",
+          ],
+          'seller' => [
+            'class' => 'SchemaPersonOrgBase',
+            'formKeys' => 'personOrgFormKeys',
+            'form' => 'personOrgForm',
+            'description' => "An entity which offers (sells / leases / lends / loans) the services / goods. A seller may also be a provider.",
+          ],
+          'recipient' => [
+            'class' => 'SchemaPersonOrgBase',
+            'formKeys' => 'personOrgFormKeys',
+            'form' => 'personOrgForm',
+            'description' => "The participant who is at the receiving end of the action.",
+          ],
+          'target' => [
+            'class' => 'SchemaEntryPointBase',
+            'formKeys' => 'entryPointFormKeys',
+            'form' => 'entryPointForm',
+            'description' => "Indicates a target EntryPoint for an Action.",
+          ],
           'result' => [
             'class' => 'SchemaThingBase',
             'formKeys' => 'thingFormKeys',
@@ -646,12 +664,6 @@ trait SchemaActionTrait {
           //  'form' => '',
           //  'description' => 'Indicates the current disposition of the Action.',
           //],
-          'target' => [
-            'class' => 'SchemaEntryPointBase',
-            'formKeys' => 'entryPointFormKeys',
-            'form' => 'entryPointForm',
-            'description' => "Indicates a target EntryPoint for an Action.",
-          ],
           'agent' => [
             'class' => 'SchemaPersonOrgBase',
             'formKeys' => 'personOrgFormKeys',

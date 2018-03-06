@@ -10,7 +10,6 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 abstract class SchemaAddressBase extends SchemaNameBase {
 
   use SchemaAddressTrait;
-  use SchemaPivotTrait;
 
   /**
    * The top level keys on this form.
@@ -35,10 +34,8 @@ abstract class SchemaAddressBase extends SchemaNameBase {
 
     $form = $this->postalAddressForm($input_values);
 
-    if (!empty($this->info['multiple'])) {
-      $form['pivot'] = $this->pivotForm($value);
-      $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
-      $form['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
+    if (empty($this->multiple())) {
+      unset($form['pivot']);
     }
 
     return $form;

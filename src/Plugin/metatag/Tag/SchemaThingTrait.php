@@ -9,6 +9,8 @@ use Drupal\schema_metatag\SchemaMetatagManager;
  */
 trait SchemaThingTrait {
 
+  use SchemaPivotTrait;
+
   /**
    * Form keys.
    */
@@ -38,15 +40,19 @@ trait SchemaThingTrait {
     $form['#description'] = $input_values['description'];
     $form['#tree'] = TRUE;
 
+    // Add a pivot option to the form.
+    $form['pivot'] = $this->pivotForm($value);
+    $form['pivot']['#states'] = $visibility;
+
+    $options = static::types();
+    $options = array_combine($options, $options);
     $form['@type'] = [
       '#type' => 'select',
       '#title' => $this->t('@type'),
       '#default_value' => !empty($value['@type']) ? $value['@type'] : '',
       '#empty_option' => t('- None -'),
       '#empty_value' => '',
-      '#options' => [
-        'Thing' => $this->t('Thing'),
-      ],
+      '#options' => $options,
       '#required' => $input_values['#required'],
     ];
 
@@ -87,16 +93,20 @@ trait SchemaThingTrait {
     return $form;
   }
 
+  /**
+   * Thing object types.
+   */
   public static function types() {
     return [
       'Thing',
       'CreativeWork',
       'Event',
-      'Intagible',
+      'Intangible',
       'Organization',
       'Person',
       'Place',
       'Product',
     ];
   }
+
 }

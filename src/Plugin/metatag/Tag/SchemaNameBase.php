@@ -29,18 +29,14 @@ abstract class SchemaNameBase extends MetaNameBase {
     elseif (is_array($value)) {
 
       // Clean out empty values.
-      $value = array_filter($value);
+      $value = SchemaMetatagManager::arrayTrim($value);
 
       // If the item is an array of values,
       // walk the array and process the values.
       array_walk_recursive($value, 'static::processItem');
 
-      // See if any nested items need to be pivoted.
-      // If pivot is set to 0, it would have been removed as an empty value.
-      if (array_key_exists('pivot', $value)) {
-        unset($value['pivot']);
-        $value = SchemaMetatagManager::pivot($value);
-      }
+      // Recursively pivot each branch of the array.
+      $value = static::pivotItem($value);
 
     }
     // Process a simple string.
@@ -75,6 +71,24 @@ abstract class SchemaNameBase extends MetaNameBase {
    */
   public function setValue($value) {
     $this->value = SchemaMetatagManager::serialize($value);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function pivotItem($array) {
+    // See if any nested items need to be pivoted.
+    // If pivot is set to 0, it would have been removed as an empty value.
+    if (array_key_exists('pivot', $array)) {
+      unset($array['pivot']);
+      $array = SchemaMetatagManager::pivot($array);
+    }
+    foreach ($array as $key => &$value) {
+      if (is_array($value)) {
+        $value = static::pivotItem($value);
+      }
+    }
+    return $array;
   }
 
   /**

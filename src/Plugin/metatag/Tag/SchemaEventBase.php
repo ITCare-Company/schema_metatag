@@ -10,7 +10,6 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 abstract class SchemaEventBase extends SchemaNameBase {
 
   use SchemaEventTrait;
-  use SchemaPivotTrait;
 
   /**
    * {@inheritdoc}
@@ -29,10 +28,8 @@ abstract class SchemaEventBase extends SchemaNameBase {
 
     $form = $this->eventForm($input_values);
 
-    if (!empty($this->info['multiple'])) {
-      $form['pivot'] = $this->pivotForm($value);
-      $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
-      $form['pivot']['#states'] = ['invisible' => [$selector => ['value' => '']]];
+    if (empty($this->multiple())) {
+      unset($form['pivot']);
     }
 
     return $form;
@@ -47,7 +44,11 @@ abstract class SchemaEventBase extends SchemaNameBase {
     foreach ($keys as $key) {
       switch ($key) {
         case '@type':
-          $items[$key] = 'Event';
+          $items[$key] = 'PublicationEvent';
+          break;
+
+        case 'location':
+          $items[$key] = SchemaPlaceBase::testValue();
           break;
 
         default:

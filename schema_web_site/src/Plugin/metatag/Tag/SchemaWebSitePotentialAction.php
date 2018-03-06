@@ -25,4 +25,41 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaActionBase;
  */
 class SchemaWebSitePotentialAction extends SchemaActionBase {
 
+  /**
+   * Generate a form element for this meta tag.
+   */
+  public function form(array $element = []) {
+
+    $this->actionTypes = ['SearchAction'];
+    $this->actions = ['SearchAction'];
+
+    $form = parent::form($element);
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function testValue() {
+    $items = [];
+    $keys = self::actionFormKeys('SearchAction');
+    foreach ($keys as $key) {
+      switch ($key) {
+
+        case '@type':
+          $items[$key] = 'SearchAction';
+          break;
+
+        default:
+          if (is_string($key) && array_key_exists($key, $items)) {
+            $items[$key] = parent::testDefaultValue(1, '');
+          }
+          break;
+
+      }
+    }
+    return $items;
+
+  }
+
 }
