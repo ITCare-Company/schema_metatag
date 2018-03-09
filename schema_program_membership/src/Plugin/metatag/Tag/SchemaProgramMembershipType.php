@@ -17,7 +17,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaTypeBase;
  *   description = @Translation("The type of ProgramMembership (fixed by standard)."),
  *   name = "@type",
  *   group = "schema_program_membership",
- *   weight = -99,
+ *   weight = -10,
  *   type = "string",
  *   secure = FALSE,
  *   multiple = FALSE

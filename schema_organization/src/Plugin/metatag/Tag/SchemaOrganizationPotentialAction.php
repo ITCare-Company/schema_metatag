@@ -15,7 +15,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaEntryPointBase;
  * @MetatagTag(
  *   id = "schema_organization_potential_action",
  *   label = @Translation("potentialAction"),
- *   description = @Translation("Potential action provided by this organization."),
+ *   description = @Translation("RECOMMENDED BY GOOGLE. Potential action provided by this organization."),
  *   name = "potentialAction",
  *   group = "schema_organization",
  *   weight = 15,

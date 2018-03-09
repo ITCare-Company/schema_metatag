@@ -14,7 +14,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaCreativeWorkBase;
  * @MetatagTag(
  *   id = "schema_book_work_example",
  *   label = @Translation("workExample"),
- *   description = @Translation("An example of the book."),
+ *   description = @Translation("REQUIRED BY GOOGLE. An example of the book."),
  *   name = "workExample",
  *   group = "schema_book",
  *   weight = 10,

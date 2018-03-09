@@ -34,7 +34,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
     $group_key = 0;
     foreach ($schema_metatags as $group_name => $data) {
       if (empty($items)) {
-        $items['@context'] = 'http://schema.org';
+        $items['@context'] = 'https://schema.org';
       }
       $items['@graph'][$group_key] = $data;
       $group_key++;
@@ -159,7 +159,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
   public static function explode($value) {
     $value = explode(',', $value);
     $value = array_map('trim', $value);
-    $value = array_unique($value);
+    //$value = array_unique($value);
     if (count($value) == 1) {
       return $value[0];
     }
@@ -309,6 +309,54 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
       'actionTypes' => [],
       'actions' => [],
     ];
+  }
+
+  /**
+   * Alternate visibility selector for the field element.
+   *
+   * This is necessary because the form elements on the general configuration
+   * form have different parents than the form elements in the metatags field
+   * widget. This function makes is possible to convert the #states visibility
+   * selectors for the general configuration form into the right pattern
+   * so they will work on the field widget.
+   *
+   * @param string $selector
+   *   The selector constructed for the main metatag form.
+   * @param string $group
+   *   The group this part of the form belongs in.
+   * @param string $id
+   *   The id of the individual element.
+   *
+   * @return string
+   *   A rewritten selector that will work in the field form.
+   */
+  public static function altSelector($selector) {
+
+    $metatag_manager = \Drupal::service('metatag.manager');
+    $metatag_groups = $metatag_manager->sortedGroupsWithTags();
+
+    $group = '';
+    $matches = [];
+    $regex = '/:input\[name="(\w+)\[/';
+    preg_match($regex, $selector, $matches);
+    $id = $matches[1];
+    foreach ($metatag_groups as $group_name => $group_info) {
+      if (!empty($group_info['tags'])) {
+        if (array_key_exists($id, $group_info['tags'])) {
+          $tag = $group_info['tags'][$id];
+          $group = $tag['group'];
+          break;
+        }
+      }
+    }
+    // Original pattern, general configuration form:
+    // - schema_web_page_publisher[@type]
+    // Alternate pattern, field widget form:
+    // - field_metatags[0][schema_web_page][schema_web_page_publisher][@type]
+    $original = $id . '[';
+    $alternate = 'field_metatags[0][' . $group . '][' . $id . '][';
+    $new = str_replace($original, $alternate, $selector);
+    return $new;
   }
 
 }

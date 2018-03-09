@@ -38,7 +38,13 @@ trait SchemaPersonOrgTrait {
     // Get the id for the nested @type element.
     $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
     $visibility = ['invisible' => [$selector => ['value' => '']]];
+    $selector2 = SchemaMetatagManager::altSelector($selector);
+    $visibility2 = ['invisible' => [$selector2 => ['value' => '']]];
+    $visibility['invisible'] = [$visibility['invisible'], $visibility2['invisible']];
+
     $org_visibility = ['visible' => [$selector => ['value' => 'Organization']]];
+    $org_visibility2 = ['visible' => [$selector2 => ['value' => 'Organization']]];
+    $org_visibility['visible'] = [$org_visibility['visible'], $org_visibility2['visible']];
 
     $form['#type'] = 'fieldset';
     $form['#title'] = $input_values['title'];
@@ -59,7 +65,8 @@ trait SchemaPersonOrgTrait {
         'Person' => $this->t('Person'),
         'Organization' => $this->t('Organization'),
       ],
-      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#required' => $input_values['#required'],
+      '#weight' => -10,
     ];
 
     $form['@id'] = [
@@ -67,7 +74,7 @@ trait SchemaPersonOrgTrait {
       '#title' => $this->t('@id'),
       '#default_value' => !empty($value['@id']) ? $value['@id'] : '',
       '#maxlength' => 255,
-      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#required' => $input_values['#required'],
       '#description' => $this->t("Globally unique @id of the person or organization, usually a url, used to to link other properties to this object."),
     ];
 
@@ -76,7 +83,7 @@ trait SchemaPersonOrgTrait {
       '#title' => $this->t('name'),
       '#default_value' => !empty($value['name']) ? $value['name'] : '',
       '#maxlength' => 255,
-      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#required' => $input_values['#required'],
       '#description' => $this->t("Name of the person or organization, i.e. [node:author:display-name]."),
     ];
 
@@ -85,7 +92,7 @@ trait SchemaPersonOrgTrait {
       '#title' => $this->t('url'),
       '#default_value' => !empty($value['url']) ? $value['url'] : '',
       '#maxlength' => 255,
-      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#required' => $input_values['#required'],
       '#description' => $this->t("Absolute URL of the canonical Web page, like the URL of the author's profile page or the organization's official website, i.e. [node:author:url]."),
     ];
 
@@ -94,7 +101,7 @@ trait SchemaPersonOrgTrait {
       '#title' => $this->t('sameAs'),
       '#default_value' => !empty($value['sameAs']) ? $value['sameAs'] : '',
       '#maxlength' => 255,
-      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#required' => $input_values['#required'],
       '#description' => $this->t("Comma separated list of URLs for the person's or organization's official social media profile page(s)."),
     ];
 

@@ -14,15 +14,15 @@ trait SchemaPivotTrait {
 
     $form = [
       '#type' => 'select',
-      '#title' => 'Multiple values',
+      '#title' => 'Pivot',
       '#default_value' => !empty($value['pivot']) ? $value['pivot'] : '',
       '#empty_option' => t('- None -'),
       '#empty_value' => '',
       '#options' => [
         1 => 'Pivot',
       ],
-      '#weight' => -19,
-      '#description' => 'If set to "Pivot", the multiple values on each property in this section will be combined and pivoted to display multiple entities, each with one value per property.',
+      '#weight' => -9,
+      '#description' => 'Combine and pivot multiple values to display them as multiple objects.',
     ];
 
     return $form;

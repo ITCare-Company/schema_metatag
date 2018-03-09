@@ -17,6 +17,10 @@ trait SchemaActionTrait {
     SchemaPlaceTrait::postalAddressForm insteadof SchemaEventTrait;
     SchemaPlaceTrait::geoFormKeys insteadof SchemaEventTrait;
     SchemaPlaceTrait::geoForm insteadof SchemaEventTrait;
+    SchemaPlaceTrait::countryFormKeys insteadof SchemaOfferTrait;
+    SchemaPlaceTrait::countryForm insteadof SchemaOfferTrait;
+    SchemaPlaceTrait::countryFormKeys insteadof SchemaEventTrait;
+    SchemaPlaceTrait::countryForm insteadof SchemaEventTrait;
     SchemaPivotTrait::pivotForm insteadof SchemaPersonOrgTrait;
     SchemaPivotTrait::pivotForm insteadof SchemaOfferTrait;
     SchemaPivotTrait::pivotForm insteadof SchemaThingTrait;
@@ -82,9 +86,16 @@ trait SchemaActionTrait {
       '#weight' => -10,
     ];
 
-    $action_type_selector = ':input[name="' . $input_values['visibility_selector'] . '[actionType]"]';
-    $visibility = ['invisible' => [$action_type_selector => ['value' => '']]];
-    $invisibility = ['visible' => [$action_type_selector => ['value' => 'Invalid']]];
+    $selector = ':input[name="' . $input_values['visibility_selector'] . '[actionType]"]';
+    $selector2 = SchemaMetatagManager::altSelector($selector);
+
+    $visibility = ['invisible' => [$selector => ['value' => '']]];
+    $visibility2 = ['invisible' => [$selector2 => ['value' => '']]];
+    $visibility['invisible'] = [$visibility['invisible'], $visibility2['invisible']];
+
+    $invisibility = ['visible' => [$selector => ['value' => 'Invalid']]];
+    $invisibility2 = ['visible' => [$selector2 => ['value' => 'Invalid']]];
+    $invisibility['visible'] = [$invisibility['visible'], $invisibility2['visible']];
 
     // Add a pivot option to the form.
     $form['pivot'] = $this->pivotForm($value);
@@ -102,8 +113,13 @@ trait SchemaActionTrait {
         }
       }
       $options = array_combine($options, $options);
-      $action_type_visibility = ['visible' => [$action_type_selector => ['value' => $type]]];
-      $all_action_visibility = ['invisible' => [$action_type_selector => ['value' => '']]];
+      $action_type_visibility = ['visible' => [$selector => ['value' => $type]]];
+      $action_type_visibility2 = ['visible' => [$selector2 => ['value' => $type]]];
+      $action_type_visibility['visible'] = [$action_type_visibility['visible'], $action_type_visibility2['visible']];
+
+      $all_action_visibility = ['invisible' => [$selector => ['value' => '']]];
+      $all_action_visibility2 = ['invisible' => [$selector2 => ['value' => '']]];
+      $all_action_visibility['invisible'] = [$all_action_visibility['invisible'], $all_action_visibility2['invisible']];
 
       $form[$type] = [
         '#type' => 'fieldset',

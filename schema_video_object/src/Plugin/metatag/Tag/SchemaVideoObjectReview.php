@@ -14,7 +14,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaReviewBase;
  * @MetatagTag(
  *   id = "schema_video_object_review",
  *   label = @Translation("review"),
- *   description = @Translation("Review."),
+ *   description = @Translation("Reviews of this video."),
  *   name = "review",
  *   group = "schema_video_object",
  *   weight = 11,

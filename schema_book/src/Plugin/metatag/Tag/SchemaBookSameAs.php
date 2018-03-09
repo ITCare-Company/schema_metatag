@@ -14,7 +14,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  * @MetatagTag(
  *   id = "schema_book_same_as",
  *   label = @Translation("sameAs"),
- *   description = @Translation("URL of a reference Web page that unambiguously indicates the item's identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or official website."),
+ *   description = @Translation("RECOMMENDED BY GOOGLE. URL of a reference Web page that unambiguously indicates the item's identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or official website."),
  *   name = "sameAs",
  *   group = "schema_book",
  *   weight = 0,
@@ -24,5 +24,5 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  * )
  */
 class SchemaBookSameAs extends SchemaNameBase {
-  // Nothing here yet. Just a placeholder class for a plugin.
+
 }

@@ -64,3 +64,6 @@ metatag.metatag_tag.schema_movie_part_of_series:
 metatag.metatag_tag.schema_movie_has_part:
   type: text
   label: 'hasPart'
+metatag.metatag_tag.schema_movie_aggregate_rating:
+  type: text
+  label: 'aggregateRating'

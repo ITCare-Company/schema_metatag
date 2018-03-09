@@ -10,7 +10,7 @@ use Drupal\schema_metatag\Plugin\metatag\Group\SchemaGroupBase;
  * @MetatagGroup(
  *   id = "schema_program_membership",
  *   label = @Translation("Schema.org: ProgramMembership"),
- *   description = @Translation("See Schema.org definitions for this Schema type at <a href="":url"">:url</a>.", arguments = { ":url" = "http://schema.org/ProgramMembership"}),
+ *   description = @Translation("See Schema.org definitions for this Schema type at <a href="":url"">:url</a>.", arguments = { ":url" = "https://schema.org/ProgramMembership"}),
  *   weight = 10,
  * )
  */

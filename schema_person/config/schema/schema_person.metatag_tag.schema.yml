@@ -52,6 +52,9 @@ metatag.metatag_tag.schema_person_type:
 metatag.metatag_tag.schema_person_url:
   type: text
   label: 'url'
+metatag.metatag_tag.schema_person_same_as:
+  type: text
+  label: 'sameAs'
 metatag.metatag_tag.schema_person_works_for:
   type: text
   label: 'works_for'

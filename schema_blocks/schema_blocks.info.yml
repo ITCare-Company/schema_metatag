@@ -1,0 +1,5 @@
+name: Schema.org Blocks
+type: module
+description: Custom blocks for testing Schema.org Metatag pages. NOT FOR USE ON PRODUCTION!.
+core: 8.x
+package: Development

@@ -14,10 +14,10 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaTypeBase;
  * @MetatagTag(
  *   id = "schema_review_type",
  *   label = @Translation("@type"),
- *   description = @Translation("The type of review."),
+ *   description = @Translation("REQUIRED. The type of review."),
  *   name = "@type",
  *   group = "schema_review",
- *   weight = -5,
+ *   weight = -10,
  *   type = "string",
  *   secure = FALSE,
  *   multiple = FALSE

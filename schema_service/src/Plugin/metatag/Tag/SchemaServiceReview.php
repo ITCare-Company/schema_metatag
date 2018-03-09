@@ -14,7 +14,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaReviewBase;
  * @MetatagTag(
  *   id = "schema_service_review",
  *   label = @Translation("review"),
- *   description = @Translation("Review."),
+ *   description = @Translation("Reviews of this service."),
  *   name = "review",
  *   group = "schema_service",
  *   weight = 11,

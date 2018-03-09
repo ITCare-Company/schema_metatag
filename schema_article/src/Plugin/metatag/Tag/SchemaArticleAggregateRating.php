@@ -14,7 +14,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaRatingBase;
  * @MetatagTag(
  *   id = "schema_article_aggregate_rating",
  *   label = @Translation("aggregateRating"),
- *   description = @Translation("aggregateRating."),
+ *   description = @Translation("The overall rating, based on a collection of reviews or ratings, of the item."),
  *   name = "aggregateRating",
  *   group = "schema_article",
  *   weight = 11,

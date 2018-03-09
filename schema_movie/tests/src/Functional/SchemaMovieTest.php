@@ -52,6 +52,7 @@ class SchemaMovieTest extends SchemaMetatagTagsTestBase {
     'schema_movie_part_of_season' => 'SchemaMoviePartOfSeason',
     'schema_movie_part_of_series' => 'SchemaMoviePartOfSeries',
     'schema_movie_has_part' => 'SchemaMovieHasPart',
+    'schema_movie_aggregate_rating' => 'SchemaMovieAggregateRating',
   ];
 
 }

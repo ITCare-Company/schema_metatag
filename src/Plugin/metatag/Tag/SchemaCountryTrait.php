@@ -32,6 +32,9 @@ trait SchemaCountryTrait {
     // Get the id for the nested @type element.
     $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
     $visibility = ['invisible' => [$selector => ['value' => '']]];
+    $selector2 = SchemaMetatagManager::altSelector($selector);
+    $visibility2 = ['invisible' => [$selector2 => ['value' => '']]];
+    $visibility['invisible'] = [$visibility['invisible'], $visibility2['invisible']];
 
     $form['#type'] = 'fieldset';
     $form['#title'] = $input_values['title'];
@@ -52,6 +55,7 @@ trait SchemaCountryTrait {
         'Country' => $this->t('Country'),
       ],
       '#required' => $input_values['#required'],
+      '#weight' => -10,
     ];
 
     $form['name'] = [

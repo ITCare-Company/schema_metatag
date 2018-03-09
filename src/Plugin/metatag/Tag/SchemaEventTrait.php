@@ -39,6 +39,9 @@ trait SchemaEventTrait {
     $visibility_selector = $input_values['visibility_selector'];
     $selector = ':input[name="' . $visibility_selector . '[@type]"]';
     $visibility = ['invisible' => [$selector => ['value' => '']]];
+    $selector2 = SchemaMetatagManager::altSelector($selector);
+    $visibility2 = ['invisible' => [$selector2 => ['value' => '']]];
+    $visibility['invisible'] = [$visibility['invisible'], $visibility2['invisible']];
 
     $form['#type'] = 'fieldset';
     $form['#title'] = $input_values['title'];
@@ -60,6 +63,7 @@ trait SchemaEventTrait {
         'PublicationEvent' => $this->t('PublicationEvent'),
       ],
       '#required' => $input_values['#required'],
+      '#weight' => -10,
     ];
 
     $form['@id'] = [
@@ -67,7 +71,7 @@ trait SchemaEventTrait {
       '#title' => $this->t('@id'),
       '#default_value' => !empty($value['@id']) ? $value['@id'] : '',
       '#maxlength' => 255,
-      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#required' => $input_values['#required'],
       '#description' => $this->t("Globally unique @id of the Event, usually a url, used to to link other properties to this object."),
     ];
 
@@ -76,7 +80,7 @@ trait SchemaEventTrait {
       '#title' => $this->t('name'),
       '#default_value' => !empty($value['name']) ? $value['name'] : '',
       '#maxlength' => 255,
-      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#required' => $input_values['#required'],
       '#description' => $this->t("Name of the Event."),
     ];
 
@@ -85,7 +89,7 @@ trait SchemaEventTrait {
       '#title' => $this->t('url'),
       '#default_value' => !empty($value['url']) ? $value['url'] : '',
       '#maxlength' => 255,
-      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#required' => $input_values['#required'],
       '#description' => $this->t("Absolute URL of the canonical Web page for the Event."),
     ];
 
@@ -94,7 +98,7 @@ trait SchemaEventTrait {
       '#title' => $this->t('startDate'),
       '#default_value' => !empty($value['startDate']) ? $value['startDate'] : '',
       '#maxlength' => 255,
-      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#required' => $input_values['#required'],
       '#description' => $this->t("Start date of the Event."),
     ];
 

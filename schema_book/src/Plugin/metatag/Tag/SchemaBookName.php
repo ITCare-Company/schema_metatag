@@ -14,7 +14,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  * @MetatagTag(
  *   id = "schema_book_name",
  *   label = @Translation("name"),
- *   description = @Translation("The title of the booke."),
+ *   description = @Translation("REQUIRED BY GOOGLE. The title of the book."),
  *   name = "name",
  *   group = "schema_book",
  *   weight = -1,

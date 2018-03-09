@@ -14,7 +14,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaTypeBase;
  * @MetatagTag(
  *   id = "schema_book_type",
  *   label = @Translation("@type"),
- *   description = @Translation("The type of this Book"),
+ *   description = @Translation("REQUIRED. The type of this Book"),
  *   name = "@type",
  *   group = "schema_book",
  *   weight = -10,

@@ -17,7 +17,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaProgramMembershipBase;
  *   description = @Translation("An Organization (or ProgramMembership) to which this Person or Organization belongs."),
  *   name = "memberOf",
  *   group = "schema_person",
- *   weight = 30,
+ *   weight = 11,
  *   type = "string",
  *   secure = FALSE,
  *   multiple = FALSE

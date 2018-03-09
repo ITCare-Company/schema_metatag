@@ -53,7 +53,7 @@ class SchemaClient {
    * @return array
    *   A decoded array of Schema.org data.
    *
-   * @see http://schema.org/docs/developers.html
+   * @see https://schema.org/docs/developers.html
    * @see https://github.com/schemaorg/schemaorg
    */
   public function getHttpResponse($object = '') {
@@ -86,7 +86,7 @@ class SchemaClient {
    * @return array
    *   A decoded array of Schema.org data.
    *
-   * @see http://schema.org/docs/developers.html
+   * @see https://schema.org/docs/developers.html
    * @see https://github.com/schemaorg/schemaorg
    */
   public function getLocalResponse() {

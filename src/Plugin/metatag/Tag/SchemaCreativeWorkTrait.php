@@ -56,7 +56,11 @@ trait SchemaCreativeWorkTrait {
 
     // Get the id for the nested @type element.
     $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
+    $selector2 = SchemaMetatagManager::altSelector($selector);
+
     $visibility = ['invisible' => [$selector => ['value' => '']]];
+    $visibility2 = ['invisible' => [$selector2 => ['value' => '']]];
+    $visibility['invisible'] = [$visibility['invisible'], $visibility2['invisible']];
 
     $form['#type'] = 'fieldset';
     $form['#title'] = $input_values['title'];
@@ -77,7 +81,7 @@ trait SchemaCreativeWorkTrait {
       '#empty_value' => '',
       '#options' => $options,
       '#required' => $input_values['#required'],
-      '#weight' => -20,
+      '#weight' => -10,
     ];
 
     // Build the form one object type at a time, using the visibility settings
@@ -89,6 +93,8 @@ trait SchemaCreativeWorkTrait {
       $properties = static::creativeWorkProperties($type);
       foreach ($properties as $key => $property) {
         $property_visibility = ['visible' => [$selector => ['value' => $type]]];
+        $property_visibility2 = ['visible' => [$selector2 => ['value' => $type]]];
+        $property_visibility['visible'] = [ $property_visibility['visible'],  $property_visibility2['visible']];
 
         if (empty($property['formKeys'])) {
           $form[$key] = [
@@ -221,7 +227,7 @@ trait SchemaCreativeWorkTrait {
             'class' => 'SchemaNameBase',
             'formKeys' => '',
             'form' => '',
-            'description' => "The format of the book (comma-separated), i.e. http://schema.org/Hardcover,http://schema.org/Paperback,http://schema.org/EBook",
+            'description' => "The format of the book (comma-separated), i.e. https://schema.org/Hardcover,https://schema.org/Paperback,https://schema.org/EBook",
           ],
           'author' => [
             'class' => 'SchemaPersonOrgBase',

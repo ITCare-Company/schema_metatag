@@ -12,7 +12,7 @@ abstract class SchemaDateBase extends SchemaNameBase {
    */
   public function form(array $element = []) {
     $form = parent::form($element);
-    $form['#description'] .= ' ' . $this->t('To format the date properly, use a token like [node:created:html_datetime].');
+    $form['#description'] .= ' ' . $this->t('Use a token like [node:created:html_datetime].');
     return $form;
   }
 

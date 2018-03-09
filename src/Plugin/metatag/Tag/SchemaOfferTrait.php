@@ -45,6 +45,9 @@ trait SchemaOfferTrait {
     $visibility_selector = $input_values['visibility_selector'];
     $selector = ':input[name="' . $visibility_selector . '[@type]"]';
     $visibility = ['invisible' => [$selector => ['value' => '']]];
+    $selector2 = SchemaMetatagManager::altSelector($selector);
+    $visibility2 = ['invisible' => [$selector2 => ['value' => '']]];
+    $visibility['invisible'] = [$visibility['invisible'], $visibility2['invisible']];
 
     $form['#type'] = 'fieldset';
     $form['#title'] = $input_values['title'];
@@ -64,6 +67,7 @@ trait SchemaOfferTrait {
         'Offer' => $this->t('Offer'),
       ],
       '#default_value' => !empty($value['@type']) ? $value['@type'] : '',
+      '#weight' => -10,
     ];
 
     $form['@id'] = [
@@ -72,7 +76,7 @@ trait SchemaOfferTrait {
       '#default_value' => !empty($value['@id']) ? $value['@id'] : '',
       '#maxlength' => 255,
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
-      '#description' => $this->t('Globally unique ID of the work in the form of a URL. The ID should be stable and not change over time. The URL is treated as an opaque string and does not have to be a working link.'),
+      '#description' => $this->t('Globally unique ID of the work in the form of a URL. It does not have to be a working link.'),
     ];
 
     $form['price'] = [
@@ -143,12 +147,7 @@ trait SchemaOfferTrait {
       '#default_value' => !empty($value['category']) ? $value['category'] : '',
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
-      '#description' => $this->t("One of the following values:
-'rental': The action is available to the user after purchase for a finite amount of time.
-'purchase': The action is available to the user after purchase for an indefinite amount of time.
-'subscription': The action is included with a subscription to the partner itself.
-'externalSubscription': The action is included with a subscription to an entity other than the action partner, e.g. HBO GO requires a cable provider.
-'free': The action is available with no purchase or subscription required of the user. The action may require a user login or contain ads."),
+      '#description' => $this->t("One of the following values: 'rental', 'purchase', 'subscription', 'externalSubscription', 'free'."),
     ];
 
     $input_values = [

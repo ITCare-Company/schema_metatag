@@ -32,6 +32,7 @@ class SchemaOrganizationTest extends SchemaMetatagTagsTestBase {
    */
   public $schemaTags = [
     'schema_organization_address' => 'SchemaOrganizationAddress',
+    'schema_organization_star_rating' => 'SchemaOrganizationStarRating',
     'schema_organization_aggregate_rating' => 'SchemaOrganizationAggregateRating',
     'schema_organization_review' => 'SchemaOrganizationReview',
     'schema_organization_geo' => 'SchemaOrganizationGeo',
@@ -45,8 +46,10 @@ class SchemaOrganizationTest extends SchemaMetatagTagsTestBase {
     'schema_organization_telephone' => 'SchemaOrganizationTelephone',
     'schema_organization_type' => 'SchemaOrganizationType',
     'schema_organization_url' => 'SchemaOrganizationUrl',
+    'schema_organization_menu' => 'SchemaOrganizationMenu',
     'schema_organization_potential_action' => 'SchemaOrganizationPotentialAction',
     'schema_organization_member_of' => 'SchemaOrganizationMemberOf',
+    'schema_organization_accepts_reservations' => 'SchemaOrganizationAcceptsReservations',
   ];
 
 }

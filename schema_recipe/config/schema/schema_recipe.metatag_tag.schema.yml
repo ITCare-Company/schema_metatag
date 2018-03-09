@@ -46,3 +46,6 @@ metatag.metatag_tag.schema_recipe_aggregate_rating:
 metatag.metatag_tag.schema_recipe_review:
   type: label
   label: 'review'
+metatag.metatag_tag.schema_recipe_nutrition:
+  type: label
+  label: 'nutrition'

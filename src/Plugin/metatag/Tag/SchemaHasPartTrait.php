@@ -52,6 +52,9 @@ trait SchemaHasPartTrait {
     // Get the id for the nested @type element.
     $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
     $visibility = ['invisible' => [$selector => ['value' => '']]];
+    $selector2 = SchemaMetatagManager::altSelector($selector);
+    $visibility2 = ['invisible' => [$selector2 => ['value' => '']]];
+    $visibility['invisible'] = [$visibility['invisible'], $visibility2['invisible']];
 
     $form['#type'] = 'fieldset';
     $form['#title'] = $input_values['title'];
@@ -72,7 +75,7 @@ trait SchemaHasPartTrait {
       '#empty_value' => '',
       '#options' => $options,
       '#required' => $input_values['#required'],
-      '#weight' => -20,
+      '#weight' => -10,
     ];
 
     // Build the form one object type at a time, using the visibility settings
@@ -115,6 +118,8 @@ trait SchemaHasPartTrait {
       $properties = static::hasPartProperties($type);
       foreach ($properties as $key => $property) {
         $property_visibility = ['visible' => [$selector => ['value' => $type]]];
+        $property_visibility2 = ['visible' => [$selector2 => ['value' => $type]]];
+        $property_visibility['visible'] = [$property_visibility['visible'], $property_visibility2['visible']];
 
         if (empty($property['formKeys'])) {
           $form[$key] = [
@@ -183,7 +188,7 @@ trait SchemaHasPartTrait {
             'class' => 'SchemaNameBase',
             'formKeys' => '',
             'form' => '',
-            'description' => "TRUE or FALSE, whether this element is accessible for free.",
+            'description' => "True or False, whether this element is accessible for free.",
           ],
           'cssSelector' => [
             'class' => 'SchemaNameBase',

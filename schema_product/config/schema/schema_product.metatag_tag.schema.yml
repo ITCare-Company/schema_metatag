@@ -22,3 +22,6 @@ metatag.metatag_tag.schema_product_aggregate_rating:
 metatag.metatag_tag.schema_product_review:
   type: label
   label: 'review'
+metatag.metatag_tag.schema_product_brand:
+  type: label
+  label: 'brand'

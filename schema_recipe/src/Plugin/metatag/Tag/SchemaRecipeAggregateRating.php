@@ -14,7 +14,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaRatingBase;
  * @MetatagTag(
  *   id = "schema_recipe_aggregate_rating",
  *   label = @Translation("aggregateRating"),
- *   description = @Translation("aggregateRating."),
+ *   description = @Translation("RECOMMENDED BY GOOGLE. The overall rating, based on a collection of reviews or ratings, of the item."),
  *   name = "aggregateRating",
  *   group = "schema_recipe",
  *   weight = 11,

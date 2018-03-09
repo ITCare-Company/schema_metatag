@@ -14,7 +14,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaReviewBase;
  * @MetatagTag(
  *   id = "schema_product_review",
  *   label = @Translation("review"),
- *   description = @Translation("Review."),
+ *   description = @Translation("RECOMMENDED BY GOOGLE. Reviews of this item."),
  *   name = "review",
  *   group = "schema_product",
  *   weight = 11,

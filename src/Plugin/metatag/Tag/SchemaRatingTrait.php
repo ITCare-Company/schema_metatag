@@ -35,6 +35,9 @@ trait SchemaRatingTrait {
     // Get the id for the nested @type element.
     $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
     $visibility = ['invisible' => [$selector => ['value' => '']]];
+    $selector2 = SchemaMetatagManager::altSelector($selector);
+    $visibility2 = ['invisible' => [$selector2 => ['value' => '']]];
+    $visibility['invisible'] = [$visibility['invisible'], $visibility2['invisible']];
 
     $form['#type'] = 'fieldset';
     $form['#title'] = $input_values['title'];
@@ -55,6 +58,7 @@ trait SchemaRatingTrait {
         'AggregateRating' => $this->t('AggregateRating'),
       ],
       '#default_value' => !empty($value['@type']) ? $value['@type'] : '',
+      '#weight' => -10,
     ];
 
     $form['ratingValue'] = [

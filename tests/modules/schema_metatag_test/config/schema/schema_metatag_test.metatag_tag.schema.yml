@@ -28,9 +28,6 @@ metatag.metatag_tag.schema_metatag_test_has_part_multiple:
 metatag.metatag_tag.schema_metatag_test_image:
   type: text
   label: 'image'
-metatag.metatag_tag.schema_metatag_test_is_accessible_for_free:
-  type: text
-  label: 'isAccessibleForFree'
 metatag.metatag_tag.schema_metatag_test_item_list_element:
   type: text
   label: 'itemListElement'
@@ -70,3 +67,9 @@ metatag.metatag_tag.schema_metatag_test_creative_work:
 metatag.metatag_tag.schema_metatag_test_member_of:
   type: text
   label: 'memberOf'
+metatag.metatag_tag.schema_metatag_test_nutrition_information:
+  type: text
+  label: 'nutritionInformation'
+metatag.metatag_tag.schema_metatag_test_opening_hours_specification:
+  type: text
+  label: 'openingHoursSpecification'

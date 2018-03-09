@@ -14,7 +14,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaPersonOrgBase;
  * @MetatagTag(
  *   id = "schema_book_author",
  *   label = @Translation("author"),
- *   description = @Translation("Author of the book."),
+ *   description = @Translation("REQUIRED BY GOOGLE. Author of the book."),
  *   name = "author",
  *   group = "schema_book",
  *   weight = 5,
@@ -24,15 +24,5 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaPersonOrgBase;
  * )
  */
 class SchemaBookAuthor extends SchemaPersonOrgBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function form(array $element = []) {
-    $form = parent::form($element);
-    $form['name']['#attribute']['placeholder'] = '[node:author:display-name]';
-    $form['url']['#attributes']['placeholder'] = '[node:author:url]';
-    return $form;
-  }
 
 }

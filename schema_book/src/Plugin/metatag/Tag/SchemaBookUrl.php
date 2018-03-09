@@ -14,7 +14,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  * @MetatagTag(
  *   id = "schema_book_url",
  *   label = @Translation("url"),
- *   description = @Translation("URL to the page on your site about the book. The page may list all available editions."),
+ *   description = @Translation("REQUIRED BY GOOGLE. URL to the page on your site about the book. The page may list all available editions."),
  *   name = "url",
  *   group = "schema_book",
  *   weight = 0,
@@ -24,5 +24,5 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  * )
  */
 class SchemaBookUrl extends SchemaNameBase {
-  // Nothing here yet. Just a placeholder class for a plugin.
+
 }

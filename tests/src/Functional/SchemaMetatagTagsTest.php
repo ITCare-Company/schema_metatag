@@ -43,7 +43,6 @@ class SchemaMetatagTagsTest extends SchemaMetatagTagsTestBase {
     'schema_metatag_test_has_part' => 'SchemaMetatagTestHasPart',
     'schema_metatag_test_has_part_multiple' => 'SchemaMetatagTestHasPartMultiple',
     'schema_metatag_test_image' => 'SchemaMetatagTestImage',
-    'schema_metatag_test_is_accessible_for_free' => 'SchemaMetatagTestIsAccessibleForFree',
     'schema_metatag_test_item_list_element' => 'SchemaMetatagTestItemListElement',
     'schema_metatag_test_main_entity_of_page' => 'SchemaMetatagTestMainEntityOfPage',
     'schema_metatag_test_name' => 'SchemaMetatagTestName',
@@ -58,6 +57,8 @@ class SchemaMetatagTagsTest extends SchemaMetatagTagsTestBase {
     'schema_metatag_test_action' => 'SchemaMetatagTestAction',
     'schema_metatag_test_creative_work' => 'SchemaMetatagTestCreativeWork',
     'schema_metatag_test_member_of' => 'SchemaMetatagTestMemberOf',
+    'schema_metatag_test_opening_hours_specification' => 'SchemaMetatagTestOpeningHoursSpecification',
+    'schema_metatag_test_nutrition_information' => 'SchemaMetatagTestNutritionInformation',
    ];
 
 }
