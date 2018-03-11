@@ -44,7 +44,7 @@ class SchemaNutritionInformationBase extends SchemaNameBase {
     foreach ($keys as $key) {
       switch ($key) {
         case '@type':
-          $items[$key] = 'PublicationNutritionInformation';
+          $items[$key] = 'NutritionInformation';
           break;
 
         default:

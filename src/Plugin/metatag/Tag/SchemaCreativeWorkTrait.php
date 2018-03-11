@@ -88,8 +88,39 @@ trait SchemaCreativeWorkTrait {
     // to hide/show only form elements for the selected type.
     foreach ($types as $type) {
 
+      // Properties common to all objects appear for any object type.
+      $properties = static::creativeWorkProperties('All');
+      foreach ($properties as $key => $property) {
+
+        if (empty($property['formKeys'])) {
+          $form[$key] = [
+            '#type' => 'textfield',
+            '#title' => $key,
+            '#default_value' => !empty($value[$key]) ? $value[$key] : '',
+            '#empty_option' => t('- None -'),
+            '#empty_value' => '',
+            '#required' => $input_values['#required'],
+            '#description' => $property['description'],
+            '#states' => $visibility,
+          ];
+        }
+        else {
+          $sub_values = [
+            'title' => $key,
+            'description' => $property['description'],
+            'value' => !empty($value[$key]) ? $value[$key] : [],
+            '#required' => $input_values['#required'],
+            'visibility_selector' => $input_values['visibility_selector'] . '[' . $key . ']',
+            'actionTypes' => !empty($property['actionTypes']) ? $property['actionTypes'] : [],
+            'actions' => !empty($property['actions']) ? $property['actions'] : [],
+          ];
+          $method = $property['form'];
+          $form[$key] = $this->$method($sub_values);
+          $form[$key]['#states'] = $visibility;
+        }
+      }
+
       // Properties specific to an object type appear only for that type.
-      // Weight these properties ahead of general properties.
       $properties = static::creativeWorkProperties($type);
       foreach ($properties as $key => $property) {
         $property_visibility = ['visible' => [$selector => ['value' => $type]]];
@@ -106,7 +137,6 @@ trait SchemaCreativeWorkTrait {
             '#required' => $input_values['#required'],
             '#description' => $property['description'],
             '#states' => $property_visibility,
-            '#weight' => 0,
           ];
         }
         else {
@@ -116,49 +146,12 @@ trait SchemaCreativeWorkTrait {
             'value' => !empty($value[$key]) ? $value[$key] : [],
             '#required' => $input_values['#required'],
             'visibility_selector' => $input_values['visibility_selector'] . '[' . $key . ']',
-            'visibility_type' => '@type',
             'actionTypes' => !empty($property['actionTypes']) ? $property['actionTypes'] : [],
             'actions' => !empty($property['actions']) ? $property['actions'] : [],
           ];
           $method = $property['form'];
           $form[$key] = $this->$method($sub_values);
           $form[$key]['#states'] = $property_visibility;
-          $form[$key]['#weight'] = 0;
-        }
-      }
-
-      // Properties common to all objects appear for any object type.
-      // Weight these after the object-specific properties.
-      $properties = static::creativeWorkProperties('All');
-      foreach ($properties as $key => $property) {
-
-        if (empty($property['formKeys'])) {
-          $form[$key] = [
-            '#type' => 'textfield',
-            '#title' => $key,
-            '#default_value' => !empty($value[$key]) ? $value[$key] : '',
-            '#empty_option' => t('- None -'),
-            '#empty_value' => '',
-            '#required' => $input_values['#required'],
-            '#description' => $property['description'],
-            '#states' => $visibility,
-            '#weight' => 5,
-          ];
-        }
-        else {
-          $sub_values = [
-            'title' => $key,
-            'description' => $property['description'],
-            'value' => !empty($value[$key]) ? $value[$key] : [],
-            '#required' => $input_values['#required'],
-            'visibility_selector' => $input_values['visibility_selector'] . '[' . $key . ']',
-            'actionTypes' => !empty($property['actionTypes']) ? $property['actionTypes'] : [],
-            'actions' => !empty($property['actions']) ? $property['actions'] : [],
-          ];
-          $method = $property['form'];
-          $form[$key] = $this->$method($sub_values);
-          $form[$key]['#states'] = $visibility;
-          $form[$key]['#weight'] = 5;
         }
       }
     }
