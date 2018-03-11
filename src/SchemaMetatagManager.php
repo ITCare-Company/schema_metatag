@@ -195,10 +195,20 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
     // the same value isn't unserialized more than once if this is called
     // multiple times.
     if (self::isSerialized($value)) {
+      // If a line break made it into the serialized array, it can't be
+      // unserialized.
+      $value = str_replace("\n", "", $value);
       // Fix problems created if token replacements are a different size
       // than the original tokens.
       $value = self::recomputeSerializedLength($value);
-      $value = self::arrayTrim(unserialize($value));
+      // Keep broken unserialization from throwing errors on the page.
+      if ($value = @unserialize($value)) {
+        $value = self::arrayTrim($value);
+      }
+      else {
+        // Fail safe if unserialization is broken.
+        $value = '';
+      }
     }
     return $value;
   }
@@ -256,9 +266,15 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
         }
       }
     }
+    // If all that's left is the pivot, return empty.
     if ($array == ['pivot' => 1]) {
       return '';
     }
+    // If all that's left is @type, return empty.
+    elseif (count($array) == 1 && key($array) == '@type') {
+      return '';
+    }
+    // Otherwise return the cleaned up array.
     else {
       return $array;
     }
