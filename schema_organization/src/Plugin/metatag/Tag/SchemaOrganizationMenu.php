@@ -17,7 +17,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *   description = @Translation("RECOMMENDED BY GOOGLE for food establishments, the fully-qualified URL of the menu."),
  *   name = "menu",
  *   group = "schema_organization",
- *   weight = 2,
+ *   weight = 5,
  *   type = "string",
  *   secure = FALSE,
  *   multiple = FALSE

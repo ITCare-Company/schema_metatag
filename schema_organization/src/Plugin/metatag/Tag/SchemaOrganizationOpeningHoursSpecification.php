@@ -17,7 +17,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaOpeningHoursSpecificationBase
  *   description = @Translation("RECOMMENDED BY GOOGLE. Hours during which the business location is open."),
  *   name = "openingHoursSpecification",
  *   group = "schema_organization",
- *   weight = 2,
+ *   weight = 5,
  *   type = "string",
  *   secure = FALSE,
  *   multiple = TRUE

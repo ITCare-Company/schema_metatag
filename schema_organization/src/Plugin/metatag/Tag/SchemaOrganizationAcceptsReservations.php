@@ -17,7 +17,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaTrueFalseBase;
  *   description = @Translation("RECOMMENDED BY GOOGLE for food establishments, True or False. If True, the best practice is to also define potentialAction."),
  *   name = "acceptsReservations",
  *   group = "schema_organization",
- *   weight = 2,
+ *   weight = 5,
  *   type = "string",
  *   secure = FALSE,
  *   multiple = FALSE
