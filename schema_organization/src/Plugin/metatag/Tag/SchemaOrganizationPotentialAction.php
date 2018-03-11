@@ -56,9 +56,7 @@ class SchemaOrganizationPotentialAction extends SchemaActionBase {
           break;
 
         default:
-          if (is_string($key) && array_key_exists($key, $items)) {
-            $items[$key] = parent::testDefaultValue(1, '');
-          }
+          $items[$key] = parent::testDefaultValue(1, '');
           break;
 
       }
