@@ -181,7 +181,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
         return '';
       }
       else {
-        $value = serialize($value);
+        $value = serialize($trimmed);
       }
     }
     return $value;
