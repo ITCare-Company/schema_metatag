@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Schema.org ProgramMembership items should extend this class.
  */
-abstract class SchemaProgramMembershipBase extends SchemaNameBase {
+class SchemaProgramMembershipBase extends SchemaNameBase {
 
   use SchemaProgramMembershipTrait;
 

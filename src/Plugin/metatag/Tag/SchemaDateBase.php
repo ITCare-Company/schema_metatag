@@ -5,7 +5,7 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 /**
  * Provides a plugin for the 'schema_date_base' meta tag.
  */
-abstract class SchemaDateBase extends SchemaNameBase {
+class SchemaDateBase extends SchemaNameBase {
 
   /**
    * Generate a form element for this meta tag.

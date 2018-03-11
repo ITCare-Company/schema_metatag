@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Schema.org Geo items should extend this class.
  */
-abstract class SchemaGeoBase extends SchemaNameBase {
+class SchemaGeoBase extends SchemaNameBase {
 
   use SchemaGeoTrait;
 

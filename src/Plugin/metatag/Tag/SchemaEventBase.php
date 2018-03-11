@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Schema.org Event items should extend this class.
  */
-abstract class SchemaEventBase extends SchemaNameBase {
+class SchemaEventBase extends SchemaNameBase {
 
   use SchemaEventTrait;
 

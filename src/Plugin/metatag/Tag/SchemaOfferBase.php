@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Provides a plugin for the 'schema_offer_base' meta tag.
  */
-abstract class SchemaOfferBase extends SchemaNameBase {
+class SchemaOfferBase extends SchemaNameBase {
 
   use SchemaOfferTrait;
 

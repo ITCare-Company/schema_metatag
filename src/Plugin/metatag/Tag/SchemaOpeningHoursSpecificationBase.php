@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Schema.org OpeningHoursSpecification items should extend this class.
  */
-abstract class SchemaOpeningHoursSpecificationBase extends SchemaNameBase {
+class SchemaOpeningHoursSpecificationBase extends SchemaNameBase {
 
   use SchemaOpeningHoursSpecificationTrait;
 

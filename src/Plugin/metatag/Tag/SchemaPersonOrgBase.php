@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Schema.org Person/Org items should extend this class.
  */
-abstract class SchemaPersonOrgBase extends SchemaNameBase {
+class SchemaPersonOrgBase extends SchemaNameBase {
 
   use SchemaPersonOrgTrait;
 

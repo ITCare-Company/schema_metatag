@@ -5,7 +5,7 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 /**
  * Schema.org MainEntityOfPage items should extend this class.
  */
-abstract class SchemaMainEntityOfPageBase extends SchemaNameBase {
+class SchemaMainEntityOfPageBase extends SchemaNameBase {
 
   /**
    * {@inheritdoc}

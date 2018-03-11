@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Schema.org Thing items should extend this class.
  */
-abstract class SchemaThingBase extends SchemaNameBase {
+class SchemaThingBase extends SchemaNameBase {
 
   use SchemaThingTrait;
 

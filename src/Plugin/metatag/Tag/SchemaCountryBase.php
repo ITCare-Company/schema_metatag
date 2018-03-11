@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Schema.org Country items should extend this class.
  */
-abstract class SchemaCountryBase extends SchemaNameBase {
+class SchemaCountryBase extends SchemaNameBase {
 
   use SchemaCountryTrait;
 

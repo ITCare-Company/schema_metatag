@@ -5,7 +5,7 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 /**
  * Provides a plugin for the 'isAccessibleForFree' meta tag.
  */
-abstract class SchemaTrueFalseBase extends SchemaNameBase {
+class SchemaTrueFalseBase extends SchemaNameBase {
 
   /**
    * {@inheritdoc}

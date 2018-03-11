@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Provides a plugin to extend for the 'Rating' meta tag.
  */
-abstract class SchemaRatingBase extends SchemaNameBase {
+class SchemaRatingBase extends SchemaNameBase {
 
   use SchemaRatingTrait;
 

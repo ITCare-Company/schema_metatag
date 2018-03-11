@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Schema.org NutritionInformation items should extend this class.
  */
-abstract class SchemaNutritionInformationBase extends SchemaNameBase {
+class SchemaNutritionInformationBase extends SchemaNameBase {
 
   use SchemaNutritionInformationTrait;
 
@@ -44,7 +44,7 @@ abstract class SchemaNutritionInformationBase extends SchemaNameBase {
     foreach ($keys as $key) {
       switch ($key) {
         case '@type':
-          $items[$key] = 'NutritionInformation';
+          $items[$key] = 'PublicationNutritionInformation';
           break;
 
         default:

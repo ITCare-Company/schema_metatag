@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Schema.org Action items should extend this class.
  */
-abstract class SchemaActionBase extends SchemaNameBase {
+class SchemaActionBase extends SchemaNameBase {
 
   use SchemaActionTrait;
 

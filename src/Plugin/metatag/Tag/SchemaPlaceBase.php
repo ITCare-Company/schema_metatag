@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Schema.org Place items should extend this class.
  */
-abstract class SchemaPlaceBase extends SchemaAddressBase {
+class SchemaPlaceBase extends SchemaAddressBase {
 
   use SchemaPlaceTrait;
 

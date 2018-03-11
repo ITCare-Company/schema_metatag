@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Schema.org EntryPoint items should extend this class.
  */
-abstract class SchemaEntryPointBase extends SchemaNameBase {
+class SchemaEntryPointBase extends SchemaNameBase {
 
   use SchemaEntryPointTrait;
 

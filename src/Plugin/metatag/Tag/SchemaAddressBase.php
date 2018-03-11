@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Schema.org PostalAddress items should extend this class.
  */
-abstract class SchemaAddressBase extends SchemaNameBase {
+class SchemaAddressBase extends SchemaNameBase {
 
   use SchemaAddressTrait;
 

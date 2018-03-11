@@ -7,7 +7,7 @@ use Drupal\Core\Url;
 /**
  * All Schema.org views itemListElement tags should extend this class.
  */
-abstract class SchemaItemListElementViewsBase extends SchemaItemListElementBase {
+class SchemaItemListElementViewsBase extends SchemaItemListElementBase {
 
   /**
    * {@inheritdoc}

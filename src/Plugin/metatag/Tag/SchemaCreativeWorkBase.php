@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Schema.org CreativeWork items should extend this class.
  */
-abstract class SchemaCreativeWorkBase extends SchemaNameBase {
+class SchemaCreativeWorkBase extends SchemaNameBase {
 
   use SchemaCreativeWorkTrait;
 

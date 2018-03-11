@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Provides a plugin to extend for the 'Review' meta tag.
  */
-abstract class SchemaReviewBase extends SchemaNameBase {
+class SchemaReviewBase extends SchemaNameBase {
 
   use SchemaReviewTrait;
 

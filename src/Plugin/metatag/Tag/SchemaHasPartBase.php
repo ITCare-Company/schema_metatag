@@ -11,7 +11,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
  *
  * @see https://developers.google.com/search/docs/data-types/paywalled-content
  */
-abstract class SchemaHasPartBase extends SchemaNameBase {
+class SchemaHasPartBase extends SchemaNameBase {
 
   use SchemaHasPartTrait;
 

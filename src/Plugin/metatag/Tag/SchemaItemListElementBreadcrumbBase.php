@@ -7,7 +7,7 @@ use Drupal\Core\Url;
 /**
  * All Schema.org Breadcrumb tags should extend this class.
  */
-abstract class SchemaItemListElementBreadcrumbBase extends SchemaItemListElementBase {
+class SchemaItemListElementBreadcrumbBase extends SchemaItemListElementBase {
 
   /**
    * {@inheritdoc}

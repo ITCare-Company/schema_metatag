@@ -7,7 +7,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * Schema.org Image items should extend this class.
  */
-abstract class SchemaImageBase extends SchemaNameBase {
+class SchemaImageBase extends SchemaNameBase {
 
   use SchemaImageTrait;
 
