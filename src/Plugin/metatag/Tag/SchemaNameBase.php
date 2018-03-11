@@ -8,7 +8,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 /**
  * All Schema.org tags should extend this class.
  */
-abstract class SchemaNameBase extends MetaNameBase {
+class SchemaNameBase extends MetaNameBase {
 
   /**
    * The #states base visibility selector for this element.
@@ -21,15 +21,21 @@ abstract class SchemaNameBase extends MetaNameBase {
    * {@inheritdoc}
    */
   public function output() {
+
     $value = SchemaMetatagManager::unserialize($this->value());
+
+    // If this is a complex array of value, process the array.
+    if (is_array($value)) {
+
+      // Clean out empty values.
+      $value = SchemaMetatagManager::arrayTrim($value);
+    }
+
     if (empty($value)) {
       return '';
     }
     // If this is a complex array of value, process the array.
     elseif (is_array($value)) {
-
-      // Clean out empty values.
-      $value = SchemaMetatagManager::arrayTrim($value);
 
       // If the item is an array of values,
       // walk the array and process the values.
