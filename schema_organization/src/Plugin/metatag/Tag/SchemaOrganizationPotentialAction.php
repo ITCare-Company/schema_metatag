@@ -4,6 +4,7 @@ namespace Drupal\schema_organization\Plugin\metatag\Tag;
 
 use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaActionBase;
 use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaEntryPointBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaThingBase;
 
 /**
  * Provides a plugin for the 'schema_organization_potential_action' meta tag.
@@ -53,6 +54,10 @@ class SchemaOrganizationPotentialAction extends SchemaActionBase {
 
         case 'target':
           $items[$key] = SchemaEntryPointBase::testValue();
+          break;
+
+        case 'result':
+          $items[$key] = SchemaThingBase::testValue();
           break;
 
         default:
