@@ -51,6 +51,7 @@ class SchemaItemListElementViewsBase extends SchemaItemListElementBase {
           $values[$key] = [
             '@id' => $url,
             'name' => $item->_entity->label(),
+            'url' => $url,
           ];
           $key++;
         }
