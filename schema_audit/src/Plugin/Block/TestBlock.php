@@ -2,24 +2,21 @@
 
 /**
  * @file
- * Contains Drupal\schema_blocks\Plugin\Block\LetterAuthor.
+ * Contains Drupal\schema_audit\Plugin\Block\TestBlock.
  */
 
-namespace Drupal\schema_blocks\Plugin\Block;
+namespace Drupal\schema_audit\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
 
 /**
- * Provides a 'TestPage' block.
+ * Provides a 'TestBlock' block.
  *
  * @Block(
  *  id = "test_block",
  *  admin_label = @Translation("Test structured data on Google."),
- *   context = {
- *     "node" = @ContextDefinition("entity:node", label = @Translation("Node"))
- *   }
  * )
  */
 class TestBlock extends BlockBase {
@@ -31,7 +28,7 @@ class TestBlock extends BlockBase {
     $build = [];
 
     $heading = '<h3>Test this page</h3>';
-    $description = "<p>Test the results of this page by checking it on Google's structured content tester.</p>";
+    $description = "<p>View page source to see the JSON-LD on this page. Test the results of this page by checking it on Google's structured content tester.</p>";
 
     // Get current path.
     $options = ['absolute' => 'true'];
@@ -46,7 +43,7 @@ class TestBlock extends BlockBase {
     $build = [
       'description' => [
         '#type' => 'markup',
-        '#markup' => $heading . $description,
+        '#markup' => $description,
       ],
       'description_link' =>  [
         $link->toRenderable(),
