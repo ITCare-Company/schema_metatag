@@ -210,7 +210,7 @@ trait SchemaActionTrait {
     // Create a hidden top-level form element with all the properties.
     // The '#element_validate' method, actionValidation(), will populate this
     // element from the selected action type, and it is also used by tests.
-    $form['#element_validate'] = [[$this, 'actionValidation']];
+    $form['#element_validate'] = [[get_class($this), 'actionValidation']];
 
     $keys = static::actionFormKeys();
     foreach ($action_types as $type) {
