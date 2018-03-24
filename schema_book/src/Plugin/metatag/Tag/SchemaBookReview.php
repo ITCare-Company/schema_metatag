@@ -1,4 +1,4 @@
-book<?php
+<?php
 
 namespace Drupal\schema_book\Plugin\metatag\Tag;
 

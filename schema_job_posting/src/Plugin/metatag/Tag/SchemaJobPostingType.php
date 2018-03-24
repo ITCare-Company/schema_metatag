@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_job_posting\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaTypeBase;
 
 /**
  * Provides a plugin for the 'type' meta tag.
@@ -17,13 +17,13 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *   description = @Translation("REQUIRED. The type of jobPosting."),
  *   name = "@type",
  *   group = "schema_job_posting",
- *   weight = -5,
+ *   weight = -10,
  *   type = "string",
  *   secure = FALSE,
  *   multiple = FALSE
  * )
  */
-class SchemaJobPostingType extends SchemaNameBase {
+class SchemaJobPostingType extends SchemaTypeBase {
 
   /**
    * {@inheritdoc}

@@ -17,7 +17,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *   description = @Translation("REQUIRED BY GOOGLE. The title of the job."),
  *   name = "title",
  *   group = "schema_job_posting",
- *   weight = 1,
+ *   weight = -7,
  *   type = "string",
  *   secure = FALSE,
  *   multiple = FALSE

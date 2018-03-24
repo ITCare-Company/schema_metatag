@@ -17,7 +17,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaPersonOrgBase;
  *   description = @Translation("REQUIRED BY GOOGLE. The organization offering the job position"),
  *   name = "hiringOrganization",
  *   group = "schema_job_posting",
- *   weight = 10,
+ *   weight = 0,
  *   type = "string",
  *   secure = FALSE,
  *   multiple = FALSE

@@ -17,7 +17,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaDateBase;
  *   description = @Translation("REQUIRED BY GOOGLE. The date after which this job posting is not valid anymore."),
  *   name = "validThrough",
  *   group = "schema_job_posting",
- *   weight = 1,
+ *   weight = -5,
  *   type = "string",
  *   secure = FALSE,
  *   multiple = FALSE

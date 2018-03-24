@@ -112,20 +112,12 @@ trait SchemaMonetaryAmountTrait {
     ];
 
     $form['value']['unitText'] = [
-      '#type' => 'select',
+      '#type' => 'textfield',
       '#title' => $this->t('unitText'),
       '#default_value' => !empty($value['value']['unitText']) ? $value['value']['unitText'] : '',
-      '#empty_option' => t('- None -'),
-      '#empty_value' => '',
-      '#options' => [
-        'HOUR' => $this->t('HOUR'),
-        'DAY' => $this->t('DAY'),
-        'WEEK' => $this->t('WEEK'),
-        'MONTH' => $this->t('MONTH'),
-        'YEAR' => $this->t('YEAR'),
-      ],
+      '#maxlength' => 255,
       '#required' => $input_values['#required'],
-      '#description' => $this->t('The type of value.'),
+      '#description' => $this->t('The type of value. Should be one of HOUR, DAY, WEEK, MONTH, or YEAR.'),
     ];
 
     $keys = static::monetaryAmountFormKeys();

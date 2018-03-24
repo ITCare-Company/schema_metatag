@@ -17,7 +17,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaDateBase;
  *   description = @Translation("REQUIRED BY GOOGLE. Date and time when the job was posted."),
  *   name = "datePosted",
  *   group = "schema_job_posting",
- *   weight = 3,
+ *   weight = -5,
  *   type = "string",
  *   secure = FALSE,
  *   multiple = FALSE

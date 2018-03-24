@@ -17,7 +17,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *   description = @Translation("The category of the job. You can use this list of supported categories <a href="":url"" target=""_blank"" rel=""noopener"">:url</a>.", arguments = { ":url" = "https://www.onetcenter.org/taxonomy/2010/list.html"}),
  *   name = "occupationalCategory",
  *   group = "schema_job_posting",
- *   weight = 1,
+ *   weight = 15,
  *   type = "string",
  *   secure = FALSE,
  *   multiple = FALSE
@@ -25,12 +25,4 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  */
 class SchemaJobPostingOccupationalCategory extends SchemaNameBase{
 
-  /**
-   * Generate a form element for this meta tag.
-   */
-  public function form(array $element = []) {
-    $form = parent::form($element);
-    $form['#attributes']['placeholder'] = '11-1011.00 Chief Executives';
-    return $form;
-  }
 }

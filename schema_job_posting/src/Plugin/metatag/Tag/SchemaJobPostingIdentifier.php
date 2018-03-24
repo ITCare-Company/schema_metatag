@@ -17,7 +17,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *   description = @Translation("RECOMMENDED BY GOOGLE. The internal identifier of the position."),
  *   name = "identifier",
  *   group = "schema_job_posting",
- *   weight = 1,
+ *   weight = -5,
  *   type = "string",
  *   secure = FALSE,
  *   multiple = FALSE
