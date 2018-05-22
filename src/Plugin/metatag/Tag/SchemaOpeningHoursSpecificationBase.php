@@ -47,10 +47,34 @@ class SchemaOpeningHoursSpecificationBase extends SchemaNameBase {
           $items[$key] = 'OpeningHoursSpecification';
           break;
 
+        case 'dayOfWeek':
+        case 'opens':
+        case 'closes';
+          $items[$key] = parent::testDefaultValue(3, ',');
+          break;
+
         default:
           $items[$key] = parent::testDefaultValue(1, '');
           break;
 
+      }
+    }
+    return $items;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function processedTestValue($items) {
+    foreach ($items as $key => $value) {
+      switch ($key) {
+        case 'dayOfWeek':
+        case 'opens':
+        case 'closes':
+          if (!is_array($items[$key])) {
+            $items[$key] = explode(',', $items[$key]);
+          }
+          break;
       }
     }
     return $items;

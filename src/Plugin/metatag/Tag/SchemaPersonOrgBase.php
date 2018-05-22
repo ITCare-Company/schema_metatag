@@ -61,8 +61,35 @@ class SchemaPersonOrgBase extends SchemaNameBase {
           $items[$key] = 'Organization';
           break;
 
+        case 'url':
+        case 'sameAs':
+          $items[$key] = parent::testDefaultValue(3, ',');
+          break;
+
         default:
           $items[$key] = parent::testDefaultValue(2, ' ');
+          break;
+
+      }
+    }
+    return $items;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function processedTestValue($items) {
+    foreach ($items as $key => $value) {
+      switch ($key) {
+        case 'url':
+        case 'sameAs':
+          if (!is_array($items[$key])) {
+            $items[$key] = explode(',', $items[$key]);
+          }
+          break;
+
+        case 'logo':
+          $items[$key] = SchemaImageBase::processedTestValue($items[$key]);
           break;
 
       }
