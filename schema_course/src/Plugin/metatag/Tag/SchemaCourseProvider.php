@@ -14,7 +14,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaPersonOrgBase;
  * @MetatagTag(
  *   id = "schema_course_provider",
  *   label = @Translation("provider"),
- *   description = @Translation("The provider of the course."),
+ *   description = @Translation("RECOMMENDED BY GOOGLE. The provider of the course."),
  *   name = "provider",
  *   group = "schema_course",
  *   weight = -35,
