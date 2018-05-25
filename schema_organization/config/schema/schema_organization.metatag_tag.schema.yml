@@ -58,3 +58,6 @@ metatag.metatag_tag.schema_organization_accepts_reservations:
 metatag.metatag_tag.schema_organization_opening_hours_specification:
   type: label
   label: 'openingHoursSpecification'
+metatag.metatag_tag.schema_organization_contact_point:
+  type: label
+  label: 'contactPoint'

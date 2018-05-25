@@ -50,6 +50,7 @@ class SchemaPersonTest extends SchemaMetatagTagsTestBase {
     'schema_person_url' => 'SchemaPersonUrl',
     'schema_person_same_as' => 'SchemaPersonSameAs',
     'schema_person_works_for' => 'SchemaPersonWorksFor',
+    'schema_person_contact_point' => 'SchemaPersonContactPoint',
   ];
 
 }
