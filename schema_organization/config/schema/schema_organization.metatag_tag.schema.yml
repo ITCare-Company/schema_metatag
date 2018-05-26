@@ -64,3 +64,6 @@ metatag.metatag_tag.schema_organization_opening_hours_specification:
 metatag.metatag_tag.schema_organization_contact_point:
   type: label
   label: 'contactPoint'
+metatag.metatag_tag.schema_organization_brand:
+  type: text
+  label: 'brand'
