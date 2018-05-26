@@ -17,6 +17,7 @@ trait SchemaBrandTrait {
   public static function brandFormKeys() {
     return [
       '@type',
+      '@id',
       'name',
       'description',
       'url',
@@ -103,13 +104,6 @@ trait SchemaBrandTrait {
       '#description' => $this->t("Comma separated list of URLs for the person's or organization's official social media profile page(s)."),
     ];
 
-    $keys = static::brandFormKeys();
-    foreach ($keys as $key) {
-      if ($key != '@type') {
-        $form[$key]['#states'] = $visibility;
-      }
-    }
-
     $input_values = [
       'title' => $this->t('Logo'),
       'description' => $this->t('The URL of a logo that is representative of the organization, person, product or service. Review <a href="@logo" target="_blank">Google guidelines.</a>', [
@@ -122,6 +116,13 @@ trait SchemaBrandTrait {
 
     // Display the logo for brand.
     $form['logo'] = $this->imageForm($input_values);
+
+    $keys = static::brandFormKeys();
+    foreach ($keys as $key) {
+      if ($key != '@type') {
+        $form[$key]['#states'] = $visibility;
+      }
+    }
 
     return $form;
   }
