@@ -71,9 +71,7 @@ class SchemaEntryPointBase extends SchemaNameBase {
         case 'urlTemplate':
         case 'actionPlatform':
         case 'inLanguage';
-          if (!is_array($items[$key])) {
-            $items[$key] = explode(',', $items[$key]);
-          }
+          $items[$key] = static::processTestExplodeValue($items[$key]);
           break;
 
       }

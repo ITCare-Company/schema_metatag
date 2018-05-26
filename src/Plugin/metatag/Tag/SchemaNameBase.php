@@ -230,6 +230,28 @@ class SchemaNameBase extends MetaNameBase {
   }
 
   /**
+   * Explode a test value.
+   *
+   * For test values, emulates the extra processing a multiple value would get.
+   *
+   * @param array $items
+   *   The input value, either a string or an array.
+   *
+   * @return mixed
+   *   Return the correct output value.
+   */
+  public static function processTestExplodeValue($items) {
+    if (!is_array($items)) {
+      $items = SchemaMetatagManager::explode($items);
+      // Clean out any empty values that might have been added by explode().
+      if (is_array($items)) {
+        $value = array_filter($items);
+      }
+    }
+    return $items;
+  }
+
+  /**
    * Provide a random test value.
    *
    * A helper function to create a random test value. Use the delimiter to

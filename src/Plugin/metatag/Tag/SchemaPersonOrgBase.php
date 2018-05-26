@@ -83,9 +83,7 @@ class SchemaPersonOrgBase extends SchemaNameBase {
       switch ($key) {
         case 'url':
         case 'sameAs':
-          if (!is_array($items[$key])) {
-            $items[$key] = explode(',', $items[$key]);
-          }
+          $items[$key] = static::processTestExplodeValue($items[$key]);
           break;
 
         case 'logo':

@@ -67,9 +67,7 @@ class SchemaCountryBase extends SchemaNameBase {
     foreach ($items as $key => $value) {
       switch ($key) {
         case 'name':
-          if (!is_array($items[$key])) {
-            $items[$key] = explode(',', $items[$key]);
-          }
+          $items[$key] = static::processTestExplodeValue($items[$key]);
           break;
       }
     }

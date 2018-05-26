@@ -71,9 +71,7 @@ class SchemaOpeningHoursSpecificationBase extends SchemaNameBase {
         case 'dayOfWeek':
         case 'opens':
         case 'closes':
-          if (!is_array($items[$key])) {
-            $items[$key] = explode(',', $items[$key]);
-          }
+          $items[$key] = static::processTestExplodeValue($items[$key]);
           break;
       }
     }
