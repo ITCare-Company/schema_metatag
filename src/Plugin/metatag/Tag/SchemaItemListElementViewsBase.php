@@ -14,7 +14,7 @@ class SchemaItemListElementViewsBase extends SchemaItemListElementBase {
    */
   public function form(array $element = []) {
     $form = parent::form($element);
-    $form['#description'] = $this->t("Provide the machine name of the view, and the machine name of the display, separated by a colon, i.e. 'view_name:display_id'.");
+    $form['#description'] = $this->t("Provide the machine name of the view, and the machine name of the display, separated by a colon, i.e. 'view_name:display_id'. This will create a <a href=':url'>Summary View</a> list, which assumes each list item contains the url to a view page for the entity. The view rows should contain content (like teaser views) rather than fields for this to work correctly.", [':url' => 'https://developers.google.com/search/docs/guides/mark-up-listings']);
     return $form;
   }
 
