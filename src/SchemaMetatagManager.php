@@ -95,7 +95,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
       // Encode the Schema.org metatags as JSON LD.
       if ($jsonld = self::encodeJsonld($items)) {
         // Pass back the rendered result.
-        return drupal_render(self::renderArrayJsonLd($jsonld));
+        return \Drupal::service('renderer')->render(self::renderArrayJsonLd($jsonld));
       }
     }
   }
