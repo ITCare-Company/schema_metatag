@@ -4,4 +4,4 @@ description: Base module for creating Schema.org JSON-LD structured data defined
 core: 8.x
 package: SEO
 dependencies:
-  - metatag
+  - metatag:metatag

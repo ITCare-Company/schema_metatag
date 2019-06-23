@@ -4,5 +4,5 @@ description: Adds Schema.org/ItemList to the JSON LD array.
 core: 8.x
 package: SEO
 dependencies:
-  - schema_metatag
-  - metatag_views
+  - schema_metatag:schema_metatag
+  - metatag:metatag_views

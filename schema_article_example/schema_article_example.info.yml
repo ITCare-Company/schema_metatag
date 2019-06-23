@@ -4,4 +4,4 @@ description: Example of how to add more fields to Schema.org.
 core: 8.x
 package: SEO
 dependencies:
-  - schema_article
+  - schema_metatag:schema_article

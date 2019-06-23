@@ -4,5 +4,5 @@ description: Add Schema.org/JobPosting to the JSON LD array. Creates JobPosting.
 core: 8.x
 package: SEO
 dependencies:
-  - schema_metatag
-  - schema_organization
+  - schema_metatag:schema_metatag
+  - schema_metatag:schema_organization
