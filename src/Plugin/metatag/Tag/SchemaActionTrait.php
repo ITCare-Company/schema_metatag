@@ -44,10 +44,10 @@ trait SchemaActionTrait {
     $types = static::actionTypes();
     foreach ($types as $type) {
       if ($type == $action_type || empty($action_type) || $type == 'All') {
-        $list = array_merge(array_keys(static::actionProperties($type)), $list);
+        $list = array_merge($list, array_keys(static::actionProperties($type)));
       }
     }
-    $list = array_merge(array_keys(static::actionProperties('All')), $list);
+    $list = array_merge($list, array_keys(static::actionProperties('All')));
     return $list;
   }
 
