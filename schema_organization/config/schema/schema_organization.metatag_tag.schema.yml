@@ -7,6 +7,9 @@ metatag.metatag_tag.schema_organization_additional_type:
 metatag.metatag_tag.schema_organization_address:
   type: text
   label: 'address'
+metatag.metatag_tag.schema_organization_description:
+  type: text
+  label: 'description'
 metatag.metatag_tag.schema_organization_geo:
   type: text
   label: 'geo'
