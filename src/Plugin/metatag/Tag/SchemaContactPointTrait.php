@@ -26,6 +26,7 @@ trait SchemaContactPointTrait {
       'faxnumber',
       'productSupported',
       'telephone',
+      'url',
     ];
   }
 
@@ -78,6 +79,15 @@ trait SchemaContactPointTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('An internationalized version of the phone number, starting with the "+" symbol and country code (+1 in the US and Canada). Examples: "+1-800-555-1212", "+44-2078225951"'),
+    ];
+
+    $form['url'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('url'),
+      '#default_value' => !empty($value['url']) ? $value['url'] : '',
+      '#maxlength' => 255,
+      '#required' => $input_values['#required'],
+      '#description' => $this->t('URL of place, organization'),
     ];
 
     $form['availableLanguage'] = [
