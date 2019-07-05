@@ -60,6 +60,9 @@ class SchemaMetatagTagsTest extends SchemaMetatagTagsTestBase {
     'schema_metatag_test_opening_hours_specification' => 'SchemaMetatagTestOpeningHoursSpecification',
     'schema_metatag_test_nutrition_information' => 'SchemaMetatagTestNutritionInformation',
     'schema_metatag_test_contact_point' => 'SchemaMetatagTestContactPoint',
+    'schema_metatag_test_speakable' => 'SchemaMetatagTestSpeakable',
+    'schema_metatag_test_id_reference' => 'SchemaMetatagTestIdReference',
+
    ];
 
 }

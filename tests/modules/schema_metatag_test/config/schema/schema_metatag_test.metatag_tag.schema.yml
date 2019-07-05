@@ -76,3 +76,9 @@ metatag.metatag_tag.schema_metatag_test_opening_hours_specification:
 metatag.metatag_tag.schema_metatag_test_contact_point:
   type: text
   label: 'contactPoint'
+metatag.metatag_tag.schema_metatag_test_speakable:
+  type: text
+  label: 'speakable'
+metatag.metatag_tag.schema_metatag_test_id_reference:
+  type: text
+  label: 'idReference'
