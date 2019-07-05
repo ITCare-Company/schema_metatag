@@ -2,7 +2,7 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
-use Drupal\Core\Url;
+use Drupal\Core\Entity\Plugin\DataType\EntityAdapter;
 
 /**
  * All Schema.org views itemListElement tags should extend this class.
@@ -40,17 +40,15 @@ class SchemaItemListElementViewsBase extends SchemaItemListElementBase {
         foreach ($result as $item) {
           // If this is a display that does not provide an entity in the result,
           // there is really nothing more to do.
-          if (empty($item->_entity)) {
+          $entity = static::getEntityFromRow($item);
+          if (!$entity) {
             return '';
           }
           // Get the absolute path to this entity.
-          // The entity that Views returns does not have the toUrl() method
-          // which would be a little cleaner, but this works.
-          $url = $item->_entity->url();
-          $url = Url::fromUri('internal:' . $url)->setAbsolute()->toString();
+          $url = $entity->toUrl()->setAbsolute()->toString();
           $values[$key] = [
             '@id' => $url,
-            'name' => $item->_entity->label(),
+            'name' => $entity->label(),
             'url' => $url,
           ];
           $key++;
@@ -58,6 +56,26 @@ class SchemaItemListElementViewsBase extends SchemaItemListElementBase {
       }
     }
     return $values;
+  }
+
+  /**
+   * Tries to retrieve an entity from a Views row.
+   *
+   * @param $row
+   *   The Views row
+   *
+   * @return \Drupal\Core\Entity\EntityInterface|null
+   */
+  protected static function getEntityFromRow($row) {
+    if (!empty($row->_entity)) {
+      return $row->_entity;
+    }
+
+    if (isset($row->_object) && $row->_object instanceof EntityAdapter) {
+      return $row->_object->getValue();
+    }
+
+    return NULL;
   }
 
 }
