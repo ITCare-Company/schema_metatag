@@ -39,6 +39,7 @@ class SchemaWebPageTest extends SchemaMetatagTagsTestBase {
     'schema_web_page_author' => 'SchemaWebPageAuthor',
     'schema_web_page_description' => 'SchemaWebPageDescription',
     'schema_web_page_publisher' => 'SchemaWebPagePublisher',
+    'schema_web_page_speakable' => 'SchemaWebPageSpeakable',
   ];
 
 }

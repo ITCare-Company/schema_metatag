@@ -47,3 +47,6 @@ metatag.metatag_tag.schema_article_aggregate_rating:
 metatag.metatag_tag.schema_article_review:
   type: text
   label: 'review'
+metatag.metatag_tag.schema_article_speakable:
+  type: text
+  label: 'speakable'
