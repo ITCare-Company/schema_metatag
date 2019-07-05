@@ -40,6 +40,10 @@ class SchemaWebPageTest extends SchemaMetatagTagsTestBase {
     'schema_web_page_description' => 'SchemaWebPageDescription',
     'schema_web_page_publisher' => 'SchemaWebPagePublisher',
     'schema_web_page_speakable' => 'SchemaWebPageSpeakable',
+    'schema_web_page_in_language' => 'SchemaWebPageInLanguage',
+    'schema_web_page_translation_of_work' => 'SchemaWebPageTranslationOfWork',
+    'schema_web_page_work_translation' => 'SchemaWebPageWorkTranslation',
+
   ];
 
 }
