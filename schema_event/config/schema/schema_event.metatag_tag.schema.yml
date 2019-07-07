@@ -43,3 +43,6 @@ metatag.metatag_tag.schema_event_aggregate_rating:
 metatag.metatag_tag.schema_event_review:
   type: text
   label: 'review'
+metatag.metatag_tag.schema_event_is_accessible_for_free:
+  type: text
+  label: 'isAccessibleForFree'
