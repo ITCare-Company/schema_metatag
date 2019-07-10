@@ -82,3 +82,12 @@ metatag.metatag_tag.schema_metatag_test_speakable:
 metatag.metatag_tag.schema_metatag_test_id_reference:
   type: text
   label: 'idReference'
+metatag.metatag_tag.schema_metatag_test_how_to_step:
+  type: text
+  label: 'howToStep'
+metatag.metatag_tag.schema_metatag_test_question:
+  type: text
+  label: 'question'
+metatag.metatag_tag.schema_metatag_test_answer:
+  type: text
+  label: 'answer'
