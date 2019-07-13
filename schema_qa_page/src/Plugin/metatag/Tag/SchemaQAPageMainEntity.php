@@ -20,7 +20,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaQuestionBase;
  *   weight = 10,
  *   type = "string",
  *   secure = FALSE,
- *   multiple = FALSE
+ *   multiple = TRUE
  * )
  */
 class SchemaQAPageMainEntity extends SchemaQuestionBase {
