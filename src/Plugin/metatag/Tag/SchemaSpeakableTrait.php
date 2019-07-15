@@ -55,16 +55,16 @@ trait SchemaSpeakableTrait {
       '#type' => 'textfield',
       '#title' => $this->t('xpath'),
       '#default_value' => !empty($value['xpath']) ? $value['xpath'] : '',
-      '#description' => $this->t('Separate xpaths by comma per line. ex: @example',
-        ['@example' => '/html/head/title,/html/head/meta[@name=\'description\']/@content']),
+      '#description' => $this->t('ex: @example',
+        ['@example' => "'/html/head/title'", "'/html/head/meta[@name=\'description\']/@content']'"),
     ];
 
     $form['cssSelector'] = [
       '#type' => 'textfield',
       '#title' => $this->t('cssSelector'),
       '#default_value' => !empty($value['cssSelector']) ? $value['cssSelector'] : '',
-      '#description' => $this->t('Separate selectors by comma. ex: @example',
-        ['@example' => '#title,#thesummary']
+      '#description' => $this->t('ex: @example',
+        ['@example' => "'#title'", "'#summary'"]
       ),
     ];
 
