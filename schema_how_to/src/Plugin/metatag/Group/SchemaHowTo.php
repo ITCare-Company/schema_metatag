@@ -12,7 +12,7 @@ use Drupal\schema_metatag\Plugin\metatag\Group\SchemaGroupBase;
  *   label = @Translation("Schema.org: HowTo"),
  *   description = @Translation("See Schema.org definitions for this Schema type at <a href="":url"">:url</a>, Google's recommendations at <a href="":google_url"">:google_url</a>.", arguments = {
  *     ":url" = "https://schema.org/HowTo",
- *     ":google_url" = "https://developers.google.com/search/docs/guides/how-to",
+ *     ":google_url" = "https://developers.google.com/search/docs/data-types/how-to",
  *   }),
  *   weight = 10,
  * )
