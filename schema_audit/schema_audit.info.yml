@@ -1,5 +1,5 @@
-name: Schema.org Audit
+name: "[DEPRECATED] Schema.org Audit"
 type: module
-description: A module to audit Schema.org and compare to Schema Metatag.
+description: Please uninstall this module.
 core: 8.x
 package: Development
