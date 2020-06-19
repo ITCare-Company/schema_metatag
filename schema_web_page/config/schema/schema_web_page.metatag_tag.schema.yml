@@ -28,12 +28,6 @@ metatag.metatag_tag.schema_web_page_publisher:
 metatag.metatag_tag.schema_web_page_speakable:
   type: text
   label: 'speakable'
-metatag.metatag_tag.schema_web_page_speakable:
-  type: text
-  label: 'speakable'
-metatag.metatag_tag.schema_web_page_speakable:
-  type: text
-  label: 'speakable'
 metatag.metatag_tag.schema_web_page_in_language:
   type: text
   label: 'language'
