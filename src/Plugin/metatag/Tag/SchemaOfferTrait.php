@@ -76,7 +76,7 @@ trait SchemaOfferTrait {
       '#title' => $this->t('@id'),
       '#default_value' => !empty($value['@id']) ? $value['@id'] : '',
       '#maxlength' => 255,
-      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#required' => $input_values['#required'],
       '#description' => $this->t('Globally unique ID of the work in the form of a URL. It does not have to be a working link.'),
     ];
 
@@ -85,7 +85,7 @@ trait SchemaOfferTrait {
       '#title' => $this->t('price'),
       '#default_value' => !empty($value['price']) ? $value['price'] : '',
       '#maxlength' => 255,
-      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#required' => $input_values['#required'],
       '#description' => $this->t('The numeric price of the offer.'),
     ];
 

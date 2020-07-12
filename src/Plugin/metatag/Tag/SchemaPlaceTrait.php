@@ -101,7 +101,7 @@ trait SchemaPlaceTrait {
       'title' => $this->t('GeoCoordinates'),
       'description' => 'The geo coordinates of the place.',
       'value' => !empty($value['geo']) ? $value['geo'] : [],
-      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#required' => $input_values['#required'],
       'visibility_selector' => $visibility_selector . '[geo]',
     ];
 
@@ -112,7 +112,7 @@ trait SchemaPlaceTrait {
       'title' => $this->t('Country'),
       'description' => 'The country of the place.',
       'value' => !empty($value['country']) ? $value['country'] : [],
-      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#required' => $input_values['#required'],
       'visibility_selector' => $visibility_selector . '[country]',
     ];
 
