@@ -42,6 +42,7 @@ class SchemaEventTest extends SchemaMetatagTagsTestBase {
     'schema_event_name' => 'SchemaEventName',
     'schema_event_offers' => 'SchemaEventOffers',
     'schema_event_performer' => 'SchemaEventPerformer',
+    'schema_event_previous_start_date' => 'SchemaEventPreviousStartDate',
     'schema_event_start_date' => 'SchemaEventStartDate',
     'schema_event_type' => 'SchemaEventType',
     'schema_event_url' => 'SchemaEventUrl',
