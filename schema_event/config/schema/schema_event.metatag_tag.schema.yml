@@ -49,3 +49,6 @@ metatag.metatag_tag.schema_event_is_accessible_for_free:
 metatag.metatag_tag.schema_event_previous_start_date:
   type: text
   label: 'previousStartDate'
+metatag.metatag_tag.schema_event_event_status:
+  type: text
+  label: 'eventStatus'
