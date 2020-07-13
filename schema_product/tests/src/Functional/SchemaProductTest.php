@@ -39,6 +39,8 @@ class SchemaProductTest extends SchemaMetatagTagsTestBase {
     'schema_product_offers' => 'SchemaProductOffers',
     'schema_product_type' => 'SchemaProductType',
     'schema_product_brand' => 'SchemaProductBrand',
+    'schema_product_url' => 'SchemaProductUrl',
+    'schema_product_category' => 'SchemaProductCategory',
   ];
 
 }

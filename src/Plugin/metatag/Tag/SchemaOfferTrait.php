@@ -22,6 +22,8 @@ trait SchemaOfferTrait {
       '@id',
       'price',
       'priceCurrency',
+      'lowPrice',
+      'highPrice',
       'url',
       'availability',
       'availabilityStarts',
@@ -67,6 +69,7 @@ trait SchemaOfferTrait {
       '#empty_value' => '',
       '#options' => [
         'Offer' => $this->t('Offer'),
+        'AggregateOffer' => $this->t('AggregateOffer'),
       ],
       '#default_value' => !empty($value['@type']) ? $value['@type'] : '',
       '#weight' => -10,
@@ -81,6 +84,20 @@ trait SchemaOfferTrait {
       '#description' => $this->t('Globally unique ID of the work in the form of a URL. It does not have to be a working link.'),
     ];
 
+    $form['offerCount'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('offerCount'),
+      '#default_value' => !empty($value['offerCount']) ? $value['offerCount'] : '',
+      '#maxlength' => 255,
+      '#required' => $input_values['#required'],
+      '#description' => $this->t('The number of offers.'),
+      '#states' => [
+        'visible' => [
+          $selector2 => ['value' => 'AggregateOffer'],
+        ],
+      ],
+    ];
+
     $form['price'] = [
       '#type' => 'textfield',
       '#title' => $this->t('price'),
@@ -88,6 +105,39 @@ trait SchemaOfferTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('The numeric price of the offer.'),
+      '#states' => [
+        'visible' => [
+          $selector2 => ['value' => 'Offer'],
+        ],
+      ],
+    ];
+
+    $form['lowPrice'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('lowPrice'),
+      '#default_value' => !empty($value['lowPrice']) ? $value['lowPrice'] : '',
+      '#maxlength' => 255,
+      '#required' => $input_values['#required'],
+      '#description' => $this->t('The aggregated offer lowest price.'),
+      '#states' => [
+        'visible' => [
+          $selector2 => ['value' => 'AggregateOffer'],
+        ],
+      ],
+    ];
+
+    $form['highPrice'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('highPrice'),
+      '#default_value' => !empty($value['highPrice']) ? $value['highPrice'] : '',
+      '#maxlength' => 255,
+      '#required' => $input_values['#required'],
+      '#description' => $this->t('The aggregated offer highest price.'),
+      '#states' => [
+        'visible' => [
+          $selector2 => ['value' => 'AggregateOffer'],
+        ],
+      ],
     ];
 
     $form['priceCurrency'] = [
@@ -98,6 +148,7 @@ trait SchemaOfferTrait {
       '#required' => $input_values['#required'],
       '#description' => $this->t('The three-letter currency code (e.g. USD) in which the price is displayed.'),
     ];
+
     $form['url'] = [
       '#type' => 'textfield',
       '#title' => $this->t('url'),
@@ -201,7 +252,9 @@ trait SchemaOfferTrait {
     $keys = static::offerFormKeys();
     foreach ($keys as $key) {
       if ($key != '@type') {
-        $form[$key]['#states'] = $visibility;
+        if (!isset($form[$key]['#states'])) {
+          $form[$key]['#states'] = $visibility;
+        }
       }
     }
 

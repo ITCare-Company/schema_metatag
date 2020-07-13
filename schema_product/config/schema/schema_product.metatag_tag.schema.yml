@@ -10,6 +10,12 @@ metatag.metatag_tag.schema_product_image:
 metatag.metatag_tag.schema_product_name:
   type: text
   label: 'name'
+metatag.metatag_tag.schema_product_url:
+  type: text
+  label: 'url'
+metatag.metatag_tag.schema_product_category:
+  type: text
+  label: 'category'
 metatag.metatag_tag.schema_product_offers:
   type: text
   label: 'offers'
