@@ -31,6 +31,7 @@ trait SchemaOfferTrait {
       'category',
       'eligibleRegion',
       'ineligibleRegion',
+      'priceValidUntil',
     ];
   }
 
@@ -149,6 +150,15 @@ trait SchemaOfferTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('The date when the item becomes valid.'),
+    ];
+
+    $form['priceValidUntil'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('priceValidUntil'),
+      '#default_value' => !empty($value['priceValidUntil']) ? $value['priceValidUntil'] : '',
+      '#maxlength' => 255,
+      '#required' => $input_values['#required'],
+      '#description' => $this->t('The date (in ISO 8601 date format) after which the price will no longer be available.'),
     ];
 
     $form['category'] = [
