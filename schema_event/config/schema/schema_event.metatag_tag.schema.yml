@@ -52,3 +52,6 @@ metatag.metatag_tag.schema_event_previous_start_date:
 metatag.metatag_tag.schema_event_event_status:
   type: text
   label: 'eventStatus'
+metatag.metatag_tag.schema_event_event_attendance_mode:
+  type: text
+  label: 'eventAttendanceMode'

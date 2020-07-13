@@ -48,6 +48,7 @@ class SchemaEventTest extends SchemaMetatagTagsTestBase {
     'schema_event_url' => 'SchemaEventUrl',
     'schema_event_is_accessible_for_free' => 'SchemaEventIsAccessibleForFree',
     'schema_event_event_status' => 'SchemaEventEventStatus',
+    'schema_event_event_attendance_mode' => 'SchemaEventEventAttendanceMode',
   ];
 
 }
