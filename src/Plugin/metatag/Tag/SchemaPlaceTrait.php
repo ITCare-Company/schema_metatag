@@ -9,10 +9,9 @@ use Drupal\schema_metatag\SchemaMetatagManager;
  */
 trait SchemaPlaceTrait {
 
-  use SchemaAddressTrait, SchemaGeoTrait, SchemaCountryTrait, SchemaPivotTrait {
+  use SchemaAddressTrait, SchemaGeoTrait, SchemaPivotTrait {
     SchemaPivotTrait::pivotForm insteadof SchemaAddressTrait;
     SchemaPivotTrait::pivotForm insteadof SchemaGeoTrait;
-    SchemaPivotTrait::pivotForm insteadof SchemaCountryTrait;
   }
 
   /**
@@ -108,17 +107,6 @@ trait SchemaPlaceTrait {
 
     $form['geo'] = $this->geoForm($input_values);
     $form['geo']['#states'] = $visibility;
-
-    $input_values = [
-      'title' => $this->t('Country'),
-      'description' => 'The country of the place.',
-      'value' => !empty($value['country']) ? $value['country'] : [],
-      '#required' => $input_values['#required'],
-      'visibility_selector' => $visibility_selector . '[country]',
-    ];
-
-    $form['country'] = $this->countryForm($input_values);
-    $form['country']['#states'] = $visibility;
 
     return $form;
   }
