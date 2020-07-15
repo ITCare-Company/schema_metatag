@@ -55,3 +55,6 @@ metatag.metatag_tag.schema_event_event_status:
 metatag.metatag_tag.schema_event_event_attendance_mode:
   type: text
   label: 'eventAttendanceMode'
+metatag.metatag_tag.schema_event_organizer:
+  type: text
+  label: 'organizer'
