@@ -83,8 +83,8 @@ class SchemaMetatagManagerTest extends UnitTestCase {
     $replaced = str_replace('Organization', 'ReallyBigOrganization', $original_serialized);
     $processed = SchemaMetatagManager::recomputeSerializedLength($replaced);
     $unserialized = unserialize($processed);
-    $this->assertTrue(is_array($unserialized));
-    $this->assertTrue(in_array('ReallyBigOrganization', $unserialized));
+    $this->assertIsArray($unserialized);
+    $this->assertContains('ReallyBigOrganization', $unserialized);
   }
 
   /**
