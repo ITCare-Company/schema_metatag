@@ -2,7 +2,6 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\SchemaMetatagManager;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -24,6 +23,14 @@ trait SchemaActionTrait {
     SchemaPivotTrait::pivotForm insteadof SchemaEventTrait;
     SchemaPivotTrait::pivotForm insteadof SchemaEntryPointTrait;
   }
+
+  /**
+   * Return the SchemaMetatagManager.
+   *
+   * @return \Drupal\schema_metatag\SchemaMetatagManager
+   *   The Schema Metatag Manager service.
+   */
+  abstract protected function schemaMetatagManager();
 
   /**
    * The keys for this form.
@@ -58,7 +65,7 @@ trait SchemaActionTrait {
    */
   public function actionForm(array $input_values) {
 
-    $input_values += SchemaMetatagManager::defaultInputValues();
+    $input_values += $this->schemaMetatagManager()->defaultInputValues();
     $value = $input_values['value'];
 
     $form['#type'] = 'fieldset';
@@ -83,7 +90,7 @@ trait SchemaActionTrait {
     ];
 
     $selector = ':input[name="' . $input_values['visibility_selector'] . '[actionType]"]';
-    $selector2 = SchemaMetatagManager::altSelector($selector);
+    $selector2 = $this->schemaMetatagManager()->altSelector($selector);
 
     $visibility = ['invisible' => [$selector => ['value' => '']]];
     $visibility2 = ['invisible' => [$selector2 => ['value' => '']]];

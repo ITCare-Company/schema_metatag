@@ -2,8 +2,6 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\SchemaMetatagManager;
-
 /**
  * Schema.org Speakable items should extend this class.
  */
@@ -22,7 +20,7 @@ class SchemaSpeakableBase extends SchemaNameBase {
    * {@inheritdoc}
    */
   public function form(array $element = []) {
-    $value = SchemaMetatagManager::unserialize($this->value());
+    $value = $this->schemaMetatagManager()->unserialize($this->value());
 
     $input_values = [
       'title' => $this->label(),

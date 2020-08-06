@@ -2,8 +2,6 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\SchemaMetatagManager;
-
 /**
  * Provides a plugin for the 'hasPart' meta tag.
  *
@@ -20,7 +18,7 @@ class SchemaHasPartBase extends SchemaNameBase {
    */
   public function form(array $element = []) {
 
-    $value = SchemaMetatagManager::unserialize($this->value());
+    $value = $this->schemaMetatagManager()->unserialize($this->value());
 
     $input_values = [
       'title' => $this->label(),

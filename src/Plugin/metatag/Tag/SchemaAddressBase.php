@@ -2,8 +2,6 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\SchemaMetatagManager;
-
 /**
  * Schema.org PostalAddress items should extend this class.
  */
@@ -23,7 +21,7 @@ class SchemaAddressBase extends SchemaNameBase {
    */
   public function form(array $element = []) {
 
-    $value = SchemaMetatagManager::unserialize($this->value());
+    $value = $this->schemaMetatagManager()->unserialize($this->value());
     $input_values = [
       'title' => $this->label(),
       'description' => $this->description(),

@@ -2,8 +2,6 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\SchemaMetatagManager;
-
 /**
  * Schema.org EntryPoint items should extend this class.
  */
@@ -16,7 +14,7 @@ class SchemaEntryPointBase extends SchemaNameBase {
    */
   public function form(array $element = []) {
 
-    $value = SchemaMetatagManager::unserialize($this->value());
+    $value = $this->schemaMetatagManager()->unserialize($this->value());
 
     $input_values = [
       'title' => $this->label(),

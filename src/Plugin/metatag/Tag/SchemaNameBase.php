@@ -4,11 +4,54 @@ namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
 use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
 use Drupal\schema_metatag\SchemaMetatagManager;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * All Schema.org tags should extend this class.
  */
-class SchemaNameBase extends MetaNameBase {
+class SchemaNameBase extends MetaNameBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The schemaMetatagManager service.
+   *
+   * @var \Drupal\schema_metatag\schemaMetatagManager
+   */
+  protected $schemaMetatagManager;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    $instance = new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition
+    );
+    $instance->setSchemaMetatagManager($container->get('schema_metatag.schema_metatag_manager'));
+    return $instance;
+  }
+
+  /**
+   * Sets schemaMetatagManager service.
+   *
+   * @param \Drupal\schema_metatag\SchemaMetatagManager $schemaMetatagManager
+   *   The Schema Metatag Manager service.
+   */
+  public function setSchemaMetatagManager(SchemaMetatagManager $schemaMetatagManager) {
+    $this->schemaMetatagManager = $schemaMetatagManager;
+  }
+
+  /**
+   * Return the SchemaMetatagManager.
+   *
+   * @return \Drupal\schema_metatag\SchemaMetatagManager
+   *   The Schema Metatag Manager service.
+   */
+  protected function schemaMetatagManager() {
+    return $this->schemaMetatagManager;
+  }
+
 
   /**
    * The #states base visibility selector for this element.
@@ -22,13 +65,13 @@ class SchemaNameBase extends MetaNameBase {
    */
   public function output() {
 
-    $value = SchemaMetatagManager::unserialize($this->value());
+    $value = $this->schemaMetatagManager()->unserialize($this->value());
 
     // If this is a complex array of value, process the array.
     if (is_array($value)) {
 
       // Clean out empty values.
-      $value = SchemaMetatagManager::arrayTrim($value);
+      $value = $this->schemaMetatagManager()->arrayTrim($value);
     }
 
     if (empty($value)) {
@@ -76,7 +119,7 @@ class SchemaNameBase extends MetaNameBase {
    * Metatag expects a string value, so serialize any array of values.
    */
   public function setValue($value) {
-    $this->value = SchemaMetatagManager::serialize($value);
+    $this->value = $this->schemaMetatagManager()->serialize($value);
   }
 
   /**
@@ -87,7 +130,7 @@ class SchemaNameBase extends MetaNameBase {
     // If pivot is set to 0, it would have been removed as an empty value.
     if (array_key_exists('pivot', $array)) {
       unset($array['pivot']);
-      $array = SchemaMetatagManager::pivot($array);
+      $array = $this->schemaMetatagManager()->pivot($array);
     }
     foreach ($array as &$value) {
       if (is_array($value)) {
@@ -128,7 +171,7 @@ class SchemaNameBase extends MetaNameBase {
       $value = str_replace('http://', 'https://', $value);
     }
     if ($explode) {
-      $value = SchemaMetatagManager::explode($value);
+      $value = $this->schemaMetatagManager()->explode($value);
       // Clean out any empty values that might have been added by explode().
       if (is_array($value)) {
         $value = array_filter($value);
@@ -242,6 +285,7 @@ class SchemaNameBase extends MetaNameBase {
    */
   public static function processTestExplodeValue($items) {
     if (!is_array($items)) {
+      // Call this value statically for static test value.
       $items = SchemaMetatagManager::explode($items);
       // Clean out any empty values that might have been added by explode().
       if (is_array($items)) {
@@ -272,6 +316,7 @@ class SchemaNameBase extends MetaNameBase {
     $max = isset($count) ? $count : 2;
     $delimiter = isset($delimiter) ? $delimiter : ' ';
     for ($i = $min; $i <= $max; $i++) {
+      // Call this value statically for static test value.
       $items[] = SchemaMetatagManager::randomMachineName();
     }
     return implode($delimiter, $items);

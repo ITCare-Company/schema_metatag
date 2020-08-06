@@ -2,8 +2,6 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\SchemaMetatagManager;
-
 /**
  * Schema.org Question trait.
  */
@@ -17,6 +15,14 @@ trait SchemaQuestionTrait {
     SchemaPivotTrait::pivotForm insteadof SchemaAnswerTrait;
     SchemaPivotTrait::pivotForm insteadof SchemaPersonOrgTrait;
   }
+
+  /**
+   * Return the SchemaMetatagManager.
+   *
+   * @return \Drupal\schema_metatag\SchemaMetatagManager
+   *   The Schema Metatag Manager service.
+   */
+  abstract protected function schemaMetatagManager();
 
   /**
    * Form keys.
@@ -40,14 +46,14 @@ trait SchemaQuestionTrait {
    */
   public function questionForm($input_values) {
 
-    $input_values += SchemaMetatagManager::defaultInputValues();
+    $input_values += $this->schemaMetatagManager()->defaultInputValues();
     $value = $input_values['value'];
 
     // Get the id for the nested @type element.
     $visibility_selector = $input_values['visibility_selector'];
     $selector = ':input[name="' . $visibility_selector . '[@type]"]';
     $visibility = ['invisible' => [$selector => ['value' => '']]];
-    $selector2 = SchemaMetatagManager::altSelector($selector);
+    $selector2 = $this->schemaMetatagManager()->altSelector($selector);
     $visibility2 = ['invisible' => [$selector2 => ['value' => '']]];
     $visibility['invisible'] = [$visibility['invisible'], $visibility2['invisible']];
 

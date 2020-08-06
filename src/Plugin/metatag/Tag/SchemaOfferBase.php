@@ -2,8 +2,6 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\SchemaMetatagManager;
-
 /**
  * Provides a plugin for the 'schema_offer_base' meta tag.
  */
@@ -15,7 +13,7 @@ class SchemaOfferBase extends SchemaNameBase {
    * {@inheritdoc}
    */
   public function form(array $element = []) {
-    $value = SchemaMetatagManager::unserialize($this->value());
+    $value = $this->schemaMetatagManager()->unserialize($this->value());
 
     $input_values = [
       'title' => $this->label(),

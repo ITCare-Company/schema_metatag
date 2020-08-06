@@ -2,8 +2,6 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\SchemaMetatagManager;
-
 /**
  * Schema.org Person/Organization trait.
  */
@@ -12,6 +10,14 @@ trait SchemaPersonOrgTrait {
   use SchemaImageTrait, SchemaPivotTrait {
     SchemaPivotTrait::pivotForm insteadof SchemaImageTrait;
   }
+
+  /**
+   * Return the SchemaMetatagManager.
+   *
+   * @return \Drupal\schema_metatag\SchemaMetatagManager
+   *   The Schema Metatag Manager service.
+   */
+  abstract protected function schemaMetatagManager();
 
   /**
    * Form keys.
@@ -32,13 +38,13 @@ trait SchemaPersonOrgTrait {
    */
   public function personOrgForm($input_values) {
 
-    $input_values += SchemaMetatagManager::defaultInputValues();
+    $input_values += $this->schemaMetatagManager()->defaultInputValues();
     $value = $input_values['value'];
 
     // Get the id for the nested @type element.
     $selector = ':input[name="' . $input_values['visibility_selector'] . '[@type]"]';
     $visibility = ['invisible' => [$selector => ['value' => '']]];
-    $selector2 = SchemaMetatagManager::altSelector($selector);
+    $selector2 = $this->schemaMetatagManager()->altSelector($selector);
     $visibility2 = ['invisible' => [$selector2 => ['value' => '']]];
     $visibility['invisible'] = [$visibility['invisible'], $visibility2['invisible']];
 
