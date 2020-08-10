@@ -20,28 +20,6 @@ trait SchemaHasPartTrait {
   abstract protected function schemaMetatagManager();
 
   /**
-   * The keys for this form.
-   *
-   * @param string $object_type
-   *   Optional, limit the keys to those that are required for a specific
-   *   object type.
-   *
-   * @return array
-   *   Return an array of the form keys.
-   */
-  public static function hasPartFormKeys($object_type = NULL) {
-    $list = ['@type'];
-    $types = static::hasPartObjects();
-    foreach ($types as $type) {
-      if ($type == $object_type || empty($object_type)) {
-        $list = array_merge($list, array_keys(static::hasPartProperties($type)));
-      }
-    }
-    $list = array_merge($list, array_keys(static::hasPartProperties('All')));
-    return $list;
-  }
-
-  /**
    * Create the form element.
    *
    * @param array $input_values
@@ -92,7 +70,7 @@ trait SchemaHasPartTrait {
       $properties = static::hasPartProperties('All');
       foreach ($properties as $key => $property) {
 
-        if (empty($property['formKeys'])) {
+        if (empty($property['form'])) {
           $form[$key] = [
             '#type' => 'textfield',
             '#title' => $key,
@@ -111,7 +89,6 @@ trait SchemaHasPartTrait {
             'value' => !empty($value[$key]) ? $value[$key] : [],
             '#required' => $input_values['#required'],
             'visibility_selector' => $input_values['visibility_selector'] . '[' . $key . ']',
-            'actionTypes' => !empty($property['actionTypes']) ? $property['actionTypes'] : [],
             'actions' => !empty($property['actions']) ? $property['actions'] : [],
           ];
           $method = $property['form'];
@@ -127,7 +104,7 @@ trait SchemaHasPartTrait {
         $property_visibility2 = ['visible' => [$selector2 => ['value' => $type]]];
         $property_visibility['visible'] = [$property_visibility['visible'], $property_visibility2['visible']];
 
-        if (empty($property['formKeys'])) {
+        if (empty($property['form'])) {
           $form[$key] = [
             '#type' => 'textfield',
             '#title' => $key,
@@ -147,7 +124,6 @@ trait SchemaHasPartTrait {
             '#required' => $input_values['#required'],
             'visibility_selector' => $input_values['visibility_selector'] . '[' . $key . ']',
             'visibility_type' => '@type',
-            'actionTypes' => !empty($property['actionTypes']) ? $property['actionTypes'] : [],
             'actions' => !empty($property['actions']) ? $property['actions'] : [],
           ];
           $method = $property['form'];
@@ -192,13 +168,11 @@ trait SchemaHasPartTrait {
         return [
           'isAccessibleForFree' => [
             'class' => 'SchemaNameBase',
-            'formKeys' => '',
             'form' => '',
             'description' => "True or False, whether this element is accessible for free.",
           ],
           'cssSelector' => [
             'class' => 'SchemaNameBase',
-            'formKeys' => '',
             'form' => '',
             'description' => "List of class names of the parts of the web page that are not free, i.e. '.first-class', '.second-class'. Do NOT surround class names with quotation marks!",
           ],
@@ -209,7 +183,6 @@ trait SchemaHasPartTrait {
         return [
           'description' => [
             'class' => 'SchemaNameBase',
-            'formKeys' => '',
             'form' => '',
             'description' => "One of the following values:\n
 'trailer': A preview or advertisement of the work.\n
@@ -218,17 +191,14 @@ trait SchemaHasPartTrait {
           ],
           'timeRequired' => [
             'class' => 'SchemaNameBase',
-            'formKeys' => '',
             'form' => '',
             'description' => "Duration of the clip in ISO 8601 format, 'PT2M5S' (2min 5sec).",
           ],
           'potentialAction' => [
             'class' => 'SchemaActionBase',
-            'formKeys' => 'actionFormKeys',
             'form' => 'actionForm',
             'description' => "Watch action(s) for the clip.",
-            'actionTypes' => ['ConsumeAction'],
-            'actions' => ['WatchAction'],
+            'actions' => ['Action', 'ConsumeAction', 'WatchAction'],
           ],
         ];
 
@@ -236,13 +206,11 @@ trait SchemaHasPartTrait {
         return [
           '@id' => [
             'class' => 'SchemaNameBase',
-            'formKeys' => '',
             'form' => '',
             'description' => "Globally unique @id of the thing, usually a url, used to to link other properties to this object.",
           ],
           'name' => [
             'class' => 'SchemaNameBase',
-            'formKeys' => '',
             'form' => '',
             'description' => "The name of the work.",
           ],

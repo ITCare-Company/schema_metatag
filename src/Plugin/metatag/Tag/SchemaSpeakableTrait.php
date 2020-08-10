@@ -16,17 +16,6 @@ trait SchemaSpeakableTrait {
   abstract protected function schemaMetatagManager();
 
   /**
-   * Form keys.
-   */
-  public static function speakableFormKeys() {
-    return [
-      '@type',
-      'xpath',
-      'cssSelector',
-    ];
-  }
-
-  /**
    * The form element.
    */
   public function speakableForm($input_values) {
@@ -64,6 +53,7 @@ trait SchemaSpeakableTrait {
       '#description' => $this->t('Separate xpaths by comma, as in: @example',
         ['@example' => '/html/head/title, /html/head/meta[@name=\'description\']/@content']
       ),
+      '#states' => $visibility,
     ];
 
     $form['cssSelector'] = [
@@ -73,14 +63,8 @@ trait SchemaSpeakableTrait {
       '#description' => $this->t('Separate selectors by comma, as in @example',
         ['@example' => '#title, #summary']
       ),
+      '#states' => $visibility,
     ];
-
-    $keys = self::speakableFormKeys();
-    foreach ($keys as $key) {
-      if ($key != '@type') {
-        $form[$key]['#states'] = $visibility;
-      }
-    }
 
     return $form;
   }

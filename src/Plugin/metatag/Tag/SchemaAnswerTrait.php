@@ -20,20 +20,6 @@ trait SchemaAnswerTrait {
   abstract protected function schemaMetatagManager();
 
   /**
-   * Form keys.
-   */
-  public static function answerFormKeys() {
-    return [
-      '@type',
-      'text',
-      'url',
-      'upvoteCount',
-      'dateCreated',
-      'author',
-    ];
-  }
-
-  /**
    * The form element.
    */
   public function answerForm($input_values) {
@@ -78,6 +64,8 @@ trait SchemaAnswerTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('REQUIRED BY GOOGLE. The full text of the answer.'),
+      '#states' => $visibility,
+
     ];
 
     $form['url'] = [
@@ -87,6 +75,7 @@ trait SchemaAnswerTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('STRONGLY RECOMMENDED BY GOOGLE. A URL that links directly to this answer.'),
+      '#states' => $visibility,
     ];
 
     $form['upvoteCount'] = [
@@ -96,6 +85,7 @@ trait SchemaAnswerTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("RECOMMENDED BY GOOGLE. The total number of votes that this answer has received."),
+      '#states' => $visibility,
     ];
 
     $form['dateCreated'] = [
@@ -105,6 +95,7 @@ trait SchemaAnswerTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('RECOMMENDED BY GOOGLE. The date at which the answer was added to the page, in ISO-8601 format.'),
+      '#states' => $visibility,
     ];
 
     $input_values = [
@@ -116,13 +107,7 @@ trait SchemaAnswerTrait {
     ];
 
     $form['author'] = $this->personOrgForm($input_values);
-
-    $keys = static::answerFormKeys();
-    foreach ($keys as $key) {
-      if ($key != '@type') {
-        $form[$key]['#states'] = $visibility;
-      }
-    }
+    $form['author']['#states'] = $visibility;
 
     return $form;
   }

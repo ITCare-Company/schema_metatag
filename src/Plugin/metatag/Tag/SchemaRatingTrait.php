@@ -18,19 +18,6 @@ trait SchemaRatingTrait {
   abstract protected function schemaMetatagManager();
 
   /**
-   * Form keys.
-   */
-  public static function ratingFormKeys() {
-    return [
-      '@type',
-      'ratingValue',
-      'bestRating',
-      'worstRating',
-      'ratingCount',
-    ];
-  }
-
-  /**
    * The form element.
    */
   public function ratingForm($input_values) {
@@ -74,6 +61,7 @@ trait SchemaRatingTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('The numeric rating of the item.'),
+      '#states' => $visibility,
     ];
 
     $form['ratingCount'] = [
@@ -83,6 +71,7 @@ trait SchemaRatingTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('The number of ratings included. Only required for AggregateRating.'),
+      '#states' => $visibility,
     ];
 
     $form['bestRating'] = [
@@ -92,6 +81,7 @@ trait SchemaRatingTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('The highest rating value possible.'),
+      '#states' => $visibility,
     ];
 
     $form['worstRating'] = [
@@ -101,14 +91,8 @@ trait SchemaRatingTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('The lowest rating value possible.'),
+      '#states' => $visibility,
     ];
-
-    $keys = self::ratingFormKeys();
-    foreach ($keys as $key) {
-      if ($key != '@type') {
-        $form[$key]['#states'] = $visibility;
-      }
-    }
 
     return $form;
   }

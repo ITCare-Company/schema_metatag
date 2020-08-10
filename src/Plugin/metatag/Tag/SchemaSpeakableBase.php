@@ -10,13 +10,6 @@ class SchemaSpeakableBase extends SchemaNameBase {
   use SchemaSpeakableTrait;
 
   /**
-   * The top level keys on this form.
-   */
-  public function formKeys() {
-    return ['pivot'] + self::speakableFormKeys();
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function form(array $element = []) {
@@ -44,7 +37,11 @@ class SchemaSpeakableBase extends SchemaNameBase {
    */
   public static function testValue() {
     $items = [];
-    $keys = self::speakableFormKeys();
+    $keys = [
+      '@type',
+      'xpath',
+      'cssSelector',
+    ];
     foreach ($keys as $key) {
       switch ($key) {
         case 'pivot':

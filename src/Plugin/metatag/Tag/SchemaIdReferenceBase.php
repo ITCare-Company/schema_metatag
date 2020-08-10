@@ -10,13 +10,6 @@ class SchemaIdReferenceBase extends SchemaNameBase {
   use SchemaIdReferenceTrait;
 
   /**
-   * The top level keys on this form.
-   */
-  public function formKeys() {
-    return ['pivot'] + self::idFormKeys();
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function form(array $element = []) {
@@ -45,7 +38,9 @@ class SchemaIdReferenceBase extends SchemaNameBase {
    */
   public static function testValue() {
     $items = [];
-    $keys = self::idFormKeys();
+    $keys = [
+      '@id',
+    ];
     foreach ($keys as $key) {
       switch ($key) {
         case 'pivot':

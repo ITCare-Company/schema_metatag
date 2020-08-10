@@ -19,27 +19,6 @@ trait SchemaNutritionInformationTrait {
   abstract protected function schemaMetatagManager();
 
   /**
-   * Form keys.
-   */
-  public static function nutritionInformationFormKeys() {
-    return [
-      '@type',
-      'servingSize',
-      'calories',
-      'carbohydrateContent',
-      'cholesterolContent',
-      'fiberContent',
-      'proteinContent',
-      'sodiumContent',
-      'sugarContent',
-      'fatContent',
-      'saturatedFatContent',
-      'unsaturatedFatContent',
-      'transFatContent',
-    ];
-  }
-
-  /**
    * The form element.
    */
   public function nutritionInformationForm($input_values) {
@@ -84,6 +63,7 @@ trait SchemaNutritionInformationTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("The serving size, in terms of the number of volume or mass."),
+      '#states' => $visibility,
     ];
 
     $form['calories'] = [
@@ -93,6 +73,7 @@ trait SchemaNutritionInformationTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("The number of calories."),
+      '#states' => $visibility,
     ];
 
     $form['carbohydrateContent'] = [
@@ -102,6 +83,7 @@ trait SchemaNutritionInformationTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("The number of grams of carbohydrates."),
+      '#states' => $visibility,
     ];
 
     $form['cholesterolContent'] = [
@@ -111,6 +93,7 @@ trait SchemaNutritionInformationTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("The number of milligrams of cholesterol."),
+      '#states' => $visibility,
     ];
 
     $form['fiberContent'] = [
@@ -120,6 +103,7 @@ trait SchemaNutritionInformationTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("The number of grams of fiber."),
+      '#states' => $visibility,
     ];
 
     $form['proteinContent'] = [
@@ -129,6 +113,7 @@ trait SchemaNutritionInformationTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("The number of grams of protein."),
+      '#states' => $visibility,
     ];
 
     $form['sodiumContent'] = [
@@ -138,6 +123,7 @@ trait SchemaNutritionInformationTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("The number of milligrams of sodium."),
+      '#states' => $visibility,
     ];
 
     $form['sugarContent'] = [
@@ -147,6 +133,7 @@ trait SchemaNutritionInformationTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("The number of grams of sugar."),
+      '#states' => $visibility,
     ];
 
     $form['fatContent'] = [
@@ -156,6 +143,7 @@ trait SchemaNutritionInformationTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("The number of grams of fat."),
+      '#states' => $visibility,
     ];
 
     $form['saturatedFatContent'] = [
@@ -165,6 +153,7 @@ trait SchemaNutritionInformationTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("The number of grams of saturated fat."),
+      '#states' => $visibility,
     ];
 
     $form['unsaturatedFatContent'] = [
@@ -174,6 +163,7 @@ trait SchemaNutritionInformationTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("The number of grams of unsaturated fat."),
+      '#states' => $visibility,
     ];
 
     $form['transFatContent'] = [
@@ -183,14 +173,8 @@ trait SchemaNutritionInformationTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("The number of grams of trans fat."),
+      '#states' => $visibility,
     ];
-
-    $keys = static::nutritionInformationFormKeys();
-    foreach ($keys as $key) {
-      if ($key != '@type') {
-        $form[$key]['#states'] = $visibility;
-      }
-    }
 
     return $form;
   }

@@ -18,17 +18,6 @@ trait SchemaMonetaryAmountTrait {
   abstract protected function schemaMetatagManager();
 
   /**
-   * Form keys.
-   */
-  public static function monetaryAmountFormKeys() {
-    return [
-      '@type',
-      'currency',
-      'value',
-    ];
-  }
-
-  /**
    * Form.
    */
   public function monetaryAmountForm($input_values) {
@@ -71,6 +60,7 @@ trait SchemaMonetaryAmountTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("The currency in which the monetary amount is expressed. Use 3-letter ISO 4217 format."),
+      '#states' => $visibility,
     ];
 
     $form['value']['#type'] = 'fieldset';
@@ -97,6 +87,7 @@ trait SchemaMonetaryAmountTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('The value.'),
+      '#states' => $visibility,
     ];
 
     $form['value']['minValue'] = [
@@ -106,6 +97,7 @@ trait SchemaMonetaryAmountTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('The minimum value.'),
+      '#states' => $visibility,
     ];
 
     $form['value']['maxValue'] = [
@@ -115,6 +107,7 @@ trait SchemaMonetaryAmountTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('The maximum value.'),
+      '#states' => $visibility,
     ];
 
     $form['value']['unitText'] = [
@@ -124,14 +117,8 @@ trait SchemaMonetaryAmountTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('The type of value. Should be one of HOUR, DAY, WEEK, MONTH, or YEAR.'),
+      '#states' => $visibility,
     ];
-
-    $keys = static::monetaryAmountFormKeys();
-    foreach ($keys as $key) {
-      if ($key != '@type') {
-        $form[$key]['#states'] = $visibility;
-      }
-    }
 
     return $form;
   }

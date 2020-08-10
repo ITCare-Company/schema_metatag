@@ -20,20 +20,6 @@ trait SchemaEventTrait {
   abstract protected function schemaMetatagManager();
 
   /**
-   * Form keys.
-   */
-  public static function eventFormKeys() {
-    return [
-      '@type',
-      '@id',
-      'name',
-      'url',
-      'startDate',
-      'location',
-    ];
-  }
-
-  /**
    * The form element.
    */
   public function eventForm($input_values) {
@@ -79,6 +65,7 @@ trait SchemaEventTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("Globally unique @id of the Event, usually a url, used to to link other properties to this object."),
+      '#states' => $visibility,
     ];
 
     $form['name'] = [
@@ -88,6 +75,7 @@ trait SchemaEventTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("Name of the Event."),
+      '#states' => $visibility,
     ];
 
     $form['url'] = [
@@ -97,6 +85,7 @@ trait SchemaEventTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("Absolute URL of the canonical Web page for the Event."),
+      '#states' => $visibility,
     ];
 
     $form['startDate'] = [
@@ -106,6 +95,7 @@ trait SchemaEventTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t("Start date of the Event."),
+      '#states' => $visibility,
     ];
 
     $input_values = [
@@ -115,14 +105,8 @@ trait SchemaEventTrait {
       '#required' => $input_values['#required'],
       'visibility_selector' => $visibility_selector . '[location]',
     ];
-    $form['location'] = static::placeForm($input_values);
-
-    $keys = static::eventFormKeys();
-    foreach ($keys as $key) {
-      if ($key != '@type') {
-        $form[$key]['#states'] = $visibility;
-      }
-    }
+    $form['location'] = $this->placeForm($input_values);
+    $form['location']['#states'] = $visibility;
 
     return $form;
   }

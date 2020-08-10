@@ -10,38 +10,6 @@ class SchemaContactPointBase extends SchemaNameBase {
   use SchemaContactPointTrait;
 
   /**
-   * The top level keys on this form.
-   */
-  public static function formKeys() {
-    return ['pivot'] + self::contactPointFormKeys();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function testValue() {
-    $items = [];
-    $keys = self::contactPointFormKeys();
-    foreach ($keys as $key) {
-      switch ($key) {
-        case '@type':
-          $items[$key] = 'ContactPoint';
-          break;
-
-        case 'areaServed':
-          $items[$key] = SchemaPlaceBase::testValue();
-          break;
-
-        default:
-          $items[$key] = parent::testDefaultValue(1, '');
-          break;
-
-      }
-    }
-    return $items;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function form(array $element = []) {
@@ -63,6 +31,42 @@ class SchemaContactPointBase extends SchemaNameBase {
     }
 
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function testValue() {
+    $items = [];
+    $keys = [
+      '@type',
+      'areaServed',
+      'availableLanguage',
+      'contactType',
+      'contactOption',
+      'email',
+      'faxnumber',
+      'productSupported',
+      'telephone',
+      'url',
+    ];
+    foreach ($keys as $key) {
+      switch ($key) {
+        case '@type':
+          $items[$key] = 'ContactPoint';
+          break;
+
+        case 'areaServed':
+          $items[$key] = SchemaPlaceBase::testValue();
+          break;
+
+        default:
+          $items[$key] = parent::testDefaultValue(1, '');
+          break;
+
+      }
+    }
+    return $items;
   }
 
 }

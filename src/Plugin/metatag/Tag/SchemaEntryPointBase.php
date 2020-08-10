@@ -38,7 +38,12 @@ class SchemaEntryPointBase extends SchemaNameBase {
    */
   public static function testValue() {
     $items = [];
-    $keys = self::entryPointFormKeys();
+    $keys = [
+      '@type',
+      'urlTemplate',
+      'actionPlatform',
+      'inLanguage',
+    ];
     foreach ($keys as $key) {
       switch ($key) {
         case '@type':

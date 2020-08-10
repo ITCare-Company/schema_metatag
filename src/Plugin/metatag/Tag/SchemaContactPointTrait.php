@@ -20,24 +20,6 @@ trait SchemaContactPointTrait {
   abstract protected function schemaMetatagManager();
 
   /**
-   * Form keys.
-   */
-  public static function contactPointFormKeys() {
-    return [
-      '@type',
-      'areaServed',
-      'availableLanguage',
-      'contactType',
-      'contactOption',
-      'email',
-      'faxnumber',
-      'productSupported',
-      'telephone',
-      'url',
-    ];
-  }
-
-  /**
    * Form element.
    *
    * @param array $input_values
@@ -88,6 +70,7 @@ trait SchemaContactPointTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('An internationalized version of the phone number, starting with the "+" symbol and country code (+1 in the US and Canada). Examples: "+1-800-555-1212", "+44-2078225951"'),
+      '#states' => $visibility,
     ];
 
     $form['url'] = [
@@ -97,6 +80,7 @@ trait SchemaContactPointTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('URL of place, organization'),
+      '#states' => $visibility,
     ];
 
     $form['availableLanguage'] = [
@@ -106,6 +90,7 @@ trait SchemaContactPointTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('Details about the language spoken. Languages may be specified by their common English name. If omitted, the language defaults to English. Examples: "English, Spanish".'),
+      '#states' => $visibility,
     ];
 
     $form['contactType'] = [
@@ -115,6 +100,7 @@ trait SchemaContactPointTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('One of the following: customer service, technical support, billing support, bill payment, sales, reservations, credit card support, emergency, baggage tracking, roadside assistance, package tracking.'),
+      '#states' => $visibility,
     ];
 
     $form['contactOption'] = [
@@ -124,6 +110,36 @@ trait SchemaContactPointTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('One of the following: HearingImpairedSupported, TollFree.'),
+      '#states' => $visibility,
+    ];
+
+    $form['email'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('email'),
+      '#default_value' => !empty($value['email']) ? $value['email'] : '',
+      '#maxlength' => 255,
+      '#required' => $input_values['#required'],
+      '#description' => $this->t('Email address.'),
+      '#states' => $visibility,
+    ];
+
+    $form['faxnumber'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('faxnumber'),
+      '#default_value' => !empty($value['faxnumber']) ? $value['faxnumber'] : '',
+      '#maxlength' => 255,
+      '#required' => $input_values['#required'],
+      '#description' => $this->t('The fax number.'),
+      '#states' => $visibility,
+    ];
+
+    $form['productSupported'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('productSupported'),
+      '#default_value' => !empty($value['productSupported']) ? $value['productSupported'] : '',
+      '#maxlength' => 255,
+      '#required' => $input_values['#required'],
+      '#description' => $this->t('The product or service this support contact point is related to (such as product support for a particular product line). This can be a specific product or product line (e.g. "iPhone") or a general category of products or services (e.g. "smartphones").'),
       '#states' => $visibility,
     ];
 
@@ -137,40 +153,6 @@ trait SchemaContactPointTrait {
 
     $form['areaServed'] = $this->placeForm($input_values);
     $form['areaServed']['#states'] = $visibility;
-
-    $form['email'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('email'),
-      '#default_value' => !empty($value['email']) ? $value['email'] : '',
-      '#maxlength' => 255,
-      '#required' => $input_values['#required'],
-      '#description' => $this->t('Email address.'),
-    ];
-
-    $form['faxnumber'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('faxnumber'),
-      '#default_value' => !empty($value['faxnumber']) ? $value['faxnumber'] : '',
-      '#maxlength' => 255,
-      '#required' => $input_values['#required'],
-      '#description' => $this->t('The fax number.'),
-    ];
-
-    $form['productSupported'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('productSupported'),
-      '#default_value' => !empty($value['productSupported']) ? $value['productSupported'] : '',
-      '#maxlength' => 255,
-      '#required' => $input_values['#required'],
-      '#description' => $this->t('The product or service this support contact point is related to (such as product support for a particular product line). This can be a specific product or product line (e.g. "iPhone") or a general category of products or services (e.g. "smartphones").'),
-    ];
-
-    $keys = static::contactPointFormKeys();
-    foreach ($keys as $key) {
-      if ($key != '@type') {
-        $form[$key]['#states'] = $visibility;
-      }
-    }
 
     return $form;
 

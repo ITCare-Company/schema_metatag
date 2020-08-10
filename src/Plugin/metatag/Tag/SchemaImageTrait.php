@@ -18,19 +18,6 @@ trait SchemaImageTrait {
   abstract protected function schemaMetatagManager();
 
   /**
-   * Form keys.
-   */
-  public static function imageFormKeys() {
-    return [
-      '@type',
-      'representativeOfPage',
-      'url',
-      'width',
-      'height',
-    ];
-  }
-
-  /**
    * The form element.
    */
   public function imageForm($input_values) {
@@ -76,6 +63,7 @@ trait SchemaImageTrait {
       '#default_value' => !empty($value['representativeOfPage']) ? $value['representativeOfPage'] : '',
       '#required' => $input_values['#required'],
       '#description' => $this->t('Whether this image is representative of the content of the page.'),
+      '#states' => $visibility,
     ];
 
     $form['url'] = [
@@ -85,6 +73,7 @@ trait SchemaImageTrait {
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
       '#description' => $this->t('Absolute URL of the image, i.e. [node:field_name:image_preset_name:url].'),
+      '#states' => $visibility,
     ];
 
     $form['width'] = [
@@ -93,6 +82,7 @@ trait SchemaImageTrait {
       '#default_value' => !empty($value['width']) ? $value['width'] : '',
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
+      '#states' => $visibility,
     ];
 
     $form['height'] = [
@@ -101,14 +91,8 @@ trait SchemaImageTrait {
       '#default_value' => !empty($value['height']) ? $value['height'] : '',
       '#maxlength' => 255,
       '#required' => $input_values['#required'],
+      '#states' => $visibility,
     ];
-
-    $keys = static::imageFormKeys();
-    foreach ($keys as $key) {
-      if ($key != '@type') {
-        $form[$key]['#states'] = $visibility;
-      }
-    }
 
     return $form;
   }

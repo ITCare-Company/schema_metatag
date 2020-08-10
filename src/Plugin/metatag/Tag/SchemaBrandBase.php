@@ -10,13 +10,6 @@ class SchemaBrandBase extends SchemaNameBase {
   use SchemaBrandTrait;
 
   /**
-   * The top level keys on this form.
-   */
-  public static function formKeys() {
-    return ['pivot'] + self::brandFormKeys();
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function form(array $element = []) {
@@ -40,7 +33,15 @@ class SchemaBrandBase extends SchemaNameBase {
    */
   public static function testValue() {
     $items = [];
-    $keys = self::brandFormKeys();
+    $keys = [
+      '@type',
+      '@id',
+      'name',
+      'description',
+      'url',
+      'sameAs',
+      'logo',
+    ];
     foreach ($keys as $key) {
       switch ($key) {
         case 'logo':
