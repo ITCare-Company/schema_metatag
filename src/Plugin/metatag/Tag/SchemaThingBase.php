@@ -43,7 +43,8 @@ class SchemaThingBase extends SchemaNameBase {
       '@id',
       'name',
       'url',
-    ];    foreach ($keys as $key) {
+    ];
+    foreach ($keys as $key) {
       switch ($key) {
         case '@type':
           $items[$key] = 'Thing';

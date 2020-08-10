@@ -45,7 +45,8 @@ class SchemaPersonOrgBase extends SchemaNameBase {
       'url',
       'sameAs',
       'logo',
-    ];    foreach ($keys as $key) {
+    ];
+    foreach ($keys as $key) {
       switch ($key) {
         case 'pivot':
           break;

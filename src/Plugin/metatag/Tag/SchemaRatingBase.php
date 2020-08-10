@@ -43,7 +43,8 @@ class SchemaRatingBase extends SchemaNameBase {
       'bestRating',
       'worstRating',
       'ratingCount',
-    ];    foreach ($keys as $key) {
+    ];
+    foreach ($keys as $key) {
       switch ($key) {
         case '@type':
           $items[$key] = 'Rating';
