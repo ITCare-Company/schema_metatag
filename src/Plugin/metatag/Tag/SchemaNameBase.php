@@ -130,7 +130,9 @@ class SchemaNameBase extends MetaNameBase implements SchemaMetatagTestTagInterfa
     // If pivot is set to 0, it would have been removed as an empty value.
     if (array_key_exists('pivot', $array)) {
       unset($array['pivot']);
-      $array = $this->schemaMetatagManager()->pivot($array);
+      /** @var \Drupal\schema_metatag\SchemaMetatagManagerInterface $schemaMetatagManager */
+      $schemaMetatagManager = \Drupal::service('schema_metatag.schema_metatag_manager');
+      $array = $schemaMetatagManager->pivot($array);
     }
     foreach ($array as &$value) {
       if (is_array($value)) {
