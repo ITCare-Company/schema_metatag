@@ -102,14 +102,14 @@ class PropertyTypeBase extends PluginBase implements PropertyTypeInterface, Sche
    * {@inheritdoc}
    */
   public function getTreeParent() {
-    return $this->pluginDefinition['tree_parent'];
+    return !empty($this->pluginDefinition['tree_parent']) ? $this->pluginDefinition['tree_parent'] : [];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getTreeDepth() {
-    return $this->pluginDefinition['tree_depth'];
+    return !empty($this->pluginDefinition['tree_depth']) ? $this->pluginDefinition['tree_depth'] : -1;
   }
 
   /**
@@ -123,7 +123,7 @@ class PropertyTypeBase extends PluginBase implements PropertyTypeInterface, Sche
    * {@inheritdoc}
    */
   public function getSubProperties() {
-    return $this->pluginDefinition['sub_properties'];
+    return !empty($this->pluginDefinition['sub_properties']) ? $this->pluginDefinition['sub_properties'] : [];
   }
 
   /**
@@ -205,10 +205,10 @@ class PropertyTypeBase extends PluginBase implements PropertyTypeInterface, Sche
           $sub_input_values['visibility_selector'] .= "[$sub_property_name]";
         }
 
-        // Pass parent tree values to @type, otherwise give each sub property
+        // Pass parent tree values when empty, otherwise give each sub property
         // its own tree values.
-        $sub_input_values['tree_parent'] = $sub_property_name == '@type' ? $input_values['tree_parent'] : $values['tree_parent'];
-        $sub_input_values['tree_depth'] = $sub_property_name == '@type' ? $input_values['tree_depth'] : $values['tree_depth'];
+        $sub_input_values['tree_parent'] = empty($values['tree_parent']) ? $input_values['tree_parent'] : $values['tree_parent'];
+        $sub_input_values['tree_depth'] = empty($values['tree_depth']) ? $input_values['tree_depth'] : $values['tree_depth'];
 
         // Generate the sub property form element.
         $form[$sub_property_name] = $child_property->form($sub_input_values);

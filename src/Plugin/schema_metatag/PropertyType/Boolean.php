@@ -10,8 +10,6 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  * @SchemaPropertyType(
  *   id = "boolean",
  *   label = @Translation("Boolean"),
- *   tree_parent = {},
- *   tree_depth = -1,
  *   property_type = "Boolean",
  *   sub_properties = {},
  * )

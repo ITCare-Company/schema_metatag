@@ -10,8 +10,6 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  * @SchemaPropertyType(
  *   id = "url",
  *   label = @Translation("URL"),
- *   tree_parent = {},
- *   tree_depth = -1,
  *   property_type = "URL",
  *   sub_properties = {},
  * )

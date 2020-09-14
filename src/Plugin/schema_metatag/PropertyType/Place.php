@@ -20,22 +20,16 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  *       "id" = "type",
  *       "label" = @Translation("@type"),
  *       "description" = "",
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *     "name" = {
  *       "id" = "text",
  *       "label" = @Translation("name"),
  *       "description" = @Translation("The name of the place."),
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *     "url" = {
  *       "id" = "url",
  *       "label" = @Translation("url"),
  *       "description" = @Translation("The url of the place."),
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *     "address" = {
  *       "id" = "postal_address",
@@ -44,7 +38,7 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  *       "tree_parent" = {
  *         "PostalAddress",
  *       },
- *       "tree_depth" = -1,
+ *       "tree_depth" = 0,
  *     },
  *     "geo" = {
  *       "id" = "geo_coordinates",
@@ -53,7 +47,7 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  *       "tree_parent" = {
  *         "GeoCoordinates",
  *       },
- *       "tree_depth" = -1,
+ *       "tree_depth" = 0,
  *     },
  *   },
  * )

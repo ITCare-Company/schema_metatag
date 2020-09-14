@@ -20,8 +20,6 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  *       "id" = "type",
  *       "label" = @Translation("@type"),
  *       "description" = "",
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *     "xpath" = {
  *       "id" = "text",
@@ -29,8 +27,6 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  *       "description" = @Translation("Separate xpaths by comma, as in: :example", arguments = {
  *         ":example" = "/html/head/title, /html/head/meta[@name='description']"
  *       }),
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *     "cssSelector" = {
  *       "id" = "text",
@@ -38,8 +34,6 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  *       "description" = @Translation("Separate selectors by comma, as in: :example", arguments = {
  *         ":example" = "#title, #summary"
  *       }),
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *   },
  * )

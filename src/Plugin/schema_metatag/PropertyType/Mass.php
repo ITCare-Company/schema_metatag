@@ -10,8 +10,6 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  * @SchemaPropertyType(
  *   id = "mass",
  *   label = @Translation("Mass"),
- *   tree_parent = {},
- *   tree_depth = -1,
  *   property_type = "Mass",
  *   sub_properties = {},
  * )

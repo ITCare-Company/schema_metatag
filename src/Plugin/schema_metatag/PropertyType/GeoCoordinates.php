@@ -20,22 +20,16 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  *       "id" = "type",
  *       "label" = @Translation("@type"),
  *       "description" = "",
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *     "latitude" = {
  *       "id" = "text",
  *       "label" = @Translation("latitude"),
  *       "description" = @Translation("The latitude of a location. For example 37.42242 (WGS 84)."),
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *     "longitude" = {
  *       "id" = "text",
  *       "label" = @Translation("longitude"),
  *       "description" = @Translation("The longitude of a location. For example -122.08585 (WGS 84)."),
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *   },
  * )

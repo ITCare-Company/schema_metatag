@@ -20,15 +20,11 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  *       "id" = "type",
  *       "label" = @Translation("@type"),
  *       "description" = "",
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *     "name" = {
  *       "id" = "text",
  *       "label" = @Translation("name"),
  *       "description" = @Translation("The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code."),
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *   },
  * )

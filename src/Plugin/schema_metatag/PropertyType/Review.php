@@ -20,22 +20,16 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  *       "id" = "type",
  *       "label" = @Translation("@type"),
  *       "description" = "",
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *     "reviewBody" = {
  *       "id" = "text",
  *       "label" = @Translation("reviewBody"),
  *       "description" = @Translation("The actual body of the review."),
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *     "datePublished" = {
  *       "id" = "date",
  *       "label" = @Translation("datePublished"),
  *       "description" = @Translation("The actual body of the review."),
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *     "author" = {
  *       "id" = "organization",

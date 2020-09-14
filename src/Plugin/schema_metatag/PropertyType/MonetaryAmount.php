@@ -20,15 +20,11 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  *       "id" = "type",
  *       "label" = @Translation("@type"),
  *       "description" = "",
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *     "currency" = {
  *       "id" = "text",
  *       "label" = @Translation("currency"),
  *       "description" = @Translation("The currency in which the monetary amount is expressed. Use 3-letter ISO 4217 format."),
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *     "value" = {
  *       "id" = "quantitative_value",

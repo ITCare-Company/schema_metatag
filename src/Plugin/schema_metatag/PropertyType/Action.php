@@ -20,8 +20,6 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  *       "id" = "type",
  *       "label" = @Translation("@type"),
  *       "description" = "",
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *     "target" = {
  *       "id" = "entry_point",
@@ -54,15 +52,11 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  *       "id" = "url",
  *       "label" = @Translation("query"),
  *       "description" = @Translation("The query used on this action, i.e. https://query.example.com/search?q={search_term_string}."),
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *     "query-input" = {
  *       "id" = "text",
  *       "label" = @Translation("query-input"),
  *       "description" = @Translation("The placeholder for the query, i.e. required name=search_term_string."),
- *       "tree_parent" = {},
- *       "tree_depth" = -1,
  *     },
  *   },
  * )

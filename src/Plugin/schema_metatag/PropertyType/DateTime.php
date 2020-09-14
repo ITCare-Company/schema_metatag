@@ -10,8 +10,6 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  * @SchemaPropertyType(
  *   id = "date_time",
  *   label = @Translation("DateTime"),
- *   tree_parent = {},
- *   tree_depth = -1,
  *   property_type = "DateTime",
  *   sub_properties = {},
  * )

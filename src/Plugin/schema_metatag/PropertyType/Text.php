@@ -10,8 +10,6 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  * @SchemaPropertyType(
  *   id = "text",
  *   label = @Translation("Text"),
- *   tree_parent = {},
- *   tree_depth = -1,
  *   property_type = "Text",
  *   sub_properties = {},
  * )
