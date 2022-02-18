@@ -33,14 +33,21 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
     $items = [];
     $group_key = 0;
     foreach ($schema_metatags as $data) {
-      if (empty($items)) {
-        $items['@context'] = 'https://schema.org';
-      }
+      // Check if data is empty without the @type property.
+      // If it is empty don't add it to the output.
+      $type = $data['@type'];
+      unset($data['@type']);
       if (!empty($data)) {
-        $items['@graph'][$group_key] = $data;
+        $items['@graph'][$group_key] = ['@type' => $type] + $data;
       }
       $group_key++;
     }
+
+    // If items were added, add the @context entry.
+    if (!empty($items)) {
+      $items = ['@context' => 'https://schema.org'] + $items;
+    }
+
     return $items;
   }
 
