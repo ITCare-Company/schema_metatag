@@ -33,13 +33,11 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
     $items = [];
     $group_key = 0;
     foreach ($schema_metatags as $data) {
-      // Check if data is empty without the @type property.
-      // If it is empty don't add it to the output.
-      $type = $data['@type'];
-      unset($data['@type']);
-      if (!empty($data)) {
-        $items['@graph'][$group_key] = ['@type' => $type] + $data;
+      // Skip data if @type is the only value set.
+      if (count($data) === 1 && isset($data['@type'])) {
+        continue;
       }
+      $items['@graph'][$group_key] = $data;
       $group_key++;
     }
 
