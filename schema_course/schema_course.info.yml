@@ -1,8 +1,7 @@
 name: Schema.org Course
 type: module
 description: 'Adds Schema.org/Course to the JSON LD array.'
-core_version_requirement: ^8 || ^9
-php: 7.2.0
+core_version_requirement: ^9 || ^10
 package: SEO
 dependencies:
   - schema_metatag:schema_metatag
