@@ -216,7 +216,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
    * {@inheritdoc}
    */
   public static function unserialize($value) {
-    // Make sure the the value is not just a plain string and that
+    // Make sure the value is not just a plain string and that
     // the same value isn't unserialized more than once if this is called
     // multiple times.
     if (self::isSerialized($value)) {
