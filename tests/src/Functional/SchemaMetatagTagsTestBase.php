@@ -26,7 +26,7 @@ abstract class SchemaMetatagTagsTestBase extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'classy';
+  protected $defaultTheme = 'claro';
 
   /**
    * {@inheritdoc}
