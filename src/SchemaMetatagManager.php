@@ -3,6 +3,7 @@
 namespace Drupal\schema_metatag;
 
 use Drupal\Component\Utility\Random;
+use Drupal\Core\Entity\ContentEntityInterface;
 
 /**
  * The SchemaMetatag Manager.
@@ -97,12 +98,18 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
     \Drupal::service('module_handler')->alter('metatags', $metatags, $context);
     $elements = $metatag_manager->generateElements($metatags, $entity);
 
+    // The jsonld array structure 'parseJsonld' requires is nested within the
+    // 'html_head' array. However, if this doesn't exist we'll continue to
+    // use the $elements array as it is.
+    $elements = $elements['#attached']['html_head'] ?? $elements;
+
     // Parse the Schema.org metatags out of the array.
     if ($items = self::parseJsonld($elements)) {
       // Encode the Schema.org metatags as JSON LD.
       if ($jsonld = self::encodeJsonld($items)) {
         // Pass back the rendered result.
-        return \Drupal::service('renderer')->render(self::renderArrayJsonLd($jsonld));
+        $jsonld_render_array = self::renderArrayJsonLd($jsonld);
+        return \Drupal::service('renderer')->render($jsonld_render_array);
       }
     }
   }
