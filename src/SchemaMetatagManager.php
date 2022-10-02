@@ -88,7 +88,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
     // Get all the metatags for this entity.
     $metatag_manager = \Drupal::service('metatag.manager');
     if (!empty($entity) && $entity instanceof ContentEntityInterface) {
-      foreach ($metatag_manager->tagsFromEntity($entity) as $tag => $data) {
+      foreach ($metatag_manager->tagsFromEntityWithDefaults($entity) as $tag => $data) {
         $metatags[$tag] = $data;
       }
     }
