@@ -227,7 +227,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
       // than the original tokens.
       $value = self::recomputeSerializedLength($value);
       // Keep broken unserialization from throwing errors on the page.
-      if ($value = @unserialize($value)) {
+      if ($value = @unserialize($value, ['allowed_classes' => FALSE])) {
         $value = self::arrayTrim($value);
       }
       else {
