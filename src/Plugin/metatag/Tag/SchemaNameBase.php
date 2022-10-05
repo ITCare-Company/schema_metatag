@@ -2,10 +2,10 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
-use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
-use Drupal\schema_metatag\SchemaMetatagManager;
-use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeManager;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
+use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeManager;
+use Drupal\schema_metatag\SchemaMetatagManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
