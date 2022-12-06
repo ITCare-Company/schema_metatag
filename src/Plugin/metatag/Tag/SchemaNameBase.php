@@ -2,6 +2,7 @@
 
 namespace Drupal\schema_metatag\Plugin\metatag\Tag;
 
+use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
 use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeManager;
@@ -270,6 +271,10 @@ class SchemaNameBase extends MetaNameBase implements ContainerFactoryPluginInter
     // Parse out the image URL, if needed.
     $value = $this->parseImageUrlValue($value, $explode);
 
+    // Convert value to plain text.
+    $value = PlainTextOutput::renderFromHtml($value);
+
+    // Trim resulting plain text value.
     $value = trim($value);
 
     // If tag must be secure, convert all http:// to https://.
