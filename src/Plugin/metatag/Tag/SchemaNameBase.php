@@ -143,7 +143,7 @@ class SchemaNameBase extends MetaNameBase implements ContainerFactoryPluginInter
 
       // If the item is an array of values,
       // walk the array and process the values.
-      array_walk_recursive($value, 'static::processItem');
+      array_walk_recursive($value, [$this, 'processItem']);
 
       // Recursively pivot each branch of the array.
       $value = $this->pivotItem($value);
