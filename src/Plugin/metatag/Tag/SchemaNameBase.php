@@ -8,11 +8,19 @@ use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
 use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeManager;
 use Drupal\schema_metatag\SchemaMetatagManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * All Schema.org tags should extend this class.
  */
 class SchemaNameBase extends MetaNameBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * Config factory.
+   *
+   * @var Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
 
   /**
    * The SchemaMetatagManager service.
@@ -37,9 +45,20 @@ class SchemaNameBase extends MetaNameBase implements ContainerFactoryPluginInter
       $plugin_id,
       $plugin_definition
     );
+    $instance->setConfigFactory($container->get('config.factory'));
     $instance->setSchemaMetatagManager($container->get('schema_metatag.schema_metatag_manager'));
     $instance->setPropertyTypeManager($container->get('plugin.manager.schema_property_type'));
     return $instance;
+  }
+
+  /**
+   * Sets ConfigFactoryInterface service.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The Config Factory service.
+   */
+  public function setConfigFactory(ConfigFactoryInterface $configFactory) {
+    $this->configFactory = $configFactory;
   }
 
   /**
@@ -251,7 +270,15 @@ class SchemaNameBase extends MetaNameBase implements ContainerFactoryPluginInter
    * @todo Document this method.
    */
   protected function processItem(&$value, $key = 0) {
-    $explode = $key === 0 ? $this->multiple() : !in_array($key, $this->neverExplode());
+    if ($key === 0) {
+      $explode = $this->multiple();
+    }
+    elseif ($this->schemaMetatagManager->hasSeparator()) {
+      $explode = TRUE;
+    }
+    else {
+      $explode = !in_array($key, $this->neverExplode());
+    }
 
     // Parse out the image URL, if needed.
     $value = $this->parseImageUrlValue($value, $explode);
@@ -267,7 +294,7 @@ class SchemaNameBase extends MetaNameBase implements ContainerFactoryPluginInter
       $value = str_replace('http://', 'https://', $value);
     }
     if ($explode) {
-      $value = $this->schemaMetatagManager()->explode($value);
+      $value = $this->schemaMetatagManager()->explode($value, $this->schemaMetatagManager->getSeparator());
       // Clean out any empty values that might have been added by explode().
       if (is_array($value)) {
         $value = array_filter($value);
@@ -284,6 +311,9 @@ class SchemaNameBase extends MetaNameBase implements ContainerFactoryPluginInter
   protected function parseImageUrlValue($value, $explode) {
     // If this contains embedded image tags, extract the image URLs.
     if ($this->type() === 'image') {
+      // Get configuration.
+      $separator = $this->schemaMetatagManager->getSeparator();
+
       // If image tag src is relative (starts with /), convert to an absolute
       // link.
       global $base_root;
@@ -293,7 +323,7 @@ class SchemaNameBase extends MetaNameBase implements ContainerFactoryPluginInter
 
       if (strip_tags($value) != $value) {
         if ($explode) {
-          $values = explode(',', $value);
+          $values = explode($separator, $value);
         }
         else {
           $values = [$value];
@@ -307,7 +337,7 @@ class SchemaNameBase extends MetaNameBase implements ContainerFactoryPluginInter
             $values[$key] = $matches[1];
           }
         }
-        $value = implode(',', $values);
+        $value = implode($separator, $values);
 
         // Remove any HTML tags that might remain.
         $value = strip_tags($value);
