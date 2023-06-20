@@ -337,7 +337,7 @@ class SchemaNameBase extends MetaNameBase implements ContainerFactoryPluginInter
             $values[$key] = $matches[1];
           }
         }
-        $value = implode($separator, $values);
+        $value = implode(',', $values);
 
         // Remove any HTML tags that might remain.
         $value = strip_tags($value);
