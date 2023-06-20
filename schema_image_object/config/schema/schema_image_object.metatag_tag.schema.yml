@@ -7,6 +7,9 @@ metatag.metatag_tag.schema_image_object_description:
 metatag.metatag_tag.schema_image_object_height:
   type: text
   label: 'height'
+metatag.metatag_tag.schema_image_object_id:
+  type: text
+  label: '@id'
 metatag.metatag_tag.schema_image_object_name:
   type: text
   label: 'name'
