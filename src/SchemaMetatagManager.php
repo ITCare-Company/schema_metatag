@@ -170,6 +170,13 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
     $count = max(array_map([__CLASS__, 'countNumericKeys'], $content));
     $pivoted = [];
     $exploded = [];
+
+    // If there is only one item in the pivot (no numeric keys), return the
+    // content unchanged.
+    if ($count === 0) {
+      return $content;
+    }
+
     for ($i = 0; $i < $count; $i++) {
       foreach ($content as $key => $item) {
         // If a lower array is pivoted, pivot that first.
