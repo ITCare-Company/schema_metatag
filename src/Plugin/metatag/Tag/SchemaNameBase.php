@@ -298,7 +298,7 @@ class SchemaNameBase extends MetaNameBase implements ContainerFactoryPluginInter
       $value = $this->schemaMetatagManager()->explode($value, $this->schemaMetatagManager->getSeparator());
       // Clean out any empty values that might have been added by explode().
       if (is_array($value)) {
-        $value = array_filter($value);
+        $value = array_values(array_filter($value));
       }
     }
   }
