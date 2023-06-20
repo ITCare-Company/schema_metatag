@@ -25,3 +25,6 @@ metatag.metatag_tag.schema_how_to_supply:
 metatag.metatag_tag.schema_how_to_tool:
   type: text
   label: 'tool'
+metatag.metatag_tag.schema_how_to_url:
+  type: text
+  label: 'url'
