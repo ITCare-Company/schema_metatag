@@ -10,7 +10,7 @@ use Drupal\schema_metatag\SchemaMetatagManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * All Schema.org tags should extend this class.
+ * All Schema.org image tags should extend this class.
  */
 class SchemaImageObjectBase extends SchemaNameBase {
 
