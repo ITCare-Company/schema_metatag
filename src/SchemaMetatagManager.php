@@ -183,6 +183,11 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
         if (is_string($item) || (!is_string($item) && self::countNumericKeys($item) <= $count)) {
           $exploded[$key] = [];
           $prev = '';
+          // When multiple fields are used, if the first is empty, the keys
+          // may not start with zero and need to be reset.
+          if (!is_string($item)) {
+            $item = array_values($item);
+          }
           for ($x = 0; $x < $count; $x++) {
             if (!is_string($item) && self::countNumericKeys($item) > $x) {
               $exploded[$key][$x] = $item[$x];
