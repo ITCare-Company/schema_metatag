@@ -260,6 +260,7 @@ class SchemaNameBase extends MetaNameBase implements ContainerFactoryPluginInter
    */
   protected function neverExplode() {
     return [
+      'name',      
       'streetAddress',
       'reviewBody',
       'recipeInstructions',
