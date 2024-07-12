@@ -24,6 +24,6 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *   tree_depth = -1,
  * )
  */
-class SchemaMetatagTestGovermentService extends SchemaNameBase {
+class SchemaMetatagTestGovernmentService extends SchemaNameBase {
 
 }
