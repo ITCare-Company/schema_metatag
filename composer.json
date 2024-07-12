@@ -19,6 +19,7 @@
   "require-dev": {
     "drupal/coder": "^8.3",
     "ergebnis/composer-normalize": "*",
+    "mpyw/phpunit-patch-serializable-comparison": "*",
     "phpcompatibility/php-compatibility": "^9.3"
   },
   "repositories": [
