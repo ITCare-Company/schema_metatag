@@ -13,7 +13,7 @@
   },
   "require": {
     "php": ">=8.0",
-    "drupal/core": "^9 || ^10",
+    "drupal/core": "^9 || ^10 || ^11",
     "drupal/metatag": "^2.0"
   },
   "require-dev": {

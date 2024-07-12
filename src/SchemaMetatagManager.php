@@ -123,7 +123,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getRenderedJsonld($entity = NULL, $entity_type = NULL) {
+  public static function getRenderedJsonld($entity = NULL, $entity_type = NULL): string {
     // If nothing was passed in, assume the current entity.
     // @see schema_metatag_entity_load() to understand why this works.
     if (empty($entity)) {
