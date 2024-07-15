@@ -17,4 +17,3 @@ services:
   logger.channel.schema_metatag:
     parent: logger.channel_base
     arguments: ['schema_metatag']
-

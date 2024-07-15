@@ -325,9 +325,9 @@ class SchemaMetatagClient implements SchemaMetatagClientInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * {@inheritDoc}
    */
-  public function getParents($child_name): array {
+  public function getParents($child_name) {
     $parents = [];
     $tree = $this->getTree();
     $iterator = new \RecursiveArrayIterator($tree);
