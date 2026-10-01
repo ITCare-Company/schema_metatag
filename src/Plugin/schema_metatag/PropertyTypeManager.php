@@ -5,6 +5,7 @@ namespace Drupal\schema_metatag\Plugin\schema_metatag;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\schema_metatag\Attribute\SchemaPropertyType;
 
 /**
  * Provides the Property type plugin manager.
@@ -32,6 +33,7 @@ class PropertyTypeManager extends DefaultPluginManager {
       $namespaces,
       $module_handler,
       'Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeInterface',
+      SchemaPropertyType::class,
       'Drupal\schema_metatag\Annotation\SchemaPropertyType');
 
     $this->alterInfo('schema_metatag_property_type_plugins');
